@@ -76,10 +76,7 @@ pool.query(`call bsp_chequear_activacion()`, function(err: any, result: any, fie
                     res.status(200).json({
                         ok: true,
                         IdPersona: resultLogin[0][0].lIdPersona,
-                        token: token,
-                        sucursal: resultLogin[0][0].lSucursal,
-                        id_sucursal: resultLogin[0][0].lIdSucursal
-
+                        token: token
                     });
                 }
             });
