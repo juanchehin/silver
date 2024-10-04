@@ -51,6 +51,7 @@ class Server {
         this.app.use('/api/vouchers', vouchersRoutes);
 
         this.app.use('/api/configuraciones', configuracionesRoutes);
+        this.app.use('/api/tasas', tasasRoutes);
         this.app.use('/api/ventas', ventasRoutes);
         this.app.use('/api/cuentas', cuentasRoutes);
         this.app.use('/api/login', loginRoutes);

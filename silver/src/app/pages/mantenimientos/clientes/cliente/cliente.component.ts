@@ -27,7 +27,8 @@ export class ClienteComponent implements OnInit {
     this.forma = new FormGroup({      
       Apellidos: new FormControl(null, Validators.required ),
       Nombres: new FormControl(null, Validators.required ),
-      DNI: new FormControl(null),
+      tipo_id: new FormControl(null),
+      nro_id: new FormControl(null),
       Telefono: new FormControl(null ),
       Email: new FormControl(null, Validators.email ),
       direccion: new FormControl(null ),
@@ -53,7 +54,8 @@ export class ClienteComponent implements OnInit {
       const cliente = new Array(
         this.forma.value.Apellidos,
         this.forma.value.Nombres,
-        this.forma.value.DNI,
+        this.forma.value.tipo_id,
+        this.forma.value.nro_id,
         this.forma.value.Telefono,
         this.forma.value.Email,
         this.forma.value.direccion,

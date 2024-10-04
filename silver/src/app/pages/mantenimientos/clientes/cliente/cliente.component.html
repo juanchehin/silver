@@ -9,19 +9,8 @@
         <!-- LOGO -->
         <div class="logo-box">
             <a href="index.html" class="logo logo-dark text-center">
-                <span class="logo-lg">
-                    <img src="../../../../assets/images/logo_estetica.jpg" alt="" height="60">
-                </span>
                 <span class="logo-sm">
-                    <img src="../../../../assets/images/logo_estetica.jpg" alt="" height="24">
-                </span>
-            </a>
-            <a href="index.html" class="logo logo-light text-center">
-                <span class="logo-lg">
-                    <img src="../../../../assets/images/logo_estetica.jpg" alt="" height="60">
-                </span>
-                <span class="logo-sm">
-                    <img src="../../../../assets/images/logo_estetica.jpg" alt="" height="24">
+                    <img src="../../../../assets/images/logo_silver.png" alt="" height="24">
                 </span>
             </a>
         </div>
@@ -60,7 +49,17 @@
                                 <label>Nombres : </label><input formControlName="Nombres" name="Nombres" type="text" placeholder="Nombres" class="form-control">
                             </div>
                             <div class="col-sm-6 form-group">
-                                <label>DNI : </label><input formControlName="DNI" name="DNI" type="text" placeholder="DNI" class="form-control">
+                                <label>Tipo Identificacion : </label>
+                                <select [(ngModel)]="tipo_id">
+                                    <option value="N">No especificado</option>
+                                    <option value="V">V - Cedula</option>
+                                    <option value="J">J - RIF</option>
+                                </select>
+
+                                <input formControlName="tipo_id" name="tipo_id" type="text" placeholder="DNI" class="form-control">
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <label>Nro Identificacion : </label><input formControlName="nro_id" name="nro_id" type="text" placeholder="nro_id" class="form-control">
                             </div>
                             <div class="col-sm-6 form-group">
                                 <label>Telefono : </label><input formControlName="Telefono" name="Telefono" type="text" placeholder="Telefono" class="form-control">
