@@ -50,26 +50,14 @@
                             </div>
                             <div class="col-sm-6 form-group">
                                 <label>Tipo Identificacion : </label>
-                                <select (ngModelChange)='onChangeTipoId($event)' [(ngModel)]="tipo_id" name="tipo_id" class="form-control">
-                                    <option value="N">No especificado</option>
-                                    <option value="V">V - Cedula</option>
-                                    <option value="J">J - RIF</option>
-
-                                    <!-- <option *ngFor="let tp of tiposPago" [value]="tp.id_tipo_pago">
-                                        {{tp.tipo_pago}}
-                                    </option> -->
-                                </select>
-
-                                <select [(ngModel)]="tipo_id">
+                                <select (ngModelChange)='onChangeTipoId($event)' [(ngModel)]="tipo_id" formControlName="tipo_id" name="tipo_id" class="form-control">
                                     <option value="N">No especificado</option>
                                     <option value="V">V - Cedula</option>
                                     <option value="J">J - RIF</option>
                                 </select>
-
-                                <input formControlName="tipo_id" name="tipo_id" type="text" placeholder="DNI" class="form-control">
                             </div>
                             <div class="col-sm-6 form-group">
-                                <label>Nro Identificacion : </label><input formControlName="nro_id" name="nro_id" type="text" placeholder="nro_id" class="form-control">
+                                <label>Nro Identificacion : </label><input formControlName="nro_id" name="nro_id" type="text" placeholder="Nro Identificacion" class="form-control">
                             </div>
                             <div class="col-sm-6 form-group">
                                 <label>Telefono : </label><input formControlName="Telefono" name="Telefono" type="text" placeholder="Telefono" class="form-control">

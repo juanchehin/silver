@@ -37,7 +37,7 @@ pool.query(`call bsp_chequear_activacion()`, function(err: any, result: any, fie
         //
         pool.query(`call bsp_login('${usuario}')`, function(err: any, resultLogin: string | any[]){
             var menu: any = [];
-
+            
             if(err){
                 pool.query(`call bsp_alta_log('0','0','LoginController','0','loginUsuario','Error de login en panel + ${usuario}')`, function(err: any, result: any, fields: any){
                     if(err){
@@ -76,6 +76,7 @@ pool.query(`call bsp_chequear_activacion()`, function(err: any, result: any, fie
                     res.status(200).json({
                         ok: true,
                         IdPersona: resultLogin[0][0].lIdPersona,
+                        IdRol: resultLogin[0][0].lIdRol,
                         token: token
                     });
                 }

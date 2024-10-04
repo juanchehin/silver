@@ -12,7 +12,7 @@ import { ClientesService } from 'src/app/services/clientes.service';
 export class ClienteComponent implements OnInit {
 
   forma!: FormGroup;
-  tipo_id = "N";
+  tipo_id: string = 'N';
 
 
   constructor(
@@ -21,11 +21,10 @@ export class ClienteComponent implements OnInit {
     public clientesService: ClientesService, 
     public activatedRoute: ActivatedRoute
     ) {
-      
-
   }
 
   ngOnInit() {
+
     this.forma = new FormGroup({      
       Apellidos: new FormControl(null, Validators.required ),
       Nombres: new FormControl(null, Validators.required ),

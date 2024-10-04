@@ -15,10 +15,8 @@ export class AuthService {
   persona!: any;
   personaValor!: any;
   IdPersona!: any;
-  IdRol: any;
+  id_rol: any;
   token!: any;
-  sucursal: any;
-  id_sucursal: any;
   menuBack: any[] = Array();
 
   private IdPersonaSource = new BehaviorSubject<string>('');
@@ -61,7 +59,7 @@ login( persona: any ): any {
 
       this.setIdPersona(resp.IdPersona);  //
 
-      this.guardarStorage( resp.IdPersona, resp.token, resp.sucursal, resp.id_sucursal);
+      this.guardarStorage( resp.IdPersona, resp.token,resp.IdRol);
 
       this.cargarStorage();
 
@@ -75,17 +73,15 @@ login( persona: any ): any {
 //        Guarda la info en el localstorage
 //  Guarda en las variables del servicio
 // ==================================================
-guardarStorage( id: string, token: string, sucursal: any, id_sucursal: any ) {
+guardarStorage( id: string, token: string, id_rol: string ) {
 
   localStorage.setItem('id', id );
   localStorage.setItem('token', token );
-  localStorage.setItem('sucursal', sucursal );
-  localStorage.setItem('id_sucursal', id_sucursal );
+  localStorage.setItem('id_rol', id_rol );
 
   this.token = token;
-  this.IdPersona = id;
-  this.sucursal = sucursal;
-  this.id_sucursal = id_sucursal;
+  this.IdPersona = id;  
+  this.id_rol = id_rol;
 
 }
 
@@ -99,12 +95,11 @@ guardarStorage( id: string, token: string, sucursal: any, id_sucursal: any ) {
       this.token = '';
       this.persona = null;
       this.IdPersona = null;
+      this.id_rol = null;
       
     } else {
       const var1 = localStorage.getItem('token');
       this.token = var1;
-
-      this.sucursal = localStorage.getItem('sucursal');
 
       const var3 = localStorage.getItem('id');
       this.IdPersona = var3;
@@ -142,11 +137,11 @@ logout() {
   
   this.token = '';
   this.IdPersona = null;
+  this.id_rol = null;
 
   localStorage.removeItem('token');
   localStorage.removeItem('id');
-  localStorage.removeItem('sucursal');
-  localStorage.removeItem('id_sucursal');
+  localStorage.removeItem('id_rol');
 
 
   this.router.navigate(['/login']);
