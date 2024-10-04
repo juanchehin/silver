@@ -1,0 +1,60 @@
+
+<div id="wrapper">
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+
+
+    <div class="content-page">
+        <div class="content">
+ 
+            <!-- Start Content-->
+            <div class="container-fluid">
+                <!-- ========== form =========== -->
+
+                <div class="container">
+                    <form>
+                        <div class="row">
+                            <div class="col-sm-6 form-group">
+                                <label>Producto : </label>
+                                <input [(ngModel)]="producto" name="producto" type="text" placeholder="Producto..." class="form-control" maxLength="30" required>
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <label>Codigo : </label><input [(ngModel)]="codigo" name="codigo" type="text" placeholder="Codigo" class="form-control">
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <label>Stock : </label><input [(ngModel)]="stock" name="stock" type="text" placeholder="Stock..." class="form-control">
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <label>Precio compra : </label><input [(ngModel)]="precio_compra" name="precio_compra" type="text" placeholder="Precio compra..." class="form-control">
+                            </div>                          
+                            <div class="col-sm-6 form-group">
+                                <label>Precio venta : </label><input [(ngModel)]="precio_venta" name="precio_venta" type="text" placeholder="Precio venta..." class="form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 form-group">
+                                <label>Observaciones : </label>
+                                <textarea [(ngModel)]="observaciones" name="observaciones" type="textarea" placeholder="Observaciones..." rows="3" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <br>
+                        <button (click)="update_producto()" class="btn btn-info btn-lg btn-block text-uppercase">Cargar Producto</button>
+                        <br>
+                    </form>
+                </div>
+                
+                <!-- ========== Fin form =========== -->
+
+            </div> <!-- container-fluid -->
+
+        </div> <!-- content -->
+
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
+
+</div>

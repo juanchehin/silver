@@ -1,0 +1,166 @@
+
+<div id="wrapper">
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+
+
+    <div class="content-page">
+        <div class="content">
+ 
+            <!-- Start Content-->
+            <div class="container-fluid">
+
+                <!-- ==============  =============== -->
+
+                <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <label>Cliente :  </label>
+                        <input (keyup.enter)="buscarClientes( )" #inputClienteBuscado type="text" class="form-control" placeholder="Buscar cliente..." id="clienteBuscado">
+                    </div>
+                    <div class="col-sm-1 form-group">
+                        <button (click)="buscarClientes( )" class="btn btn-primary" style="margin-top: 26px;">
+                            <i class="mdi mdi-account-search"></i> 
+                            </button>
+                    </div>
+                    <div class="col-sm-1 form-group" style="margin-top: 25px;">
+                        <button (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary ">
+                            <i class="mdi mdi-refresh"></i> 
+                        </button>
+                    </div>       
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h3 class="card-title">Cantidad clientes ( {{ totalClientes }}  )</h3>
+                    </div>
+                    <div class="col-sm-2">
+                    </div>
+                    <div class="col-sm-4">
+                        <button [routerLink]="['nuevo']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                          <i class="mdi mdi-account-multiple-plus"></i> 
+                          Nuevo Cliente
+                        </button>
+                    </div>     
+                </div>
+
+                <!-- ======= Fin Fechas ================= -->
+
+                <!-- ========== Tabla =========== -->
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-box">
+
+                            <div class="responsive-table-plugin">
+                                <div class="table-rep-plugin">
+                                    <div class="table-responsive" data-pattern="priority-columns">
+                                        <table id="tech-companies-1" class="table table-striped mb-0">
+                                            <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Apellidos</th>
+                                                <th>Nombres</th>
+                                                <th>DNI</th>
+                                                <th>Email</th>
+                                                <th>Telefono</th>
+                                                <th>Direccion</th>
+                                                <th>Fecha nacimiento</th>
+                                                <th>Accion</th>
+                                            </tr>
+                                            </thead>
+                                             <tbody>
+                                                <tr *ngFor="let cliente of clientes">
+                                                    <td>{{ cliente.id_persona }}</td>
+                                                    <td>{{ cliente.apellidos }}</td>
+                                                    <td>{{ cliente.nombres }}</td>
+                                                    <td>{{ cliente.dni }}</td>
+                                                    <td>{{ cliente.email }}</td>
+                                                    <td>{{ cliente.telefono }}</td>
+                                                    <td>{{ cliente.direccion }}</td>
+                                                    <td>{{ cliente.fecha_nac }}</td>
+                                                    <td>
+                                                        <button class="btn btn-info" type="button" [routerLink]="['/dashboard/clientes/historico',cliente.id_persona]">
+                                                            <i class="mdi mdi-format-list-bulleted"></i>                                                           
+                                                        </button>
+                                                        <button class="btn btn-secondary" type="button" [routerLink]="['/dashboard/clientes/cuenta/movimientos',cliente.id_persona]">
+                                                            <i class="mdi mdi-reorder-horizontal"></i>                                                           
+                                                        </button>
+                                                        <button class="btn btn-primary" type="button" [routerLink]="['/dashboard/clientes/editar',cliente.id_persona]">
+                                                            <i class="mdi mdi-account-edit"></i>   
+                                                        </button>
+                                                        <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" (click)="modal_baja_cliente(cliente.id_persona)">
+                                                            <i class="mdi mdi-delete"></i>  
+                                                        </button>
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+                
+                <!-- ========== Fin tabla =========== -->
+
+            </div> <!-- container-fluid -->
+
+            <div role="group" aria-label="Basic example" style="text-align: right;">
+                <button (click)="cambiarDesde(-20) " type="button" class="btn btn-default-outline btn-info">Anteriores</button>
+                <button (click)="cambiarDesde(20) " type="button" class="btn btn-default-outline btn-info">Siguientes</button>
+            </div>
+            <!--.container-fluid-->
+            <br><br>
+
+        </div> <!-- content -->
+
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
+
+</div>
+
+<!--  -->
+<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Confirmacion</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ¿Desea confirmar la operacion?
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+            <button class="btn btn-danger" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" (click)="baja_cliente()">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Atencion</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Cliente dado de baja
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" >Aceptar</button>
+          <!-- <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Aceptar</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  

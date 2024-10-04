@@ -1,0 +1,93 @@
+<!-- ========== Left Sidebar Start ========== -->
+<div class="left-side-menu" [ngStyle]="{ display: this.alertService.bandera_sidebar ? 'none' : 'block' }">
+
+    <div class="slimscroll-menu">
+        <!--- Sidemenu -->
+        <div id="sidebar-menu">
+
+            <ul class="metismenu" id="side-menu">
+
+                <li class="menu-title">Navigation</li>
+
+                <li >
+                    <a [routerLink]="['/dashboard']">
+                        <i class="mdi mdi-view-dashboard"></i>
+                        <span> Dashboard </span>
+                    </a>
+                </li>
+
+                <li >
+                    <a [routerLink]="['caja']">
+                        <i class="mdi mdi-cash"></i>
+                        <span> Caja </span>
+                    </a>
+                </li>
+
+                <li >
+                    <a [routerLink]="['clientes']">
+                        <i class="mdi mdi-account-multiple"></i>
+                        <span> Clientes </span>
+                    </a>
+                </li>
+
+                <li >
+                    <a [routerLink]="['empleados']">
+                        <i class="mdi mdi-account"></i>
+                        <span> Empleados </span>
+                    </a>
+                </li>
+
+                <li >
+                    <a [routerLink]="['productos']">
+                        <i class="mdi mdi-package-variant-closed"></i>
+                        <span> Productos </span>
+                    </a>
+                </li>
+
+                <li>
+                    <a [routerLink]="['servicios']" >
+                        <i class="mdi mdi-pot-mix"></i>
+                        <span> Servicios </span>
+                    </a>
+                </li>
+
+                <li>
+                    <a [routerLink]="['vouchers']" >
+                        <i class="mdi mdi-ticket"></i>
+                        <span> Vouchers </span>
+                    </a>
+                </li>
+
+                <li >
+                    <a [routerLink]="['calendario']">
+                        <i class="mdi mdi-calendar"></i>
+                        <span> Calendario </span>
+                    </a>
+                </li>
+
+                <li >
+                    <a [routerLink]="['configuraciones']">
+                        <i class="mdi mdi-database-settings"></i>
+                        <span> Configuraciones </span>
+                    </a>
+                </li>
+
+                <li style="cursor: pointer;">
+                    <a (click)="logout()">
+                        <i class="mdi mdi-logout"></i>
+                        <span> LogOut </span>
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+        <!-- End Sidebar -->
+
+        <div class="clearfix"></div>
+
+    </div>
+    <!-- Sidebar -left -->
+
+</div>
+<!-- Left Sidebar End -->

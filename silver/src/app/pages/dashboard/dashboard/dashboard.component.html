@@ -1,0 +1,395 @@
+
+<div id="wrapper">
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+
+
+    <div class="content-page">
+        <div class="content">
+ 
+            <!-- Start Content-->
+            <div class="container-fluid">
+
+                <!-- ========== Tarjetas =========== -->
+
+                <div class="row">
+
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card-box">
+                            <h4 class="header-title mt-0 mb-4">Ventas total</h4>
+            
+                            <div class="widget-chart-1">            
+                                <div class="widget-detail-1 text-right">
+                                    <h2 class="font-weight-normal pt-2 mb-1">$ {{ventas_total}} </h2>
+                                    <p class="text-muted mb-1">Ventas total</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- end col -->
+            
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card-box">
+                            <h4 class="header-title mt-0 mb-4">Efectivo</h4>
+            
+                            <div class="widget-chart-1">            
+                                <div class="widget-detail-1 text-right">
+                                    <h2 class="font-weight-normal pt-2 mb-1">$ {{efectivo}} </h2>
+                                    <p class="text-muted mb-1">Efectivo</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- end col -->
+
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card-box">
+                            <h4 class="header-title mt-0 mb-4">Cta. Cte. - Debito</h4>
+            
+                            <div class="widget-chart-1">            
+                                <div class="widget-detail-1 text-right">
+                                    <h2 class="font-weight-normal pt-2 mb-1">$ {{debito}} </h2>
+                                    <p class="text-muted mb-1">Debito</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- end col -->
+
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card-box">
+                            <h4 class="header-title mt-0 mb-4">Cta. Cte. - Credito</h4>
+            
+                            <div class="widget-chart-1">            
+                                <div class="widget-detail-1 text-right">
+                                    <h2 class="font-weight-normal pt-2 mb-1">$ {{credito}} </h2>
+                                    <p class="text-muted mb-1">Credito</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- end col -->
+                    
+            
+                </div>
+
+                <div class="row">
+
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card-box">
+                            <h4 class="header-title mt-0 mb-4">Transferencia</h4>
+            
+                            <div class="widget-chart-1">            
+                                <div class="widget-detail-1 text-right">
+                                    <h2 class="font-weight-normal pt-2 mb-1">$ {{transferencia}} </h2>
+                                    <p class="text-muted mb-1">Transferencia</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- end col -->
+            
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card-box">
+                            <h4 class="header-title mt-0 mb-4">Egresos</h4>
+            
+                            <div class="widget-chart-1">            
+                                <div class="widget-detail-1 text-right">
+                                    <h2 class="font-weight-normal pt-2 mb-1">$ {{egresos}} </h2>
+                                    <p class="text-muted mb-1">Egresos</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- end col -->
+
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card-box">
+                            <h4 class="header-title mt-0 mb-4">Tarjeta debito</h4>
+            
+                            <div class="widget-chart-1">            
+                                <div class="widget-detail-1 text-right">
+                                    <h2 class="font-weight-normal pt-2 mb-1">$ {{tarjeta_debito}} </h2>
+                                    <p class="text-muted mb-1">Tarjeta debito</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- end col -->
+            
+                </div>
+
+                <!-- ========== Fin Tarjetas =========== -->
+
+                <!-- ============== Fechas =============== -->
+
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label for="start">Fecha Inicio : &nbsp;</label>
+                        <input type="date" required="" [(ngModel)]="fechaInicio" class="form-control"> &nbsp;&nbsp;&nbsp;&nbsp; 
+                    </div>
+
+                    <div class="col-sm-2">
+                        <label for="start">Fecha Fin : &nbsp;</label>
+                        <input type="date" required="" [(ngModel)]="fechaFin" class="form-control"> &nbsp;&nbsp;&nbsp;&nbsp; 
+                    </div>
+
+                    <div class="col-sm-2">
+                        <label for="start">Turno : &nbsp;</label>
+                        <select (ngModelChange)='onChangeTurno($event)' [(ngModel)]="turno_seleccionado" name="turno_seleccionado" class="form-control">
+                            <option value="todos">Todos</option>
+                            <option value="manana">Mañana</option>
+                            <option value="tarde">Tarde</option>
+                      </select>
+                    </div>
+                    <!-- Botones -->
+                    <div class="col-sm-6" style="margin-top: 25px;">
+                        <button class="btn btn-purple btn-rounded width-md waves-effect waves-light" (click)="cargarDatosDashboard()">
+                            <i class="mdi mdi-update"></i>
+                        </button>
+                        <button (click)="rutear_nueva_venta()" type="button" class="btn btn-primary btn-rounded width-md waves-effect waves-light">
+                            <i class="mdi mdi-plus"></i> 
+                            Nueva Venta
+                        </button>   
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#modal-egreso" class="btn btn-info btn-rounded width-md waves-effect waves-light">
+                            <i class="mdi mdi-plus"></i> 
+                            Nuevo egreso
+                        </button>   
+                    </div>
+                </div>
+                <br>
+
+                <!-- ======= Fin Fechas ================= -->
+                <div class="row">
+                    <div class="col-sm-8">
+                        <h3 class="card-title">Cantidad transacciones ( {{ cantidad_transacciones }} )</h3>
+                    </div>
+                </div>
+                <!-- ========== Tabla =========== -->
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-box">
+
+                            <div class="responsive-table-plugin">
+                                <div class="table-rep-plugin">
+                                    <div class="table-responsive" data-pattern="priority-columns">
+                                        <table id="tech-companies-1" class="table table-striped mb-0">
+                                            <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Fecha</th>
+                                                <th>Empleado</th>
+                                                <th>Cliente</th>
+                                                <th>Tipo</th>
+                                                <th>Monto</th>
+                                                <th>Descripcion</th>
+                                                <th>Accion</th>
+                                            </tr>
+                                            </thead>
+                                             <tbody>
+                                                <tr *ngFor="let transaccion of transacciones">
+                                                    <td>{{ transaccion.id_transaccion }}</td>
+                                                    <td>{{ transaccion.Fecha }}</td>
+                                                    <td>{{ transaccion.Empleado }}</td>
+                                                    <td>{{ transaccion.Cliente }}</td>
+                                                    <td>{{ transaccion.Tipo }}</td>
+                                                    <td>$ {{ transaccion.Monto }}</td>
+                                                    <td>{{ transaccion.Descripcion }}</td>
+                                                    <td>
+                                                        <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#modal-ver-transaccion" (click)="ver_transaccion(transaccion)">
+                                                            <i class="mdi mdi-eye"></i> 
+                                                        </button>
+                                                        <button class="btn btn-primary" type="button">
+                                                            <i class="mdi mdi-account-edit"></i> 
+                                                        </button>
+                                                        <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" (click)="modal_baja_transaccion(transaccion.id_transaccion)" >
+                                                            <i class="mdi mdi-delete"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+                
+                <!-- ========== Fin tabla =========== -->
+
+                <div role="group" aria-label="Basic example" style="text-align: right;">
+                    <button (click)="cambiarDesde(-20) " type="button" class="btn btn-primary">Anteriores</button>
+                    <button (click)="cambiarDesde(20) " type="button" class="btn btn-primary">Siguientes</button>
+                </div>
+                <br><br>
+
+            </div> <!-- container-fluid -->
+
+        </div> <!-- content -->
+
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
+
+</div>
+
+<!-- Modal - confimacion -->
+<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Confirmacion</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ¿Desea confirmar la operacion?
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" aria-label="Close">Cancelar</button>
+            <button class="btn btn-danger" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" (click)="baja_transaccion()">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Atencion</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Eliminacion exitosa
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Aceptar</button>
+          <!-- <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Aceptar</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+<!-- Modal - nuevo egreso -->
+<div class="modal fade" id="modal-egreso" tabindex="-1" aria-labelledby="modal-egreso" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="modal-egreso">Nuevo egreso</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+       
+            <div class="row">
+                <div class="col-sm-4">
+                    <label>Monto : </label>
+                        <input [(ngModel)]="monto_egreso" type="text" class="form-control form-control-line" placeholder="Monto...">
+                 </div>
+                <div class="col-sm-4">
+                    <label>Tipo pago : </label>
+                    <select (ngModelChange)='onChangeTipoPago($event)' [(ngModel)]="IdTipoPagoSelect" name="IdTipoPago" class="form-control">
+                        <option *ngFor="let tp of tiposPago" [value]="tp.id_tipo_pago">
+                            {{tp.tipo_pago}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-sm-4">
+                    <label>Tipo egreso : </label>
+                    <select tabindex="4" [(ngModel)]="tipo_egreso" name="IdTipoPago" class="form-control">
+                            <option value="E">Gastos</option>
+                            <option value="P">Pagos</option>
+                            <option value="A">Adelanto</option>
+                    </select>
+                </div>
+            </div> 
+            <br>
+            <div class="row">
+                <div class="col-sm-4">
+                    <label>Empleado : </label>
+                    <select (ngModelChange)='onChangeEmpleado($event)' [(ngModel)]="IdEmpleado" name="IdEmpleado" class="form-control">
+                        <option *ngFor="let empleado of empleados" [value]="empleado.id_persona">
+                            {{empleado.apellidos}} {{empleado.nombres}}
+                        </option>
+                    </select>
+                </div>    
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-12">
+                    <textarea class="form-control" [(ngModel)]="descripcion" name="descripcion" placeholder="Descripcion..."></textarea>
+                </div>
+            </div> 
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" #cerrarModalEgreso class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" (click)="alta_egreso()">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Modal - Ver transaccion -->
+<div class="modal fade" id="modal-ver-transaccion" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="width: 120%">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Transaccion # {{detalle_id_transaccion}}</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <h4>Cliente: {{detalle_cliente}}</h4>
+          <h4>Empleado: {{detalle_empleado}}</h4>
+
+          <table id="tech-companies-1" class="table table-striped mb-0">
+            <thead>
+                <tr>
+                    <th>Producto/Servicio</th>
+                    <th>Monto</th>
+                    <th>Cantidad</th>
+                    <th>SubTotal</th>
+                    <th>Tipo</th>
+                </tr>
+            </thead>
+             <tbody>
+                <tr *ngFor="let lv of detalle_lineas_venta">
+                    <td>{{ lv.nombre }}</td>
+                    <td>$ {{ lv.precio_venta }}</td>
+                    <td>{{ lv.cantidad }}</td>
+                    <td>$ {{ lv.SubTotal }}</td>
+                    <td>{{ lv.tipo }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <!--  -->
+        <h4>Tipo pago: {{detalle_tipo_pago}}</h4>
+        <!--  -->
+        <table class="table">
+            <thead class="table-light">
+                <tr>
+                    <th>Pago</th>
+                    <th>Monto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of items_pago">
+                    <td>{{ item.tipo_pago }}</td>
+                    <td>$ {{ item.monto }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>Total : $ {{detalle_monto_total}}</h4>
+        <br>       
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" aria-label="Close" data-bs-dismiss="modal">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

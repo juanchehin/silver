@@ -1,0 +1,150 @@
+
+<div id="wrapper">
+
+
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+
+
+    <div class="content-page">
+        <div class="content">
+ 
+            <!-- Start Content-->
+            <div class="container-fluid">
+
+                <!-- ==============  =============== -->
+
+                <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <label>Empleado :  </label>
+                        <input (keyup.enter)="buscarEmpleados( )" #inputEmpleadoBuscado type="text" class="form-control" placeholder="Buscar empleado..." id="empleadoBuscado">
+                    </div>
+                    <div class="col-sm-1 form-group">
+                        <button (click)="buscarEmpleados( )" class="btn btn-primary" style="margin-top: 26px;">
+                            <i class="mdi mdi-account-search"></i> 
+                            </button>
+                    </div>
+                    <div class="col-sm-1 form-group" style="margin-top: 25px;">
+                        <button (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary ">
+                            <i class="mdi mdi-refresh"></i> 
+                        </button>
+                    </div>       
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h3 class="card-title">Cantidad empleados ( {{ totalEmpleados }}  )</h3>
+                    </div>
+                    <div class="col-sm-4">
+                    </div>
+                    <div class="col-sm-4">
+                        <button [routerLink]="['nuevo']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                          <i class="mdi mdi-account-multiple-plus"></i> 
+                          Nuevo Empleado
+                        </button>
+                    </div>     
+                </div>
+
+                <!-- ======= Fin Fechas ================= -->
+
+                <!-- ========== Tabla =========== -->
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-box">
+
+                            <div class="responsive-table-plugin">
+                                <div class="table-rep-plugin">
+                                    <div class="table-responsive" data-pattern="priority-columns">
+                                        <table id="tech-companies-1" class="table table-striped mb-0">
+                                            <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th >Apellidos</th>
+                                                <th >Nombres</th>
+                                                <th >Codigo</th>
+                                                <th >DNI</th>
+                                                <th width="10%">Email</th>
+                                                <th >Telefono</th>
+                                                <th >Direccion</th>
+                                                <th >Fecha nacimiento</th>
+                                                <th >Accion</th>
+                                            </tr>
+                                            </thead>
+                                             <tbody>
+                                                <tr *ngFor="let empleado of empleados">
+                                                    <td>{{ empleado.id_persona }}</td>
+                                                    <td>{{ empleado.apellidos }}</td>
+                                                    <td>{{ empleado.nombres }}</td>
+                                                    <td>{{ empleado.codigo }}</td>
+                                                    <td>{{ empleado.dni }}</td>
+                                                    <td>{{ empleado.email }}</td>
+                                                    <td>{{ empleado.telefono }}</td>
+                                                    <td>{{ empleado.direccion }}</td>
+                                                    <td>{{ empleado.fecha_nac }}</td>
+                                                    <td>
+                                                        <button class="btn btn-secondary" type="button" [routerLink]="['/dashboard/empleados/historico',empleado.id_persona]">
+                                                            <i class="mdi mdi-reorder-horizontal"></i>                                                  
+                                                        </button>
+                                                        <button class="btn btn-primary" type="button" [routerLink]="['/dashboard/empleados/editar',empleado.id_persona]">
+                                                            <i class="mdi mdi-account-edit"></i>                                                           
+                                                        </button>
+                                                        <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" (click)="modal_baja_empleado(empleado.id_persona)">
+                                                            <i class="mdi mdi-delete"></i>  
+                                                        </button>
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+                
+                <!-- ========== Fin tabla =========== -->
+
+                <div role="group" aria-label="Basic example" style="text-align: right;">
+                    <button (click)="cambiarDesde(-20) " type="button" class="btn btn-default-outline btn-info">Anteriores</button>
+                    <button (click)="cambiarDesde(20) " type="button" class="btn btn-default-outline btn-info">Siguientes</button>
+                </div>
+                <!--.container-fluid-->
+                <br><br>
+
+            </div> <!-- container-fluid -->
+
+        </div> <!-- content -->
+
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
+
+</div>
+
+<!--  -->
+<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Confirmacion</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ¿Desea confirmar la operacion?
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" #divCerrarModalBajaEmpleado aria-label="Close" data-bs-dismiss="modal">Cancelar</button>
+            <button class="btn btn-danger" (click)="baja_empleado()">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
