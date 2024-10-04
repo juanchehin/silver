@@ -17,6 +17,8 @@ const routes: Routes = [
   { path: 'ventas', loadChildren: () => import('./pages/mantenimientos/ventas/ventas.module').then(m => m.VentasModule) },
   
   { path: 'clientes', loadChildren: () => import('./pages/mantenimientos/clientes/clientes.module').then(m => m.ClientesModule) },
+  { path: 'tasas', loadChildren: () => import('./pages/mantenimientos/tasas/tasas.module').then(m => m.TasasModule) },
+
   { path: 'empleados', loadChildren: () => import('./pages/mantenimientos/empleados/empleados.module').then(m => m.EmpleadosModule) },
   { path: 'servicios', loadChildren: () => import('./pages/mantenimientos/servicios/servicios.module').then(m => m.ServiciosModule) },
   { path: 'maintenance', component: MaintenanceComponent },
