@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ConfiguracionesService } from 'src/app/services/configuraciones.service';
 import { AlertService } from 'src/app/services/alert.service';
+import { TasasService } from 'src/app/services/tasas.service';
 
 @Component({
   selector: 'app-tasas',
@@ -10,48 +10,30 @@ import { AlertService } from 'src/app/services/alert.service';
 })
 export class TasasComponent implements OnInit {
 
-  porcentaje_comision = 0;
-  empresa: any;
-  direccion_empresa: any;
-  cuit: any;
-  telefono_empresa: any;
-  ing_brutos: any;
-
-  tarjeta_un_pago: any;
-  tarjeta_tres_pago: any;
-  tarjeta_seis_pago: any;
+  tasa = 1;
 
   constructor(
-    public configuracionesService: ConfiguracionesService, 
+    public tasasService: TasasService, 
     public activatedRoute: ActivatedRoute,
     public alertService: AlertService
     ) {
   }
 
   ngOnInit() {
-    this.cargar_configuraciones();
+    this.cargar_tasa();
   }
 
   // ======================================
   //
   // ======================================
-  cargar_configuraciones(){
-          this.configuracionesService.cargarConfiguraciones(  )
+  cargar_tasa(){
+          this.tasasService.cargarTasas(  )
                 .subscribe( {
                   next: (resp: any) => {
 
                     if((resp[1][0].mensaje == 'Ok')) {
 
-                      this.porcentaje_comision = resp[0][0].comision_empleado;
-                      this.empresa = resp[0][0].empresa;
-                      this.direccion_empresa = resp[0][0].direccion_empresa;
-                      this.cuit = resp[0][0].CUIT;
-                      this.telefono_empresa = resp[0][0].telefono_empresa;
-                      this.ing_brutos = resp[0][0].ing_brutos;
-
-                      this.tarjeta_un_pago = resp[0][0].tarjeta1pagos;
-                      this.tarjeta_tres_pago = resp[0][0].tarjeta3pagos;
-                      this.tarjeta_seis_pago = resp[0][0].tarjeta6pagos;
+                      this.tasa = resp[0][0].tasa;
                       
                     } else {                      
                       this.alertService.alertFailWithText('Error','Ocurrio un error al procesar el pedido',1200);
@@ -72,24 +54,16 @@ export class TasasComponent implements OnInit {
     this.alertService.cargando = true;
 
     const configuraciones = [
-      this.porcentaje_comision,
-      this.empresa,
-      this.direccion_empresa,
-      this.cuit,
-      this.telefono_empresa,
-      this.ing_brutos,
-      this.tarjeta_un_pago,
-      this.tarjeta_tres_pago,
-      this.tarjeta_seis_pago
+      this.tasa
     ]
 
-    this.configuracionesService.actualizarConfiguracion( configuraciones )
+    this.tasasService.actualizarTasa( configuraciones )
               .subscribe( {
                 next: (resp: any) => { 
 
                   if ( resp[0][0].mensaje === 'Ok') {
                     this.alertService.alertSuccess('Mensaje','Configuracion guardada',2000);
-                    this.cargar_configuraciones();
+                    this.cargar_tasa();
                     this.alertService.cargando = false;
 
                   } else {

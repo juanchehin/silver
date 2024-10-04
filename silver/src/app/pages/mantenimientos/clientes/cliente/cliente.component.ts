@@ -12,6 +12,8 @@ import { ClientesService } from 'src/app/services/clientes.service';
 export class ClienteComponent implements OnInit {
 
   forma!: FormGroup;
+  tipo_id = "N";
+
 
   constructor(
     private router: Router, 
@@ -54,7 +56,7 @@ export class ClienteComponent implements OnInit {
       const cliente = new Array(
         this.forma.value.Apellidos,
         this.forma.value.Nombres,
-        this.forma.value.tipo_id,
+        this.tipo_id,
         this.forma.value.nro_id,
         this.forma.value.Telefono,
         this.forma.value.Email,
@@ -80,5 +82,9 @@ export class ClienteComponent implements OnInit {
 
 
               }
+// 
+onChangeTipoId(val: any){
+  this.tipo_id = val;
+}
 
 }

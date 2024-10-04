@@ -50,6 +50,16 @@
                             </div>
                             <div class="col-sm-6 form-group">
                                 <label>Tipo Identificacion : </label>
+                                <select (ngModelChange)='onChangeTipoId($event)' [(ngModel)]="tipo_id" name="tipo_id" class="form-control">
+                                    <option value="N">No especificado</option>
+                                    <option value="V">V - Cedula</option>
+                                    <option value="J">J - RIF</option>
+
+                                    <!-- <option *ngFor="let tp of tiposPago" [value]="tp.id_tipo_pago">
+                                        {{tp.tipo_pago}}
+                                    </option> -->
+                                </select>
+
                                 <select [(ngModel)]="tipo_id">
                                     <option value="N">No especificado</option>
                                     <option value="V">V - Cedula</option>
