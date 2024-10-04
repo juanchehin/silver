@@ -16,6 +16,7 @@ import serviciosRoutes from './routes/serviciosRoutes';
 import cajaRoutes from './routes/cajaRoutes';
 import configuracionesRoutes from './routes/configuracionesRoutes';
 import vouchersRoutes from './routes/vouchersRoutes';
+import tasasRoutes from './routes/tasasRoutes';
 
 class Server {
 
