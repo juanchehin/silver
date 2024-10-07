@@ -11,12 +11,12 @@ class ServiciosController {
 public async altaServicio(req: Request, res: Response) {
 
     var servicio = req.body[0];
-    var precio = req.body[1];
-    var descripcion = req.body[2];
+    var id_cat_servicio = req.body[1];
+    var precio = req.body[2];
+    var descripcion = req.body[3];
 
-    var IdSucursal = req.params.IdSucursal;
 
-    pool.query(`call bsp_alta_servicio('${servicio}','${precio}','${descripcion}','${IdSucursal}')`, async function(err: any, result: any, fields: any){
+    pool.query(`call bsp_alta_servicio('${servicio}','${id_cat_servicio}','${precio}','${descripcion}')`, async function(err: any, result: any, fields: any){
         
         if(err || result[0][0].mensaje != 'Ok'){
             logger.error("Error en bsp_alta_servicio - serviciosController " + err);

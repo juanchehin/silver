@@ -54,6 +54,7 @@ altaServicio() {
 
       const servicio = new Array(        
         this.servicio,
+        this.id_cat_servicio,
         this.precio,
         this.descripcion
       );

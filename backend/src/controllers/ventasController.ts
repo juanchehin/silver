@@ -32,7 +32,6 @@ public async listarVentas(req: Request, res: Response): Promise<void> {
 
     var fecha_inicio = req.params.FechaInicio;
     var fecha_fin = req.params.FechaFin;
-    var pIdSucursal = req.params.pIdSucursal;
     var pTurno = req.params.pTurno;
         
     if(pTurno == 'manana')
@@ -50,11 +49,12 @@ public async listarVentas(req: Request, res: Response): Promise<void> {
     }
 
 
-    pool.query(`call bsp_listar_transacciones_fecha_sucursal('${desde}','${fecha_inicio}','${fecha_fin}','${pIdSucursal}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_listar_transacciones_fecha('${desde}','${fecha_inicio}','${fecha_fin}')`, function(err: any, result: any, fields: any){
 
        if(err){
-        res.status(404).json(err);
-           return;
+            logger.error("Error bsp_listar_transacciones_fecha - listarVentas - ventasController");
+            res.status(404).json(err);
+            return;
        }
        res.json(result);
    })
