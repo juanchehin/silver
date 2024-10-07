@@ -14,7 +14,6 @@ export class ServiciosComponent implements OnInit {
   desde = 0;
   totalAsistencias = true;
   ClasesDisponibles = 0;
-  IdSucursal = 1;
   servicios!: any;
   sucursales: any;
   totalServicios = 0;
@@ -26,14 +25,12 @@ export class ServiciosComponent implements OnInit {
 
   constructor(
     public serviciosService: ServiciosService,
-    private sucursalesService: SucursalesService,
     public alertaService: AlertService
   ) {
    }
 
   ngOnInit() {
     this.buscarServicio();
-    this.cargarSucursales();
   }
 
 // ==================================================
@@ -42,14 +39,12 @@ export class ServiciosComponent implements OnInit {
 
 buscarServicio() {
 
-  console.log('buscarServicio::: ');
-
   this.alertaService.cargando = true;
   
     const inputElement: HTMLInputElement = document.getElementById('buscarServicio') as HTMLInputElement;
     const servicioBuscado: any = inputElement.value || '-';
 
-    this.serviciosService.listarServiciosPaginado( this.desde , this.IdSucursal, servicioBuscado  )
+    this.serviciosService.listarServiciosPaginado( this.desde , servicioBuscado  )
                .subscribe( {
                 next: (resp: any) => { 
 
@@ -85,21 +80,7 @@ buscarServicio() {
 
   }
 
-// ==================================================
-// Carga
-// ==================================================
 
-cargarSucursales() {
-
-
-  this.sucursalesService.listarTodasSucursales(   )
-             .subscribe( (resp: any) => {
-
-              this.sucursales  = resp[0];
-
-            });
-
-}
 
 // ==================================================
 //        Cambio de valor
@@ -132,7 +113,6 @@ refrescar() {
   this.inputServicioBuscado.nativeElement.value = '';
   
   this.desde = 0;
-  this.IdSucursal = 1;
   this.buscarServicio();
 
 }

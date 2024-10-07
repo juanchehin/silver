@@ -40,6 +40,8 @@ public async listarServiciosPaginado(req: Request, res: Response): Promise<void>
 
     pool.query(`call bsp_listar_servicios_paginado('${desde}')`, function(err: any, result: any, fields: any){
         if(err){
+            logger.error("Error en bsp_listar_servicios_paginado - serviciosController " + err);
+
             res.status(404).json(err);
             return;
         }
@@ -73,14 +75,13 @@ public async buscarServicioPaginado(req: Request, res: Response): Promise<void> 
     desde  = Number(desde);
     
     var pParametroBusqueda = req.params.pParametroBusqueda || '';
-    const IdSucursal = req.params.IdSucursal;
 
     if(pParametroBusqueda == null || pParametroBusqueda == 'null' || pParametroBusqueda == '-' || pParametroBusqueda == '')
     {
         pParametroBusqueda = '-';
     }
 
-    pool.query(`call bsp_buscar_servicios_paginado('${req.params.IdPersona}','${pParametroBusqueda}','${desde}','${IdSucursal}')`, function(err: any, result: any){
+    pool.query(`call bsp_buscar_servicios_paginado('${req.params.IdPersona}','${pParametroBusqueda}','${desde}')`, function(err: any, result: any){
         
         if(err){
             logger.error("Error en bsp_buscar_servicio_paginado - serviciosController");
@@ -108,9 +109,10 @@ public async buscarServicioAutoComplete(req: Request, res: Response): Promise<vo
     }
 
     pool.query(`call bsp_buscar_servicio_autocomplete('${pParametroBusqueda}','${pIdSucursal}','${pIdUsuario}')`, function(err: any, result: any){
-        logger.error("Error en bsp_buscar_servicio_autocomplete - serviciosController");
 
         if(err){
+            logger.error("Error en bsp_buscar_servicio_autocomplete - serviciosController");
+
             res.status(400).json(err);
             return;
         }
@@ -130,6 +132,8 @@ public async dameDatosServicio(req: Request, res: Response): Promise<void> {
 
     pool.query(`call bsp_dame_servicio_front('${pIdServicio}','${pIdSabor}')`, function(err: any, result: any){
         if(err){
+            logger.error("Error en bsp_dame_servicio_front - serviciosController - dameDatosServicio");
+
             res.status(400).json(err);
             return;
         }
@@ -212,6 +216,24 @@ public async editarServicio(req: Request, res: Response) {
         return res.json({ mensaje: 'Ok' });
     })
 
+}
+
+// ==================================================
+//       
+// ==================================================
+public async listarCategoriasServicios(req: Request, res: Response): Promise<void> {
+
+    pool.query(`call bsp_listar_categorias_servicios()`, function(err: any, result: any){
+
+        if(err){
+            logger.error("Error en listarCategoriasServicios - serviciosController");
+
+            res.status(400).json(err);
+            return;
+        }
+
+        res.status(200).json(result);
+    })
 }
 
 }

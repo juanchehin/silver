@@ -16,8 +16,9 @@ export class ServicioComponent implements OnInit {
   // ==============================    
   servicio = '';
   descripcion = '';
+  id_cat_servicio = 1;
   precio: any;
-
+  categorias_serv: any;
   
 
   constructor(
@@ -31,6 +32,7 @@ export class ServicioComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.cargarCategoriasServicios();
   }
 
 // ==================================================
@@ -72,5 +74,23 @@ altaServicio() {
                 });
 
 }
+
+
+// ==================================================
+// Carga
+// ==================================================
+
+cargarCategoriasServicios() {
+
+
+  this.serviciosService.cargarCategoriasServicios(   )
+             .subscribe( (resp: any) => {
+
+              this.categorias_serv  = resp[0];
+
+            });
+
+}
+
 
 }

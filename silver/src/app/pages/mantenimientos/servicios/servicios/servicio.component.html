@@ -14,9 +14,18 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-sm-6 form-group">
+                    <label>Tipo Servicio : </label>
+                    <select tabindex="4" [(ngModel)]="id_cat_servicio" name="id_cat_servicio" class="form-control">
+                            <option *ngFor="let categoria_s of categorias_serv" [value]="categoria_s.id_categoria_serv">
+                                {{categoria_s.categoria_serv}}
+                            </option>
+                        </select>
+                </div>
+                <div class="col-sm-6 form-group">
                     <label>Servicio : </label>
                     <input tabindex="1" [(ngModel)]="servicio" name="servicio" required type="text" placeholder="Servicio..." class="form-control">
                 </div>
+                <!-- solo acceso admin al precio -->
                 <div class="col-sm-6 form-group">
                     <label>Precio : </label>
                     <input tabindex="2" [(ngModel)]="precio" name="precio" required type="number" placeholder="Precio..." class="form-control">

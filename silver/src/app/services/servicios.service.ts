@@ -42,9 +42,9 @@ export class ServiciosService {
 // ==================================================
 //
 // ==================================================
-  listarServiciosPaginado(desde: any,IdSucursal: any,pParametroBusqueda: any){
+  listarServiciosPaginado(desde: any,pParametroBusqueda: any){
 
-    let url = URL_SERVICIOS + '/servicios/buscar/' + desde + '/' + pParametroBusqueda + '/' + IdSucursal + '/' + this.IdPersona;
+    let url = URL_SERVICIOS + '/servicios/buscar/' + desde + '/' + pParametroBusqueda + '/' + this.IdPersona;
 
     return this.http.get( url, this.headers );
   }  
@@ -150,6 +150,16 @@ buscarServicios( servicio: string , pDesde: any ): any {
     return this.http.get(url, this.headers);
   } 
 
+}
+
+// ==================================================
+//
+// ==================================================
+cargarCategoriasServicios(){
+
+  let url = URL_SERVICIOS + '/servicios/categorias/listar';
+
+  return this.http.get( url, this.headers );
 }
 
 }
