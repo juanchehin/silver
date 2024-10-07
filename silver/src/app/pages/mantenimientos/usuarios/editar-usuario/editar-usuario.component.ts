@@ -4,8 +4,8 @@ import { AlertService } from 'src/app/services/alert.service';
 import { EmpleadosService } from 'src/app/services/empleados.service';
 
 @Component({
-  selector: 'app-editar-empleado',
-  templateUrl: './editar-empleado.component.html',
+  selector: 'app-editar-usuario',
+  templateUrl: './editar-usuario.component.html',
   styles: []
 })
 export class EditarEmpleadoComponent implements OnInit {
@@ -60,7 +60,7 @@ editarEmpleado() {
                   next: (resp: any) => {
                   
                     if ( (resp != null) && (resp[0][0].mensaje == 'Ok') ) {
-                      this.alertService.alertSuccess('Mensaje','Empleado actualizado',2000);
+                      this.alertService.alertSuccess('Mensaje','Usuario actualizado',2000);
                       this.alertService.cargando = false;
 
                       this.router.navigate(['/dashboard/empleados']);

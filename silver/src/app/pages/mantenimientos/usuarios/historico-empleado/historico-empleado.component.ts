@@ -16,7 +16,7 @@ export class HistoricoEmpleadoComponent implements OnInit {
   total_transacciones = 0;
   cargando = true;
   id_empleado_seleccionado: any;
-  empleado: any;
+  usuario: any;
   comision = 0;
   suma_transacciones = 0;
 
@@ -54,7 +54,7 @@ listar_historico_empleado() {
                     this.total_transacciones = resp[3][0].total_transacciones;
     
                     this.transacciones = resp[0];
-                    this.empleado = resp[1][0].empleado;
+                    this.usuario = resp[1][0].usuario;
 
                     this.comision = resp[2][0].comision;
                     this.suma_transacciones = resp[2][0].suma_transacciones;

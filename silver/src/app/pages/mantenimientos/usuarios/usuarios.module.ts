@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { EmpleadosRoutingModule } from './empleados-routing.module';
-import { EmpleadosComponent } from './empleados/empleados.component';
-import { EmpleadoComponent } from './empleado/empleado.component';
-import { EditarEmpleadoComponent } from './editar-empleado/editar-empleado.component';
+import { EmpleadosRoutingModule } from './usuarios-routing.module';
+import { EmpleadosComponent } from './usuarios/usuarios.component';
+import { EmpleadoComponent } from './usuario/usuario.component';
+import { EditarEmpleadoComponent } from './editar-usuario/editar-usuario.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HistoricoEmpleadoComponent } from './historico-empleado/historico-empleado.component';
 
@@ -28,4 +28,4 @@ import { HistoricoEmpleadoComponent } from './historico-empleado/historico-emple
     // CuentaComponent
   ]
 })
-export class EmpleadosModule { }
+export class UsuariosModule { }

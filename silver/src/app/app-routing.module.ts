@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'clientes', loadChildren: () => import('./pages/mantenimientos/clientes/clientes.module').then(m => m.ClientesModule) },
   { path: 'tasas', loadChildren: () => import('./pages/mantenimientos/tasas/tasas.module').then(m => m.TasasModule) },
 
-  { path: 'empleados', loadChildren: () => import('./pages/mantenimientos/empleados/empleados.module').then(m => m.EmpleadosModule) },
+  { path: 'usuarios', loadChildren: () => import('./pages/mantenimientos/usuarios/usuarios.module').then(m => m.UsuariosModule) },
   { path: 'servicios', loadChildren: () => import('./pages/mantenimientos/servicios/servicios.module').then(m => m.ServiciosModule) },
   { path: 'maintenance', component: MaintenanceComponent },
 

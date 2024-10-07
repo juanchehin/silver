@@ -18,8 +18,8 @@
 
                 <div class="row">
                     <div class="col-sm-4 form-group">
-                        <label>Empleado :  </label>
-                        <input (keyup.enter)="buscarEmpleados( )" #inputEmpleadoBuscado type="text" class="form-control" placeholder="Buscar empleado..." id="empleadoBuscado">
+                        <label>Usuario :  </label>
+                        <input (keyup.enter)="buscarEmpleados( )" #inputEmpleadoBuscado type="text" class="form-control" placeholder="Buscar usuario..." id="empleadoBuscado">
                     </div>
                     <div class="col-sm-1 form-group">
                         <button (click)="buscarEmpleados( )" class="btn btn-primary" style="margin-top: 26px;">
@@ -41,7 +41,7 @@
                     <div class="col-sm-4">
                         <button [routerLink]="['nuevo']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
                           <i class="mdi mdi-account-multiple-plus"></i> 
-                          Nuevo Empleado
+                          Nuevo Usuario
                         </button>
                     </div>     
                 </div>
@@ -73,24 +73,24 @@
                                             </tr>
                                             </thead>
                                              <tbody>
-                                                <tr *ngFor="let empleado of empleados">
-                                                    <td>{{ empleado.id_persona }}</td>
-                                                    <td>{{ empleado.apellidos }}</td>
-                                                    <td>{{ empleado.nombres }}</td>
-                                                    <td>{{ empleado.codigo }}</td>
-                                                    <td>{{ empleado.dni }}</td>
-                                                    <td>{{ empleado.email }}</td>
-                                                    <td>{{ empleado.telefono }}</td>
-                                                    <td>{{ empleado.direccion }}</td>
-                                                    <td>{{ empleado.fecha_nac }}</td>
+                                                <tr *ngFor="let usuario of empleados">
+                                                    <td>{{ usuario.id_persona }}</td>
+                                                    <td>{{ usuario.apellidos }}</td>
+                                                    <td>{{ usuario.nombres }}</td>
+                                                    <td>{{ usuario.codigo }}</td>
+                                                    <td>{{ usuario.dni }}</td>
+                                                    <td>{{ usuario.email }}</td>
+                                                    <td>{{ usuario.telefono }}</td>
+                                                    <td>{{ usuario.direccion }}</td>
+                                                    <td>{{ usuario.fecha_nac }}</td>
                                                     <td>
                                                         <button class="btn btn-secondary" type="button" [routerLink]="['/dashboard/empleados/historico',empleado.id_persona]">
                                                             <i class="mdi mdi-reorder-horizontal"></i>                                                  
                                                         </button>
-                                                        <button class="btn btn-primary" type="button" [routerLink]="['/dashboard/empleados/editar',empleado.id_persona]">
+                                                        <button class="btn btn-primary" type="button" [routerLink]="['/dashboard/empleados/editar',usuario.id_persona]">
                                                             <i class="mdi mdi-account-edit"></i>                                                           
                                                         </button>
-                                                        <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" (click)="modal_baja_empleado(empleado.id_persona)">
+                                                        <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" (click)="modal_baja_empleado(usuario.id_persona)">
                                                             <i class="mdi mdi-delete"></i>  
                                                         </button>
                                                     </td>

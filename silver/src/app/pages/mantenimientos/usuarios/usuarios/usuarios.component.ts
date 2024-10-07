@@ -82,7 +82,7 @@ baja_empleado() {
     next: (resp: any) => {
       if((resp[0].Mensaje == 'Ok')) {
 
-        this.alertService.alertSuccess('Eliminacion','Empleado dado de baja',3000);
+        this.alertService.alertSuccess('Eliminacion','Usuario dado de baja',3000);
         
         let el: HTMLElement = this.divCerrarModalBajaEmpleado.nativeElement;
         el.click();

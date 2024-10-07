@@ -5,8 +5,8 @@ import { AlertService } from 'src/app/services/alert.service';
 import { EmpleadosService } from 'src/app/services/empleados.service';
 
 @Component({
-  selector: 'app-empleado',
-  templateUrl: './empleado.component.html',
+  selector: 'app-usuario',
+  templateUrl: './usuario.component.html',
   styles: []
 })
 export class EmpleadoComponent implements OnInit {
@@ -44,7 +44,7 @@ export class EmpleadoComponent implements OnInit {
         return;
       }
 
-      const empleado = new Array(
+      const usuario = new Array(
         this.forma.value.Apellidos,
         this.forma.value.Nombres,
         this.forma.value.DNI,
@@ -56,13 +56,13 @@ export class EmpleadoComponent implements OnInit {
         this.forma.value.codigo
       );
 
-      this.empleadosService.altaEmpleado( empleado )
+      this.empleadosService.altaEmpleado( usuario )
                 .subscribe(
                   {
                     next: (resp: any) => {
                       if ( resp[0][0].mensaje == 'Ok') {
 
-                            this.alertService.alertSuccess('Mensaje','Empleado cargado',2000);
+                            this.alertService.alertSuccess('Mensaje','Usuario cargado',2000);
                             
                             this.router.navigate(['/dashboard/empleados']);
                           } else {
