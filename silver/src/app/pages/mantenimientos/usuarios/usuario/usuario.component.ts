@@ -12,6 +12,7 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 export class UsuarioComponent implements OnInit {
 
   forma!: FormGroup;
+  IdRol = 1;
 
   constructor(
     private router: Router, 
@@ -53,7 +54,8 @@ export class UsuarioComponent implements OnInit {
         this.forma.value.direccion,
         this.forma.value.fecha_nac,
         this.forma.value.Observaciones,
-        this.forma.value.codigo
+        this.forma.value.codigo,
+        this.IdRol
       );
 
       this.usuariosService.altaUsuario( usuario )

@@ -41,6 +41,13 @@
                             <div class="col-sm-6 form-group">
                                 <label>Fecha nacimiento : </label><input formControlName="fecha_nac" name="fecha_nac" type="date" class="form-control">
                             </div>
+                            <div class="col-sm-6 form-group">
+                                <label>Rol : </label>
+                                <select [(ngModel)]="IdRol" name="IdRol" class="form-control">
+                                    <option [value]="2">Admin</option>
+                                    <option [value]="3">Ventas</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-6 form-group">
