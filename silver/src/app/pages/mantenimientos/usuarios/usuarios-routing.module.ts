@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { EmpleadoComponent } from './usuario/usuario.component';
-import { EmpleadosComponent } from './usuarios/usuarios.component';
-import { EditarEmpleadoComponent } from './editar-usuario/editar-usuario.component';
-import { HistoricoEmpleadoComponent } from './historico-empleado/historico-empleado.component';
+import { UsuarioComponent } from './usuario/usuario.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
+import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
+// import { HistoricoUsuarioComponent } from './historico-usuario/historico-usuario.component';
 
 
 const routes: Routes = [
-  { path: '', component: EmpleadosComponent, data: { titulo: 'Listado de empleados' }},
-  { path: 'nuevo', component: EmpleadoComponent, data: { titulo: 'Nuevo usuario' }},
-  { path: 'editar/:IdPersona', component: EditarEmpleadoComponent, data: { titulo: 'Edicion de usuario' }},
-  { path: 'historico/:IdPersona', component: HistoricoEmpleadoComponent, data: { titulo: 'Trabajos del usuario' }}
+  { path: '', component: UsuariosComponent, data: { titulo: 'Listado de usuarios' }},
+  { path: 'nuevo', component: UsuarioComponent, data: { titulo: 'Nuevo usuario' }},
+  { path: 'editar/:IdPersona', component: EditarUsuarioComponent, data: { titulo: 'Edicion de usuario' }},
+  // { path: 'historico/:IdPersona', component: HistoricoUsuarioComponent, data: { titulo: 'Trabajos del usuario' }}
  
 ];
 
@@ -18,4 +18,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class EmpleadosRoutingModule { }
+export class UsuariosRoutingModule { }

@@ -19,10 +19,10 @@
                 <div class="row">
                     <div class="col-sm-4 form-group">
                         <label>Usuario :  </label>
-                        <input (keyup.enter)="buscarEmpleados( )" #inputEmpleadoBuscado type="text" class="form-control" placeholder="Buscar usuario..." id="empleadoBuscado">
+                        <input (keyup.enter)="buscarUsuarios( )" #inputUsuarioBuscado type="text" class="form-control" placeholder="Buscar usuario..." id="usuarioBuscado">
                     </div>
                     <div class="col-sm-1 form-group">
-                        <button (click)="buscarEmpleados( )" class="btn btn-primary" style="margin-top: 26px;">
+                        <button (click)="buscarUsuarios( )" class="btn btn-primary" style="margin-top: 26px;">
                             <i class="mdi mdi-account-search"></i> 
                             </button>
                     </div>
@@ -34,7 +34,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-4">
-                        <h3 class="card-title">Cantidad empleados ( {{ totalEmpleados }}  )</h3>
+                        <h3 class="card-title">Cantidad usuarios ( {{ totalUsuarios }}  )</h3>
                     </div>
                     <div class="col-sm-4">
                     </div>
@@ -64,16 +64,17 @@
                                                 <th >Apellidos</th>
                                                 <th >Nombres</th>
                                                 <th >Codigo</th>
-                                                <th >DNI</th>
+                                                <th >ID</th>
                                                 <th width="10%">Email</th>
                                                 <th >Telefono</th>
                                                 <th >Direccion</th>
                                                 <th >Fecha nacimiento</th>
+                                                <th >Rol</th>
                                                 <th >Accion</th>
                                             </tr>
                                             </thead>
                                              <tbody>
-                                                <tr *ngFor="let usuario of empleados">
+                                                <tr *ngFor="let usuario of usuarios">
                                                     <td>{{ usuario.id_persona }}</td>
                                                     <td>{{ usuario.apellidos }}</td>
                                                     <td>{{ usuario.nombres }}</td>
@@ -83,14 +84,15 @@
                                                     <td>{{ usuario.telefono }}</td>
                                                     <td>{{ usuario.direccion }}</td>
                                                     <td>{{ usuario.fecha_nac }}</td>
+                                                    <td>ADMIN</td>
                                                     <td>
-                                                        <button class="btn btn-secondary" type="button" [routerLink]="['/dashboard/empleados/historico',empleado.id_persona]">
+                                                        <!-- <button class="btn btn-secondary" type="button" [routerLink]="['/dashboard/usuarios/historico',usuario.id_persona]">
                                                             <i class="mdi mdi-reorder-horizontal"></i>                                                  
-                                                        </button>
-                                                        <button class="btn btn-primary" type="button" [routerLink]="['/dashboard/empleados/editar',usuario.id_persona]">
+                                                        </button> -->
+                                                        <button class="btn btn-primary" type="button" [routerLink]="['/dashboard/usuarios/editar',usuario.id_persona]">
                                                             <i class="mdi mdi-account-edit"></i>                                                           
                                                         </button>
-                                                        <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" (click)="modal_baja_empleado(usuario.id_persona)">
+                                                        <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" (click)="modal_baja_usuario(usuario.id_persona)">
                                                             <i class="mdi mdi-delete"></i>  
                                                         </button>
                                                     </td>
@@ -141,8 +143,8 @@
           ¿Desea confirmar la operacion?
         </div>
         <div class="modal-footer">
-            <button class="btn btn-primary" #divCerrarModalBajaEmpleado aria-label="Close" data-bs-dismiss="modal">Cancelar</button>
-            <button class="btn btn-danger" (click)="baja_empleado()">Aceptar</button>
+            <button class="btn btn-primary" #divCerrarModalBajaUsuario aria-label="Close" data-bs-dismiss="modal">Cancelar</button>
+            <button class="btn btn-danger" (click)="baja_usuario()">Aceptar</button>
         </div>
       </div>
     </div>

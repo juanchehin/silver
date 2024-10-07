@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
-import { EmpleadosService } from 'src/app/services/empleados.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: 'app-editar-usuario',
   templateUrl: './editar-usuario.component.html',
   styles: []
 })
-export class EditarEmpleadoComponent implements OnInit {
+export class EditarUsuarioComponent implements OnInit {
 
   IdPersona: any;
   Apellidos: any;
@@ -23,7 +23,7 @@ export class EditarEmpleadoComponent implements OnInit {
 
   constructor(
     private router: Router, 
-    public empleadosService: EmpleadosService, 
+    public usuariosService: UsuariosService, 
     public activatedRoute: ActivatedRoute,
     public alertService: AlertService
     ) {
@@ -31,18 +31,18 @@ export class EditarEmpleadoComponent implements OnInit {
 
   ngOnInit() {
     this.IdPersona = this.activatedRoute.snapshot.paramMap.get('IdPersona');
-    this.cargarDatosFormEditarEmpleado();
+    this.cargarDatosFormEditarUsuario();
   }
 
 // ==================================================
 //        Crear 
 // ==================================================
 
-editarEmpleado() {
+editarUsuario() {
 
   this.alertService.cargando = true;
 
-      const empleadoEditado = new Array(
+      const usuarioEditado = new Array(
         this.Apellidos,
         this.Nombres,
         this.Telefono,
@@ -55,7 +55,7 @@ editarEmpleado() {
         this.codigo
       );
 
-      this.empleadosService.editarEmpleado( empleadoEditado )
+      this.usuariosService.editarUsuario( this.IdPersona, usuarioEditado )
                 .subscribe( {
                   next: (resp: any) => {
                   
@@ -63,7 +63,7 @@ editarEmpleado() {
                       this.alertService.alertSuccess('Mensaje','Usuario actualizado',2000);
                       this.alertService.cargando = false;
 
-                      this.router.navigate(['/dashboard/empleados']);
+                      this.router.navigate(['/dashboard/usuarios']);
                     } else {
                       this.alertService.alertFail('Ocurrio un error',resp[0][0].mensaje,2000);
                       this.alertService.cargando = false;
@@ -83,11 +83,11 @@ editarEmpleado() {
 // Carga
 // ==================================================
 
-cargarDatosFormEditarEmpleado() {
+cargarDatosFormEditarUsuario() {
 
   this.alertService.cargando = true;
 
-    this.empleadosService.cargarDatosFormEditarEmpleado( this.IdPersona )
+    this.usuariosService.cargarDatosFormEditarUsuario( this.IdPersona )
                .subscribe( {
                 next: (resp: any) => {
                   

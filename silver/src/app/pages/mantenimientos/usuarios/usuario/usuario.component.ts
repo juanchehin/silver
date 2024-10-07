@@ -2,21 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
-import { EmpleadosService } from 'src/app/services/empleados.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: 'app-usuario',
   templateUrl: './usuario.component.html',
   styles: []
 })
-export class EmpleadoComponent implements OnInit {
+export class UsuarioComponent implements OnInit {
 
   forma!: FormGroup;
 
   constructor(
     private router: Router, 
     private alertService: AlertService, 
-    public empleadosService: EmpleadosService, 
+    public usuariosService: UsuariosService, 
     public activatedRoute: ActivatedRoute
     ) {
   }
@@ -37,7 +37,7 @@ export class EmpleadoComponent implements OnInit {
 //        Crear 
 // ==================================================
 
-  altaEmpleado() {
+  altaUsuario() {
 
       if ( this.forma.invalid ) {
         // this.alertService.alertFail('Formulario invalido, chequee que los campos sean correctos',2000);
@@ -56,7 +56,7 @@ export class EmpleadoComponent implements OnInit {
         this.forma.value.codigo
       );
 
-      this.empleadosService.altaEmpleado( usuario )
+      this.usuariosService.altaUsuario( usuario )
                 .subscribe(
                   {
                     next: (resp: any) => {
@@ -64,7 +64,7 @@ export class EmpleadoComponent implements OnInit {
 
                             this.alertService.alertSuccess('Mensaje','Usuario cargado',2000);
                             
-                            this.router.navigate(['/dashboard/empleados']);
+                            this.router.navigate(['/dashboard/usuarios']);
                           } else {
                             this.alertService.alertFail('Mensaje','Ocurrio un error : ' + resp[0][0].mensaje,2000);
                           }

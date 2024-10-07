@@ -1,30 +1,30 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { EmpleadosRoutingModule } from './usuarios-routing.module';
-import { EmpleadosComponent } from './usuarios/usuarios.component';
-import { EmpleadoComponent } from './usuario/usuario.component';
-import { EditarEmpleadoComponent } from './editar-usuario/editar-usuario.component';
+import { UsuariosRoutingModule } from './usuarios-routing.module';
+import { UsuariosComponent } from './usuarios/usuarios.component';
+import { UsuarioComponent } from './usuario/usuario.component';
+import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HistoricoEmpleadoComponent } from './historico-empleado/historico-empleado.component';
+// import { HistoricoUsuarioComponent } from './historico-usuario/historico-usuario.component';
 
 
 @NgModule({
   declarations: [
-    EmpleadosComponent,
-    EmpleadoComponent,
-    EditarEmpleadoComponent,
-    HistoricoEmpleadoComponent
+    UsuariosComponent,
+    UsuarioComponent,
+    EditarUsuarioComponent
+    // HistoricoUsuarioComponent
   ],
   imports: [
     CommonModule,
-    EmpleadosRoutingModule,
+    UsuariosRoutingModule,
     ReactiveFormsModule,
     FormsModule
     // CuentaComponent,
     // MovimientosComponent,
     // CuentasComponent,
-    // EditarEmpleadoCuentaComponent,
+    // EditarUsuarioCuentaComponent,
     // CuentaComponent
   ]
 })

@@ -1,21 +1,21 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
-import { EmpleadosService } from 'src/app/services/empleados.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 import { UtilService } from 'src/app/services/util.service';
 
 @Component({
-  selector: 'app-historico-empleado',
-  templateUrl: './historico-empleado.component.html',
+  selector: 'app-historico-usuario',
+  templateUrl: './historico-usuario.component.html',
   styles: []
 })
-export class HistoricoEmpleadoComponent implements OnInit {
+export class HistoricoUsuarioComponent implements OnInit {
 
   desde = 0;
   transacciones!: any;
   total_transacciones = 0;
   cargando = true;
-  id_empleado_seleccionado: any;
+  id_usuario_seleccionado: any;
   usuario: any;
   comision = 0;
   suma_transacciones = 0;
@@ -25,7 +25,7 @@ export class HistoricoEmpleadoComponent implements OnInit {
 
 
   constructor(
-    public empleadosService: EmpleadosService,
+    public usuariosService: UsuariosService,
     public activatedRoute: ActivatedRoute,
     private alertService: AlertService,
     private utilService: UtilService
@@ -33,19 +33,19 @@ export class HistoricoEmpleadoComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.id_empleado_seleccionado = this.activatedRoute.snapshot.paramMap.get('IdPersona');
-    this.listar_historico_empleado();
+    this.id_usuario_seleccionado = this.activatedRoute.snapshot.paramMap.get('IdPersona');
+    this.listar_historico_usuario();
   }
 
 // ==================================================
 // Carga
 // ==================================================
 
-listar_historico_empleado() {
+listar_historico_usuario() {
 
   this.alertService.cargando = true;
 
-    this.empleadosService.listar_historico_empleado( this.desde,this.id_empleado_seleccionado,this.fecha_inicio,this.fecha_fin  )
+    this.usuariosService.listar_historico_usuario( this.desde,this.id_usuario_seleccionado,this.fecha_inicio,this.fecha_fin  )
                .subscribe( {
                 next: (resp: any) => {
 
@@ -98,7 +98,7 @@ cambiarDesde( valor: number ) {
   }
 
   this.desde += valor;
-  this.listar_historico_empleado();
+  this.listar_historico_usuario();
 
 }
 
@@ -109,7 +109,7 @@ cambiarDesde( valor: number ) {
 refrescar() {
     
   this.desde = 0;
-  this.listar_historico_empleado();
+  this.listar_historico_usuario();
 
 }
 

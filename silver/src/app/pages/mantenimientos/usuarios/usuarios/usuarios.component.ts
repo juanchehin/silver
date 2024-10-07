@@ -1,56 +1,56 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AlertService } from 'src/app/services/alert.service';
-import { EmpleadosService } from 'src/app/services/empleados.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 // import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-empleados',
-  templateUrl: './empleados.component.html',
+  selector: 'app-usuarios',
+  templateUrl: './usuarios.component.html',
   styles: []
 })
-export class EmpleadosComponent implements OnInit {
+export class UsuariosComponent implements OnInit {
 
   desde = 0;
 
-  empleados!: any;
+  usuarios!: any;
 
-  totalEmpleados = 0;
+  totalUsuarios = 0;
   cargando = true;
-  id_empleado_seleccionado: any;
+  id_usuario_seleccionado: any;
 
-  @ViewChild('inputEmpleadoBuscado') inputEmpleadoBuscado!: ElementRef;
-  @ViewChild('divCerrarModalBajaEmpleado') divCerrarModalBajaEmpleado!: ElementRef;
+  @ViewChild('inputUsuarioBuscado') inputUsuarioBuscado!: ElementRef;
+  @ViewChild('divCerrarModalBajaUsuario') divCerrarModalBajaUsuario!: ElementRef;
 
   constructor(
-    public empleadosService: EmpleadosService,
+    public usuariosService: UsuariosService,
     private alertService: AlertService
   ) {
    }
 
   ngOnInit() {
-    this.buscarEmpleados();
+    this.buscarUsuarios();
   }
 
 // ==================================================
 // Carga
 // ==================================================
 
-buscarEmpleados() {
+buscarUsuarios() {
 
   this.alertService.cargando = true;
 
-    const inputElement: HTMLInputElement = document.getElementById('empleadoBuscado') as HTMLInputElement;
-    const empleadoBuscado: any = inputElement.value || null;
+    const inputElement: HTMLInputElement = document.getElementById('usuarioBuscado') as HTMLInputElement;
+    const usuarioBuscado: any = inputElement.value || null;
 
-    this.empleadosService.buscarEmpleadosPaginado( this.desde,empleadoBuscado  )
+    this.usuariosService.buscarUsuariosPaginado( this.desde,usuarioBuscado  )
                .subscribe( {
                 next: (resp: any) => { 
 
                   if(resp[2][0].mensaje == 'Ok')
                   { 
-                    this.totalEmpleados = resp[1][0].cantEmpleados;
+                    this.totalUsuarios = resp[1][0].cantUsuarios;
     
-                    this.empleados = resp[0];
+                    this.usuarios = resp[0];
                     this.alertService.cargando = false;
 
                     return;
@@ -75,16 +75,16 @@ buscarEmpleados() {
 // 
 // ==================================================
 
-baja_empleado() {
+baja_usuario() {
 
-  this.empleadosService.bajaEmpleado( this.id_empleado_seleccionado )
+  this.usuariosService.bajaUsuario( this.id_usuario_seleccionado )
   .subscribe({
     next: (resp: any) => {
       if((resp[0].Mensaje == 'Ok')) {
 
         this.alertService.alertSuccess('Eliminacion','Usuario dado de baja',3000);
         
-        let el: HTMLElement = this.divCerrarModalBajaEmpleado.nativeElement;
+        let el: HTMLElement = this.divCerrarModalBajaUsuario.nativeElement;
         el.click();
 
         this.refrescar();
@@ -111,7 +111,7 @@ cambiarDesde( valor: number ) {
 
   const desde = this.desde + valor;
 
-  if ( desde >= this.totalEmpleados ) {
+  if ( desde >= this.totalUsuarios ) {
     return;
   }
 
@@ -120,7 +120,7 @@ cambiarDesde( valor: number ) {
   }
 
   this.desde += valor;
-  this.buscarEmpleados();
+  this.buscarUsuarios();
 
 }
 
@@ -130,10 +130,10 @@ cambiarDesde( valor: number ) {
 
 refrescar() {
   // Reseteo 'desde' a cero
-  this.inputEmpleadoBuscado.nativeElement.value = '';
+  this.inputUsuarioBuscado.nativeElement.value = '';
   
   this.desde = 0;
-  this.buscarEmpleados();
+  this.buscarUsuarios();
 
 }
 
@@ -141,9 +141,9 @@ refrescar() {
 // 
 // ==================================================
 
-modal_baja_empleado(id_empleado: string) {
+modal_baja_usuario(id_usuario: string) {
 
-  this.id_empleado_seleccionado = id_empleado;
+  this.id_usuario_seleccionado = id_usuario;
 
 }
 
