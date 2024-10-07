@@ -15,6 +15,8 @@ public async dameDatosCliente(req: Request, res: Response): Promise<any> {
 
     pool.query(`call bsp_dame_cliente('${IdPersona}')`, function(err: any, result: any, fields: any){
         if(err){
+            logger.error("Error en dameDatosCliente - ClientesController ");
+
             res.status(404).json(err);
             return;
         }
@@ -34,6 +36,8 @@ public async cargarDatosFormEditarCliente(req: Request, res: Response): Promise<
 
     pool.query(`call bsp_dame_datos_cliente('${IdPersona}','${pIdCliente}')`, function(err: any, result: any, fields: any){
        if(err){
+        logger.error("Error en cargarDatosFormEditarCliente - ClientesController ");
+
 
         return;
        }
@@ -85,6 +89,8 @@ public async altaCliente(req: Request, res: Response) {
     pool.query(`call bsp_alta_cliente('${IdPersona}','${Apellidos}','${Nombres}','${DNI}','${Telefono}','${Email}','${Direccion}','${FechaNac}','${Observaciones}','${id_sucursal}')`, function(err: any, result: any, fields: any){
 
         if(err){
+            logger.error("Error en bsp_alta_cliente - ClientesController ");
+
             res.status(404).json(err);
             return;
         }
@@ -113,11 +119,15 @@ public async editarCliente(req: Request, res: Response) {
     pool.query(`call bsp_editar_cliente('${pIdCliente}','${Apellidos}','${Nombres}','${Telefono}','${DNI}','${Email}','${direccion}','${Observaciones}')`,function(err: any, result: any, fields: any){
         
                 if(err){
+                    logger.error("Error en bsp_editar_cliente - ClientesController ");
+
                     res.status(404).json(err);
                     return;
                 }
                 
                 if(result[0][0].Mensaje !== 'Ok'){
+                    logger.error("Error en bsp_editar_cliente - ClientesController ");
+
                     return res.json( result );
                 }
 
@@ -136,6 +146,8 @@ public async activarCliente(req: Request, res: Response) {
     const result: any = await pool.query('CALL bsp_activar_cliente(?)',IdPersona);
 
     if(result[0][0].Mensaje !== 'Ok'){
+        logger.error("Error en activarCliente - ClientesController ");
+
         return res.json({
             ok: false,
             mensaje: result[0][0].Mensaje
@@ -157,15 +169,17 @@ public async buscarClientesPaginado(req: Request, res: Response): Promise<void> 
 
     var pIdPersona = req.params.IdPersona;
     var clienteBuscado: any = req.params.clienteBuscado;
-    var pIdSucursal: any = req.params.pIdSucursal;
     
     if(clienteBuscado == '0' || clienteBuscado == 0)
     {
         clienteBuscado = "todosClientes";
     }
 
-    pool.query(`call bsp_buscar_clientes_paginado('${clienteBuscado}','${desde}','${pIdSucursal}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_buscar_clientes_paginado('${clienteBuscado}','${desde}')`, function(err: any, result: any, fields: any){
+        
         if(err){
+            logger.error("Error en bsp_buscar_clientes_paginado - ClientesController ");
+
            res.status(404).json(result);
            return;
        }
@@ -183,6 +197,8 @@ public async bajaCliente(req: Request, res: Response): Promise<any> {
 
     pool.query(`call bsp_baja_cliente('${IdPersona}','${IdCliente}')`, function(err: any, result: any, fields: any){
         if(err){
+            logger.error("Error en bsp_baja_cliente - ClientesController ");
+
             res.status(404).json(err);
             return;
         }
@@ -226,11 +242,15 @@ public async actualizaCliente(req: Request, res: Response) {
     '${Correo}','${Usuario}','${Calle}',${Piso},'${Departamento}','${Ciudad}','${Pais}',${Numero},
     '${Objetivo}','${Ocupacion}','${Horario}')`, function(err: any, result: any, fields: any){
         if(err){
+            logger.error("Error en bsp_editar_cliente - ClientesController ");
+
             res.status(404).json({ text: "Ocurrio un problema" });
             return;
         }
     
         if(result[0][0].Mensaje !== 'Ok'){
+            logger.error("Error en bsp_editar_cliente - ClientesController ");
+
             return res.json({
                 ok: false,
                 Mensaje: result[0][0].Mensaje
@@ -275,6 +295,8 @@ public async cargarHistoricoCliente(req: Request, res: Response): Promise<void> 
 
     pool.query(`call bsp_listar_historico_cliente('${pIdCliente}','${desde}')`, function(err: any, result: any, fields: any){
         if(err){
+            logger.error("Error en cargarHistoricoCliente - ClientesController ");
+
            res.status(404).json(result);
            return;
        }

@@ -55,15 +55,14 @@ altaCliente( cliente: any ) {
 // ==================================================
 cargarClientes( parametroBusqueda: string){
 
-  const id_sucursal = localStorage.getItem('id_sucursal');
 
     if(parametroBusqueda == '' || parametroBusqueda == null){
-      let url = URL_SERVICIOS + '/clientes/listar/paginado/' + 0  + '/' + id_sucursal;
+      let url = URL_SERVICIOS + '/clientes/listar/paginado/' + 0;
       return this.http.get( url );
     }
     else
     { 
-      let url = URL_SERVICIOS + '/clientes/listar/busqueda/' + parametroBusqueda  + '/' + id_sucursal;
+      let url = URL_SERVICIOS + '/clientes/listar/busqueda/' + parametroBusqueda;
       return this.http.get( url );
     }
     
@@ -79,9 +78,7 @@ buscarClientesPaginado(desde: any,pClienteBuscado: any){
     pClienteBuscado = 'todosClientes';
   }
 
-  const id_sucursal = localStorage.getItem('id_sucursal');
-
-  let url = URL_SERVICIOS + '/clientes/listar/paginado/' + this.IdPersona + '/' + desde + '/' + pClienteBuscado + '/' + id_sucursal;
+  let url = URL_SERVICIOS + '/clientes/listar/paginado/' + this.IdPersona + '/' + desde + '/' + pClienteBuscado;
 
   return this.http.get( url, this.headers );
 }
