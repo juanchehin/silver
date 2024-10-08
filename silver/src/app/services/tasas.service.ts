@@ -61,5 +61,14 @@ cargarTasas(desde: any ){
     
   }
 
+// ==================================================
+//
+// ==================================================
+dame_tasa_dia( ){
 
+  let url = URL_SERVICIOS + '/tasas/actual';
+
+  return this.http.get( url,this.headers);
+    
+  }
 }

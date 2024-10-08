@@ -9,13 +9,21 @@
     <h1 class="h3 mb-3 fw-normal">Acceso</h1>
 
     <div class="form-floating">
-      <input formControlName="usuario" class="form-control" placeholder="Usuario">
       <label for="floatingInput">Usuario</label>
+      <input formControlName="usuario" class="form-control" placeholder="Usuario">
     </div>
     <div class="form-floating">
-      <input formControlName="password" type="password" class="form-control" placeholder="Password">
       <label for="floatingPassword">Password</label>
+      <input formControlName="password" type="password" class="form-control" placeholder="Password">
     </div>
+    <br>
+    <!--  -->
+    <div class="form-floating">
+      <label>Tasa del dia</label>
+      <input formControlName="tasa_dia" type="text" class="form-control" placeholder="Ingrese la tasa del dia...">
+    </div>
+    <!--  -->
+    <br>
     
     <button class="btn btn-primary w-100 py-2" type="submit">Ingresar</button>
 </form>

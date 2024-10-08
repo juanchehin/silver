@@ -18,16 +18,21 @@ public async login(req: Request, res: Response){
 
 const usuario = req.body[0];
 const pass = req.body[1];
+const tasa_dia = req.body[2];
 
 //
 pool.query(`call bsp_chequear_activacion()`, function(err: any, result: any, fields: any){
     if(err){
+        logger.error("Error en bsp_chequear_activacion - loginUsuario - loginController " + err);
+
         res.status(404).json(err);
         return;
     }
     
     if(result[0][0].Mensaje != 'Ok')
     {
+        logger.error("Error en bsp_chequear_activacion - no_activado - loginController " + err);
+
         res.status(200).json({
             ok: true,
             mensaje : 'no_activado'
@@ -35,8 +40,17 @@ pool.query(`call bsp_chequear_activacion()`, function(err: any, result: any, fie
         return;
     }else{
         //
-        pool.query(`call bsp_login('${usuario}')`, function(err: any, resultLogin: string | any[]){
+        pool.query(`call bsp_login('${usuario}','${tasa_dia}')`, function(err: any, resultLogin: string | any[]){
             var menu: any = [];
+            
+            if(resultLogin[0][0].mensaje == 'Debe cargar la tasa del dia'){
+
+                res.status(200).json({
+                    ok: true,
+                    mensaje : 'Debe cargar la tasa del dia'
+                });
+                return;
+            }
             
             if(err){
                 pool.query(`call bsp_alta_log('0','0','LoginController','0','loginUsuario','Error de login en panel + ${usuario}')`, function(err: any, result: any, fields: any){

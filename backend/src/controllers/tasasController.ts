@@ -58,6 +58,24 @@ public async tasasConfiguraciones(req: Request, res: Response): Promise<void> {
   })
 }
 
+// ==================================================
+//       
+// ==================================================
+
+public async dame_tasa_dia(req: Request, res: Response): Promise<void> {
+
+  pool.query(`call bsp_dame_tasa_dia()`, function(err: any, result: any, fields: any){
+    
+      if(err){
+        logger.error("Error en dame_tasa_dia " + err);
+
+          console.log("error", err);
+          return;
+      }
+      res.json(result);
+  })
+}
+
 }
 
 const tasasController = new TasasController;

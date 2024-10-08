@@ -16,6 +16,7 @@ class TasasRoutes {
 
         // 
         this.router.get('/listar/:pDesde',[mdAutenticacion.verificaToken],tasasController.dame_tasas);
+        this.router.get('/actual',tasasController.dame_tasa_dia);
         this.router.put('/actualizar/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], tasasController.tasasConfiguraciones);
 
     }
