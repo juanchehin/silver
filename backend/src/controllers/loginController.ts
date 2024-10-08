@@ -57,7 +57,7 @@ pool.query(`call bsp_chequear_activacion()`, function(err: any, result: any, fie
             bcrypt.compare(pass, resultLogin[0][0].lPassword, function(err: any, result: any) {
                 
                 if(result != true || err){
-                    logger.error("Error en bcrypt.compare - loginUsuario - loginController ");
+                    logger.error("Error en bcrypt.compare - loginUsuario - loginController " + err);
 
                     res.status(500).json({
                         ok: true,

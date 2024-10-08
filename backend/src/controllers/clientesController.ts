@@ -178,7 +178,7 @@ public async buscarClientesPaginado(req: Request, res: Response): Promise<void> 
     pool.query(`call bsp_buscar_clientes_paginado('${clienteBuscado}','${desde}')`, function(err: any, result: any, fields: any){
         
         if(err){
-            logger.error("Error en bsp_buscar_clientes_paginado - ClientesController ");
+            logger.error("Error en bsp_buscar_clientes_paginado - ClientesController - " + err);
 
            res.status(404).json(result);
            return;

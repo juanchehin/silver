@@ -11,6 +11,9 @@ import { TasasService } from 'src/app/services/tasas.service';
 export class TasasComponent implements OnInit {
 
   tasa = 1;
+  tasas: any;
+  desde = 0;
+  totalTasas = 0;
 
   constructor(
     public tasasService: TasasService, 
@@ -20,20 +23,20 @@ export class TasasComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.cargar_tasa();
+    this.cargar_tasas();
   }
 
   // ======================================
   //
   // ======================================
-  cargar_tasa(){
-          this.tasasService.cargarTasas(  )
+  cargar_tasas(){
+          this.tasasService.cargarTasas( this.desde )
                 .subscribe( {
                   next: (resp: any) => {
 
                     if((resp[1][0].mensaje == 'Ok')) {
 
-                      this.tasa = resp[0][0].tasa;
+                      this.tasas = resp[0];
                       
                     } else {                      
                       this.alertService.alertFailWithText('Error','Ocurrio un error al procesar el pedido',1200);
@@ -46,43 +49,25 @@ export class TasasComponent implements OnInit {
 
       };
 
-  // ======================================
-  //
-  // ======================================
-  actualizarConfiguraciones() {
+// ==================================================
+//        Cambio de valor
+// ==================================================
 
-    this.alertService.cargando = true;
+cambiarDesde( valor: number ) {
 
-    const configuraciones = [
-      this.tasa
-    ]
+  const desde = this.desde + valor;
 
-    this.tasasService.actualizarTasa( configuraciones )
-              .subscribe( {
-                next: (resp: any) => { 
+  if ( desde >= this.totalTasas ) {
+    return;
+  }
 
-                  if ( resp[0][0].mensaje === 'Ok') {
-                    this.alertService.alertSuccess('Mensaje','Configuracion guardada',2000);
-                    this.cargar_tasa();
-                    this.alertService.cargando = false;
+  if ( desde < 0 ) {
+    return;
+  }
 
-                  } else {
-                    this.alertService.alertFailWithText('Error','Ocurrio un error al procesar el pedido',1200);
-                    this.alertService.cargando = false;
+  this.desde += valor;
+  this.cargar_tasas();
 
-                  }
-                  this.alertService.cargando = false;
-
-                  return;
-                 },
-                error: () => { 
-                  this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000);
-                  this.alertService.cargando = false;
-
-                }
-              });
-                
-            }
-
+}
 
 }

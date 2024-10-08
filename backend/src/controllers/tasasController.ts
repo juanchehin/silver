@@ -11,8 +11,14 @@ class TasasController {
 
 public async dame_tasas(req: Request, res: Response): Promise<void> {
 
-  pool.query(`call bsp_listar_tasas()`, function(err: any, result: any, fields: any){
+  var desde = req.params.pDesde || 0;
+  desde  = Number(desde);
+
+  pool.query(`call bsp_listar_tasas('${desde}')`, function(err: any, result: any, fields: any){
+    
       if(err){
+        logger.error("Error en bsp_listar_tasas - dame_tasas " + err);
+
           console.log("error", err);
           return;
       }

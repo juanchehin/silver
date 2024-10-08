@@ -15,7 +15,7 @@ class TasasRoutes {
     config(): void {
 
         // 
-        this.router.get('/listar/empresa',[mdAutenticacion.verificaToken],tasasController.dame_tasas);
+        this.router.get('/listar/:pDesde',[mdAutenticacion.verificaToken],tasasController.dame_tasas);
         this.router.put('/actualizar/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], tasasController.tasasConfiguraciones);
 
     }

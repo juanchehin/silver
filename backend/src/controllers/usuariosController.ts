@@ -24,6 +24,8 @@ public async listarUsuariosPaginado(req: Request, res: Response): Promise<void> 
 //   Listado de usuarios en panel
 // ==================================================
 public async buscarUsuarioPaginado(req: Request, res: Response): Promise<void> {
+console.log("🚀 ~ UsuariosController ~ res:", res)
+console.log("🚀 ~ UsuariosController ~ req:", req)
 
     var desde = req.params.desde || 0;
     desde  = Number(desde);
@@ -37,7 +39,7 @@ public async buscarUsuarioPaginado(req: Request, res: Response): Promise<void> {
     pool.query(`call bsp_buscar_usuarios_paginado('${req.params.IdPersona}','${pParametroBusqueda}','${desde}')`, function(err: any, result: any){
         
         if(err){
-            logger.error("Error en bsp_buscar_usuarios_paginado - UsuariosController");
+            logger.error("Error en bsp_buscar_usuarios_paginado - UsuariosController - " + err);
 
             res.status(400).json(err);
             return;

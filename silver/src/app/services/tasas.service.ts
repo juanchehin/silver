@@ -43,9 +43,9 @@ export class TasasService {
 // ==================================================
 //
 // ==================================================
-cargarTasas( ){
+cargarTasas(desde: any ){
 
-  let url = URL_SERVICIOS + '/tasas/listar';
+  let url = URL_SERVICIOS + '/tasas/listar/' + desde;
 
   return this.http.get( url,this.headers);
     
