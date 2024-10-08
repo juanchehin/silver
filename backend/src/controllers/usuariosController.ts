@@ -24,8 +24,6 @@ public async listarUsuariosPaginado(req: Request, res: Response): Promise<void> 
 //   Listado de usuarios en panel
 // ==================================================
 public async buscarUsuarioPaginado(req: Request, res: Response): Promise<void> {
-console.log("🚀 ~ UsuariosController ~ res:", res)
-console.log("🚀 ~ UsuariosController ~ req:", req)
 
     var desde = req.params.desde || 0;
     desde  = Number(desde);
