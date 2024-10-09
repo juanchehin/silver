@@ -18,7 +18,7 @@ public async login(req: Request, res: Response){
 
 const usuario = req.body[0];
 const pass = req.body[1];
-const tasa_dia = req.body[2];
+const tasa_dia = req.body[2] || null;
 
 //
 pool.query(`call bsp_chequear_activacion()`, function(err: any, result: any, fields: any){
@@ -40,6 +40,8 @@ pool.query(`call bsp_chequear_activacion()`, function(err: any, result: any, fie
         return;
     }else{
         //
+        logger.info("tasa_dia " + tasa_dia);
+
         pool.query(`call bsp_login('${usuario}','${tasa_dia}')`, function(err: any, resultLogin: string | any[]){
             var menu: any = [];
             console.log("🚀 ~ LoginController ~ pool.query ~ resultLogin:", resultLogin)
