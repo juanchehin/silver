@@ -42,8 +42,10 @@ pool.query(`call bsp_chequear_activacion()`, function(err: any, result: any, fie
         //
         pool.query(`call bsp_login('${usuario}','${tasa_dia}')`, function(err: any, resultLogin: string | any[]){
             var menu: any = [];
-            
-            if(resultLogin[0] && resultLogin[0][0] && resultLogin[0][0].mensaje == 'Debe cargar la tasa del dia'){
+            console.log("🚀 ~ LoginController ~ pool.query ~ resultLogin:", resultLogin)
+            logger.info("loginController " + resultLogin);
+
+            if(resultLogin && resultLogin[0] && resultLogin[0][0] && resultLogin[0][0].mensaje == 'Debe cargar la tasa del dia'){
 
                 res.status(200).json({
                     ok: true,
