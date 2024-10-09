@@ -74,6 +74,7 @@ login( persona: any ): any {
 //  Guarda en las variables del servicio
 // ==================================================
 guardarStorage( id: string, token: string, id_rol: string ) {
+console.log("🚀 ~ AuthService ~ guardarStorage ~ id_rol:", id_rol)
 
   localStorage.setItem('id', id );
   localStorage.setItem('token', token );
@@ -145,6 +146,11 @@ logout() {
 
 
   this.router.navigate(['/login']);
+}
+
+getIdRol() {
+  const p_id_rol = localStorage.getItem('id_rol');
+  return p_id_rol;
 }
 
 }

@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ServiciosService } from 'src/app/services/servicios.service';
 import { UnidadesService } from '../../../../services/unidades.service';
 import { AlertService } from 'src/app/services/alert.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-servicio',
@@ -18,7 +19,9 @@ export class ServicioComponent implements OnInit {
   descripcion = '';
   id_cat_servicio = 1;
   precio: any;
+  comision = 0;
   categorias_serv: any;
+  id_rol: any;
   
 
   constructor(
@@ -26,13 +29,16 @@ export class ServicioComponent implements OnInit {
     public serviciosService: ServiciosService, 
     public activatedRoute: ActivatedRoute,
     public unidadesService: UnidadesService,
-    public alertService: AlertService
+    public alertService: AlertService,
+    public authService: AuthService
     ) {
 
   }
 
   ngOnInit() {
     this.cargarCategoriasServicios();
+    this.dame_id_rol();
+
   }
 
 // ==================================================
@@ -52,10 +58,16 @@ altaServicio() {
         return;
       }
 
+      if((this.comision <= 0 || this.comision > 99) ){
+        this.alertService.alertFailWithText('Problema con comision %','Atencion',2000);
+        return;
+      }
+
       const servicio = new Array(        
         this.servicio,
         this.id_cat_servicio,
         this.precio,
+        this.comision,
         this.descripcion
       );
 
@@ -93,5 +105,19 @@ cargarCategoriasServicios() {
 
 }
 
+// ==================================================
+// Carga
+// ==================================================
+
+dame_id_rol() {
+
+  this.id_rol = this.authService.getIdRol();
+
+  if((this.id_rol == undefined || this.id_rol.length <= 0 || this.id_rol == '' || this.id_rol <= 0) ){
+    this.alertService.alertFailWithText('Ocurrio un error - Codigo 002','Atencion',2000);
+    return;
+  }
+
+}
 
 }
