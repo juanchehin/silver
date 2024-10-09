@@ -12,14 +12,32 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-6 form-group">
+                            <label>Tipo Servicio : </label>
+                            <select [(ngModel)]="id_cat_servicio" name="id_cat_servicio" class="form-control">
+                                    <option *ngFor="let categoria_s of categorias_serv" [value]="categoria_s.id_categoria_serv">
+                                        {{categoria_s.categoria_serv}}
+                                    </option>
+                                </select>
+                        </div>
+                        <div class="col-sm-6 form-group">
                             <label>Servicio : </label>
                             <input tabindex="1" [(ngModel)]="servicio" name="servicio" required type="text" placeholder="Servicio..." class="form-control">
                         </div>
+                    </div>
+                     <!--  -->
+                    <div class="row" *ngIf="id_rol == 1">
+                        <!-- solo acceso para usuario admin -->
                         <div class="col-sm-6 form-group">
                             <label>Precio : </label>
-                            <input tabindex="1" [(ngModel)]="precio" name="precio" required type="text" placeholder="Precio..." class="form-control">
+                            <input tabindex="2" [(ngModel)]="precio" name="precio" required type="number" placeholder="Precio..." class="form-control">
                         </div>
-                    </div>         
+                        <div class="col-sm-6 form-group">
+                            <label>Comision % : </label>
+                            <input [(ngModel)]="comision" name="comision" required type="number" 
+                            placeholder="Comision..." class="form-control" min="1" max="99">
+                                    </div>
+                    </div>
+                    <!--  -->
                 </div>
             </div>
         

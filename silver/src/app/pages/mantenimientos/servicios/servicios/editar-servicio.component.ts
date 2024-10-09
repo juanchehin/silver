@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ServiciosService } from 'src/app/services/servicios.service';
 import { CategoriasService } from '../../../../services/categorias.service';
 import { AlertService } from 'src/app/services/alert.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-editar-servicio',
@@ -15,21 +16,28 @@ export class EditarServicioComponent implements OnInit {
 
   // ==============================
   servicio: any;
+  id_cat_servicio: any;
+  comision: any;
   precio: any;
   descripcion: any;
-  
+  id_rol: any;
+  categorias_serv: any;
+
   constructor(
     private router: Router, 
     public serviciosService: ServiciosService, 
     public activatedRoute: ActivatedRoute,
     public categoriasService: CategoriasService,
-    public alertService: AlertService
+    public alertService: AlertService,
+    public authService: AuthService
     ) {
   }
 
   ngOnInit() {
     this.IdServicio = this.activatedRoute.snapshot.paramMap.get('IdServicio');
     this.cargarDatosFormEditarServicio();
+    this.cargarCategoriasServicios();
+    this.dame_id_rol();
 
   }
 
@@ -49,7 +57,9 @@ update_servicio() {
       const servicioEditado = new Array(
         this.IdServicio,
         this.servicio,
+        this.id_cat_servicio,
         this.precio,
+        this.comision,
         this.descripcion
       );
       
@@ -86,6 +96,8 @@ cargarDatosFormEditarServicio() {
 
           this.servicio = resp[0][0].servicio;
           this.precio = resp[0][0].precio;
+          this.id_cat_servicio = resp[0][0].id_cat_servicio;
+          this.comision = resp[0][0].comision;
           this.descripcion = resp[0][0].descripcion;
 
         }else{
@@ -100,5 +112,33 @@ cargarDatosFormEditarServicio() {
 
   }
 
+  // ==================================================
+// Carga
+// ==================================================
 
+cargarCategoriasServicios() {
+
+
+  this.serviciosService.cargarCategoriasServicios(   )
+             .subscribe( (resp: any) => {
+
+              this.categorias_serv  = resp[0];
+
+            });
+
+}
+// ==================================================
+// Carga
+// ==================================================
+
+dame_id_rol() {
+
+  this.id_rol = this.authService.getIdRol();
+
+  if((this.id_rol == undefined || this.id_rol.length <= 0 || this.id_rol == '' || this.id_rol <= 0) ){
+    this.alertService.alertFailWithText('Ocurrio un error - Codigo 002','Atencion',2000);
+    return;
+  }
+
+}
 }

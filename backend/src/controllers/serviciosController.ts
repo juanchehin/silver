@@ -168,6 +168,8 @@ public async cargarDatosFormEditarServicio(req: Request, res: Response): Promise
 
     pool.query(`call bsp_dame_datos_form_editar_servicio('${IdPersona}','${pIdServicio}')`, function(err: any, result: any){
         if(err){
+            logger.error("Error en bsp_dame_datos_form_editar_servicio - serviciosController - cargarDatosFormEditarServicio");
+
             res.status(400).json(err);
             return;
         }
