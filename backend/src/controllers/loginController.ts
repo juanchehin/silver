@@ -18,7 +18,7 @@ public async login(req: Request, res: Response){
 
 const usuario = req.body[0];
 const pass = req.body[1];
-const tasa_dia = req.body[2] || null;
+const tasa_dia = req.body[2] || 0;
 
 //
 pool.query(`call bsp_chequear_activacion()`, function(err: any, result: any, fields: any){
