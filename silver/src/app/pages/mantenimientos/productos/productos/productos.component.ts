@@ -1,7 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AlertService } from 'src/app/services/alert.service';
 import { ProductosService } from 'src/app/services/productos.service';
-import { SucursalesService } from 'src/app/services/sucursal.service';
 
 @Component({
   selector: 'app-productos',
@@ -15,7 +14,6 @@ export class ProductosComponent implements OnInit {
   ClasesDisponibles = 0;
   IdSucursal = 1;
   productos!: any;
-  sucursales: any;
   totalProductos = 0;
   id_producto_seleccionado: any;
 
@@ -24,14 +22,12 @@ export class ProductosComponent implements OnInit {
 
   constructor(
     public productosService: ProductosService,
-    private sucursalesService: SucursalesService,
     public alertaService: AlertService
   ) {
    }
 
   ngOnInit() {
     this.buscarProducto();
-    this.cargarSucursales();
   }
 
 // ==================================================
@@ -45,7 +41,7 @@ buscarProducto() {
     const inputElement: HTMLInputElement = document.getElementById('buscarProducto') as HTMLInputElement;
     const productoBuscado: any = inputElement.value || '-';
 
-    this.productosService.listarProductosPaginado( this.desde , this.IdSucursal, productoBuscado  )
+    this.productosService.listarProductosPaginado( this.desde , productoBuscado  )
                .subscribe( {
                 next: (resp: any) => { 
 
@@ -82,21 +78,6 @@ buscarProducto() {
 
   }
 
-// ==================================================
-// Carga
-// ==================================================
-
-cargarSucursales() {
-
-
-  this.sucursalesService.listarTodasSucursales(   )
-             .subscribe( (resp: any) => {
-
-              this.sucursales  = resp[0];
-
-            });
-
-}
 
 // ==================================================
 //        Cambio de valor
