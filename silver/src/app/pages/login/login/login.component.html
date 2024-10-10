@@ -18,7 +18,7 @@
     </div>
     <br>
     <!--  -->
-    <div class="form-floating">
+    <div class="form-floating" *ngIf="!(this.tasa_dia !== null && this.tasa_dia !== undefined)">
       <label>Tasa del dia</label>
       <input formControlName="tasa_dia" type="text" class="form-control" placeholder="Ingrese la tasa del dia...">
     </div>
