@@ -12,7 +12,6 @@ export class CajaComponent implements OnInit {
   desde = 0;
   totalAsistencias = true;
   totalMovimientos = 0;
-  IdSucursal: any;
   cajas!: any;
   movimientos: any;
   estado_caja = 'N';
@@ -44,9 +43,7 @@ listar_movimientos_caja() {
 
   this.alertService.cargando = true;
 
-    this.IdSucursal = localStorage.getItem('id_sucursal');
-
-    this.cajasService.listarCajasPaginado( this.desde , this.IdSucursal  )
+    this.cajasService.listarCajasPaginado( this.desde   )
                .subscribe( {
                 next: (resp: any) => {
 
@@ -120,6 +117,10 @@ refrescar() {
   // this.inputCajaBuscado.nativeElement.value = '';
   
   this.desde = 0;
+  this.observaciones = '';
+  this.monto_apertura = '';
+  this.monto_cierre = '';
+
   this.listar_movimientos_caja();
 
 }

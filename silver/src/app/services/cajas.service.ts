@@ -42,9 +42,9 @@ export class CajasService {
 // ==================================================
 //
 // ==================================================
-  listarCajasPaginado(desde: any,IdSucursal: any){
+  listarCajasPaginado(desde: any){
 
-    let url = URL_SERVICIOS + '/caja/listar/' + desde + '/' + IdSucursal + '/' + this.IdPersona;
+    let url = URL_SERVICIOS + '/caja/listar/' + desde + '/' + this.IdPersona;
 
     return this.http.get( url, this.headers );
   }  
@@ -54,14 +54,12 @@ export class CajasService {
 // ==================================================
 apertura( monto: any, observaciones: any ) {
 
-  const IdSucursal = localStorage.getItem('id_sucursal');
-
   const data = {
     monto,
     observaciones
   }
 
-  let url = URL_SERVICIOS + '/caja/apertura/' + IdSucursal;
+  let url = URL_SERVICIOS + '/caja/apertura/';
 
   return this.http.post( url, data, this.headers);
 }
@@ -71,14 +69,12 @@ apertura( monto: any, observaciones: any ) {
 // ==================================================
 cierre( monto: any, observaciones: any ) {
 
-  const IdSucursal = localStorage.getItem('id_sucursal');
-
   const data = {
     monto,
     observaciones
   }
 
-  let url = URL_SERVICIOS + '/caja/cierre/' + IdSucursal;
+  let url = URL_SERVICIOS + '/caja/cierre/';
 
   return this.http.post( url, data, this.headers);
 }
