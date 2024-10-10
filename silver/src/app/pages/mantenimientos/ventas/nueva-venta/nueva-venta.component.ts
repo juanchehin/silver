@@ -53,7 +53,6 @@ export class NuevaVentaComponent implements OnInit {
   arrayVenta: any = [];
   itemCheckExists: any = 0;
   itemIdProductoSabor: any;
-  idSucursalVendedor: any;
   fecha_venta: any;
 
   precio_producto_pendiente: any;
@@ -121,7 +120,6 @@ export class NuevaVentaComponent implements OnInit {
     this.fecha_venta = this.utilService.formatDateNow(new Date(Date.now()));
     this.IdPersona = this.authService.IdPersona;
     this.datosVendedor = [];
-    this.idSucursalVendedor = localStorage.getItem('id_sucursal');
     // this.cargarDatosVendedor();
   }
   
@@ -213,7 +211,7 @@ cargarEmpleados() {
 
 cargarProductos() {
 
-  this.productosService.cargarProductos( this.productoBuscado, this.idSucursalVendedor )
+  this.productosService.cargarProductos( this.productoBuscado )
              .subscribe( (resp: any) => {
 
               this.productos = resp[0];
@@ -228,7 +226,7 @@ cargarProductos() {
 
 cargarServicios() {
 
-  this.serviciosService.cargarServicios( this.servicioBuscado, this.idSucursalVendedor )
+  this.serviciosService.cargarServicios( this.servicioBuscado )
              .subscribe( (resp: any) => {
 
               this.servicios = resp[0];
@@ -260,7 +258,6 @@ cargarTiposPago() {
 
 // ==================================================
 // Carga los datos de la persona que esta realizando la venta
-//  junto con la sucursal en la cual se desempeña
 // ==================================================
 
 cargarDatosVendedor() {
@@ -273,7 +270,6 @@ cargarDatosVendedor() {
                   this.datosVendedor = resp[0][0];
                   this.fecha_venta = this.utilService.formatDateNow(resp[1][0].fecha_bd);
 
-                  this.idSucursalVendedor = this.datosVendedor.IdSucursal;
                 },
                 error: (err: any) => {
                   this.alertaService.alertFail('Ocurrio un error al cargar los datos del vendedor' + err,false,400); }
@@ -863,7 +859,6 @@ altaCliente() {
     this.direccion_nuevo_cliente,
     this.fecha_nac_nuevo_cliente,
     this.observaciones_nuevo_cliente,
-    this.idSucursalVendedor
   );
 
   this.clientesService.altaCliente( cliente )

@@ -110,9 +110,9 @@ bajaProducto( id_producto: any ) {
 // ==================================================
 //  Carga los productos en el autocomplete, que coincidan con el parametroBusqueda
 // ==================================================
-cargarProductos( parametroBusqueda: string, IdSucursal: any){
+cargarProductos( parametroBusqueda: string){
 
-    let url = URL_SERVICIOS + '/productos/listar/busqueda/autocomplete/' + parametroBusqueda + '/' + IdSucursal + '/' + this.IdPersona;
+    let url = URL_SERVICIOS + '/productos/listar/busqueda/autocomplete/' + parametroBusqueda + '/' + this.IdPersona;
     return this.http.get( url, this.headers ); 
     
 }

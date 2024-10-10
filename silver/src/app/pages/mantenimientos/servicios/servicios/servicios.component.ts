@@ -1,7 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AlertService } from 'src/app/services/alert.service';
 import { ServiciosService } from 'src/app/services/servicios.service';
-import { SucursalesService } from 'src/app/services/sucursal.service';
 // import Swal from 'sweetalert2';
 
 @Component({
@@ -15,7 +14,6 @@ export class ServiciosComponent implements OnInit {
   totalAsistencias = true;
   ClasesDisponibles = 0;
   servicios!: any;
-  sucursales: any;
   totalServicios = 0;
   id_servicio_seleccionado: any;
 

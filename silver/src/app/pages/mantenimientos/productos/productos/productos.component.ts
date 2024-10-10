@@ -12,7 +12,6 @@ export class ProductosComponent implements OnInit {
   desde = 0;
   totalAsistencias = true;
   ClasesDisponibles = 0;
-  IdSucursal = 1;
   productos!: any;
   totalProductos = 0;
   id_producto_seleccionado: any;
@@ -110,7 +109,6 @@ refrescar() {
   this.inputProductoBuscado.nativeElement.value = '';
   
   this.desde = 0;
-  this.IdSucursal = 1;
   this.buscarProducto();
 
 }

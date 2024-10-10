@@ -17,7 +17,6 @@ export class VouchersComponent implements OnInit {
   ClasesDisponibles = 0;
   estado_voucher = 'T';
   vouchers!: any;
-  sucursales: any;
   cantidad_vouchers = 0;
   id_voucher_seleccionado: any;
   habilitar_boton_confirmar_voucher = true;

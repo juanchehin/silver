@@ -50,8 +50,6 @@ export class ClienteComponent implements OnInit {
         return;
       }
 
-      const id_sucursal = localStorage.getItem('id_sucursal');
-
       const cliente = new Array(
         this.forma.value.Apellidos,
         this.forma.value.Nombres,
@@ -62,7 +60,6 @@ export class ClienteComponent implements OnInit {
         this.forma.value.direccion,
         this.forma.value.fecha_nac,
         this.forma.value.Observaciones,
-        id_sucursal
       );
 
       this.clientesService.altaCliente( cliente )

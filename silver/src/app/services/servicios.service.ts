@@ -109,9 +109,9 @@ baja_servicio( id_servicio: any ) {
 // ==================================================
 //  Carga los servicios en el autocomplete, que coincidan con el parametroBusqueda
 // ==================================================
-cargarServicios( parametroBusqueda: string, IdSucursal: any){
+cargarServicios( parametroBusqueda: string){
 
-    let url = URL_SERVICIOS + '/servicios/listar/busqueda/autocomplete/' + parametroBusqueda + '/' + IdSucursal + '/' + this.IdPersona;
+    let url = URL_SERVICIOS + '/servicios/listar/busqueda/autocomplete/' + parametroBusqueda + '/' + this.IdPersona;
     return this.http.get( url, this.headers ); 
     
 }
