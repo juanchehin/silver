@@ -8,7 +8,7 @@ import { AlertService } from './services/alert.service';
   styleUrls: []
 })
 export class AppComponent {
-  title = 'estetica';
+  title = 'silver';
 
   constructor(
     private router: Router,

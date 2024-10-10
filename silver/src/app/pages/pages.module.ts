@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { PagesComponent } from './pages.component';
 import { ConfiguracionesModule } from './mantenimientos/configuraciones/configuraciones.module';
+import { CalendarioModule } from './mantenimientos/calendario/calendario.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ConfiguracionesModule } from './mantenimientos/configuraciones/configur
     ReactiveFormsModule,
     SharedModule,
     RouterModule,
-    ConfiguracionesModule
+    ConfiguracionesModule,
+    CalendarioModule
   ]
 })
 export class PagesModule { }
