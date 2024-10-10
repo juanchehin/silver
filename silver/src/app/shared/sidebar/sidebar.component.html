@@ -31,7 +31,8 @@
                     <i class="mdi mdi-sale"></i>
                     Ventas
                     <ul *ngIf="openMenu === 'menu_ventas'">
-                        <li>Ventas</li>
+                        <li [routerLink]="['dashboard']">Ventas</li>
+                        <li [routerLink]="['caja']">Caja</li>
                     </ul>
                 </li>
 
