@@ -12,3 +12,32 @@
 <!-- End Page content -->
 <!-- ============================================================== -->
 </div>
+
+
+<!-- Modal - nuevo evento -->
+<div class="modal fade" id="modal_nuevo_evento" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo evento</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <br>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-12">
+                <label>Descripcion : </label>
+                <textarea class="form-control" [(ngModel)]="descripcion_evento" name="observaciones" placeholder="Descripcion..."></textarea>
+          </div>
+        </div>
+        <br>
+        
+        <div class="modal-footer">
+          <button #modalCerrarNuevoEvento type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" (click)="alta_evento()">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  
