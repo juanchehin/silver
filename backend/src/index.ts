@@ -13,7 +13,7 @@ import cuentasRoutes from './routes/cuentasRoutes';
 import serviciosRoutes from './routes/serviciosRoutes';
 import cajaRoutes from './routes/cajaRoutes';
 import configuracionesRoutes from './routes/configuracionesRoutes';
-import vouchersRoutes from './routes/vouchersRoutes';
+import eventosRoutes from './routes/eventosRoutes';
 import tasasRoutes from './routes/tasasRoutes';
 
 class Server {
@@ -45,7 +45,7 @@ class Server {
         this.app.use('/api/productos', productosRoutes);
         this.app.use('/api/servicios', serviciosRoutes);
         this.app.use('/api/caja', cajaRoutes);
-        this.app.use('/api/vouchers', vouchersRoutes);
+        this.app.use('/api/eventos', eventosRoutes);
 
         this.app.use('/api/configuraciones', configuracionesRoutes);
         this.app.use('/api/tasas', tasasRoutes);

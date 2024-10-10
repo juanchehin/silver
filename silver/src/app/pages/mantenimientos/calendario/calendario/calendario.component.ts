@@ -38,8 +38,10 @@ export class CalendarioComponent implements OnInit {
    this.cargar_eventos_calendario();
   }
 
+  // =====================
   handleDateClick(arg: any) {
     console.log("🚀 ~ CalendarioComponent ~ handleDateClick ~ arg:", arg)
+    this.fecha_evento = arg.dateStr;
     // alert('date click! ' + arg.dateStr)
 
     const modal = document.getElementById('modal_nuevo_evento');
@@ -50,10 +52,12 @@ export class CalendarioComponent implements OnInit {
 
   }
 
+  // =====================
   cargar_eventos_calendario() {
     
   }
 
+  // =====================
   alta_evento() {
 
     if((this.descripcion_evento == '') || (this.descripcion_evento == 'undefined') || (this.descripcion_evento == undefined))
