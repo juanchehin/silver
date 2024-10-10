@@ -7,8 +7,8 @@ import { AlertService } from 'src/app/services/alert.service';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styles: [
-  ]
+  styleUrls: ['./sidebar.component.css']
+
 })
 export class SidebarComponent implements OnInit {
 
@@ -22,6 +22,7 @@ export class SidebarComponent implements OnInit {
   expandirCompras = true;
   expandirTransferencias = true;
   expandirClientes = true;
+  openMenu: string | null = null;
  
   constructor( 
               public alertService: AlertService,
@@ -31,6 +32,11 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit(): void {
     this.IdPersona = this.authService.IdPersona;
+  }
+
+
+  toggleMenu(menu: string): void {
+    this.openMenu = this.openMenu === menu ? null : menu;
   }
 
   logout() {

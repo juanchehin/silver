@@ -40,21 +40,10 @@ pool.query(`call bsp_chequear_activacion()`, function(err: any, result: any, fie
         return;
     }else{
         //
-        logger.info("tasa_dia " + tasa_dia);
 
         pool.query(`call bsp_login('${usuario}','${tasa_dia}')`, function(err: any, resultLogin: string | any[]){
             var menu: any = [];
-            console.log("🚀 ~ LoginController ~ pool.query ~ resultLogin:", resultLogin)
-            logger.info("loginController " + resultLogin);
 
-            if(resultLogin && resultLogin[0] && resultLogin[0][0] && resultLogin[0][0].mensaje == 'Debe cargar la tasa del dia'){
-
-                res.status(200).json({
-                    ok: true,
-                    mensaje : 'Debe cargar la tasa del dia'
-                });
-                return;
-            }
             
             if(err){
                 pool.query(`call bsp_alta_log('0','0','LoginController','0','loginUsuario','Error de login en panel + ${usuario}')`, function(err: any, result: any, fields: any){
@@ -67,6 +56,16 @@ pool.query(`call bsp_chequear_activacion()`, function(err: any, result: any, fie
                 res.status(401).json({
                     ok: true,
                     mensaje : 'Error de credenciales'
+                });
+                return;
+            }
+
+            
+            if(resultLogin && resultLogin[0] && resultLogin[0][0] && resultLogin[0][0].mensaje == 'Debe cargar la tasa del dia'){
+
+                res.status(200).json({
+                    ok: true,
+                    mensaje : 'Debe cargar la tasa del dia'
                 });
                 return;
             }
