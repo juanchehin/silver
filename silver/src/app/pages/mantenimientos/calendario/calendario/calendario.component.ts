@@ -2,6 +2,8 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction'; // para el arrastrar y soltar
 import { CalendarOptions } from '@fullcalendar/core'; // useful for typechecking
+import { AlertService } from 'src/app/services/alert.service';
+import { CalendarioService } from 'src/app/services/calendario.service';
 // import Swal from 'sweetalert2';
 
 @Component({
@@ -12,6 +14,7 @@ import { CalendarOptions } from '@fullcalendar/core'; // useful for typechecking
 export class CalendarioComponent implements OnInit {
   
   descripcion_evento: any;
+  fecha_evento: any;
 
   @ViewChild('modalCerrarNuevoEvento') modalCerrarNuevoEvento!: ElementRef;
 
@@ -26,6 +29,8 @@ export class CalendarioComponent implements OnInit {
   };
 
   constructor(
+    public alertService: AlertService,
+    private calendarioService: CalendarioService
   ) {
    }
 
@@ -50,6 +55,38 @@ export class CalendarioComponent implements OnInit {
   }
 
   alta_evento() {
+
+    if((this.descripcion_evento == '') || (this.descripcion_evento == 'undefined') || (this.descripcion_evento == undefined))
+    {
+      this.alertService.alertFail('Mensaje','Descripcion invalido',2000);
+      return;
+    }
+    
+      this.calendarioService.alta_evento( this.fecha_evento, this.descripcion_evento )
+      .subscribe({
+        next: (resp: any) => { 
+    
+          if(resp.mensaje == 'Ok') {
+            this.alertService.alertSuccess('Atencion','Caja aperturada',3000);
+            // this.buscarCaja();
+    
+            let el: HTMLElement = this.modalCerrarNuevoEvento.nativeElement;
+            el.click();
+        
+            this.refrescar();
+            
+          } else {
+            this.alertService.alertFail(resp[0][0].mensaje,false,1200);
+            
+          }
+          },
+        error: (resp: any) => {  this.alertService.alertFail(resp[0][0].mensaje,false,1200); }
+      });
+  }
+
+  refrescar() {
+
+    this.cargar_eventos_calendario();
     
   }
 

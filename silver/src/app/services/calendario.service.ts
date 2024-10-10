@@ -8,7 +8,7 @@ const URL_SERVICIOS = environment.URL_SERVICIOS;
 @Injectable({
   providedIn: 'root'
 })
-export class VouchersService {
+export class CalendarioService {
 
   get token(): string {
     return localStorage.getItem('token') || '';
@@ -42,35 +42,40 @@ export class VouchersService {
 // ==================================================
 //
 // ==================================================
-listar_vouchers_paginado(desde: any,estado_voucher: any){
+  listar_eventos(){
 
-  const id_sucursal = localStorage.getItem('id_sucursal');
-
-  let url = URL_SERVICIOS + '/vouchers/listar/' + desde + '/' + estado_voucher + '/' + this.IdPersona + '/' + id_sucursal;
+    let url = URL_SERVICIOS + '/calendario/listar/' + this.IdPersona;
 
     return this.http.get( url, this.headers );
   }  
 
-
 // ==================================================
 //        
 // ==================================================
-baja_voucher( id_transaccion: any ) {
+alta_evento( fecha: any, descripcion_evento: any ) {
 
-  let url = URL_SERVICIOS + '/vouchers/baja/' + id_transaccion + '/' + this.IdPersona;
+  const data = {
+    fecha,
+    descripcion_evento
+  }
 
-  return this.http.get( url, this.headers ); 
+  let url = URL_SERVICIOS + '/calendario/alta_evento/';
 
+  return this.http.post( url, data, this.headers);
 }
 
 // ==================================================
 //        
 // ==================================================
-confirmar_voucher( id_transaccion: any , id_empleado_seleccionado: any) {
+cierre( monto: any, observaciones: any ) {
 
-  let url = URL_SERVICIOS + '/vouchers/confirmar/' + id_transaccion + '/' + id_empleado_seleccionado + '/' + this.IdPersona;
+  const data = {
+    monto,
+    observaciones
+  }
 
-  return this.http.get( url, this.headers ); 
+  let url = URL_SERVICIOS + '/calendario/cierre/';
 
+  return this.http.post( url, data, this.headers);
 }
 }
