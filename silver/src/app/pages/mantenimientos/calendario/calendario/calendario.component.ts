@@ -134,10 +134,8 @@ export class CalendarioComponent implements OnInit {
     this.mes_seleccionado = currentMonth;
     this.ano_seleccionado = currentYear;
 
-    // this.cargar_eventos_calendario();
-
-
-    console.log('Mes visible:', currentMonth, 'Año:', currentYear);
+    this.cargar_eventos_calendario();
+    
   }
 
 }
