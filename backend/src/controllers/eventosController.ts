@@ -7,47 +7,23 @@ class EventosController {
 // ==================================================
 //        Inserta un cliente enviando un correo de confirmacion
 // ==================================================
-public async altaVoucher(req: Request, res: Response) {
+public async alta_evento(req: Request, res: Response) {
     
     const { IdPersona } = req.params;
-    const { id_sucursal } = req.params;
 
-    var producto = req.body[0];
-    var codigo = req.body[1];
-    var stock = req.body[2];
-    var precio_compra = req.body[3];
-    var precio_venta = req.body[4];
-    var observaciones = req.body[5];
-
-    if(codigo == null || codigo == 'null' || codigo == '-' || codigo == '' || codigo == 'undefined' || codigo == undefined)
-    {
-        codigo = '-';
-    }
-
-    if(stock == null || stock == 'null' || stock == '-' || stock == '' || stock == 'undefined' || stock == undefined)
-    {
-        stock = 0;
-    }
-
-    if(precio_compra == null || precio_compra == 'null' || precio_compra == '-' || precio_compra == '' || precio_compra == 'undefined' || precio_compra == undefined)
-    {
-        precio_compra = 0;
-    }
-
-    if(precio_venta == null || precio_venta == 'null' || precio_venta == '-' || precio_venta == '' || precio_venta == 'undefined' || precio_venta == undefined)
-    {
-        precio_venta = 0;
-    }
-
-    if(observaciones == null || observaciones == 'null' || observaciones == '-' || observaciones == '' || observaciones == 'undefined' || observaciones == undefined)
-    {
-        observaciones = '-';
-    }
-
+    var fecha_evento = req.body.fecha;
+    var descripcion_evento = req.body.descripcion_evento;
     
-    pool.query(`call bsp_alta_producto('${id_sucursal}','${producto}','${codigo}','${stock}','${precio_compra}','${precio_venta}','${observaciones}')`, function(err: any, result: any, fields: any){
+    if(descripcion_evento == null || descripcion_evento == 'null' || descripcion_evento == '-' || descripcion_evento == '' || descripcion_evento == 'undefined' || descripcion_evento == undefined)
+    {
+        descripcion_evento = '-';
+    }
+    
+    pool.query(`call bsp_alta_evento('${fecha_evento}','${descripcion_evento}')`, function(err: any, result: any, fields: any){
 
         if(err){
+            logger.error("Error en bsp_alta_evento - EventosController - " + err);
+
             res.status(404).json(err);
             return;
         }

@@ -70,8 +70,8 @@ export class CalendarioComponent implements OnInit {
       .subscribe({
         next: (resp: any) => { 
     
-          if(resp.mensaje == 'Ok') {
-            this.alertService.alertSuccess('Atencion','Caja aperturada',3000);
+          if(resp[0][0].mensaje == 'Ok') {
+            this.alertService.alertSuccess('Atencion','Evento cargado',3000);
             // this.buscarCaja();
     
             let el: HTMLElement = this.modalCerrarNuevoEvento.nativeElement;

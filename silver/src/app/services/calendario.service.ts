@@ -59,7 +59,7 @@ alta_evento( fecha: any, descripcion_evento: any ) {
     descripcion_evento
   }
 
-  let url = URL_SERVICIOS + '/calendario/alta_evento/';
+  let url = URL_SERVICIOS + '/eventos/alta/' + this.IdPersona;
 
   return this.http.post( url, data, this.headers);
 }
