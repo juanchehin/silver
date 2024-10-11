@@ -16,7 +16,7 @@ export class CalendarioComponent implements OnInit {
   
   descripcion_evento: any;
   fecha_evento: any;
-  eventos = [];
+  eventos: any = [];
   mes_seleccionado: any;
   ano_seleccionado: any;
   calendarOptions: CalendarOptions | undefined;
@@ -30,11 +30,12 @@ export class CalendarioComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.cargar_eventos_calendario();
     this.calendarOptions = {
       initialView: 'dayGridMonth',
       plugins: [dayGridPlugin,interactionPlugin],
       dateClick: (arg) => this.handleDateClick(arg),
-      events: this.eventos,
+      events: [],
       datesSet: this.onDatesSet.bind(this)
     };
   }
@@ -58,11 +59,12 @@ export class CalendarioComponent implements OnInit {
       this.calendarioService.listar_eventos( this.mes_seleccionado, this.ano_seleccionado  )
       .subscribe( {
         next: (resp: any) => { 
-        console.log("🚀 ~ CalendarioComponent ~ cargar_eventos_calendario ~ resp:", resp)
 
           if ( resp[1][0].mensaje == 'Ok') {
             
             this.eventos = resp[0];
+            this.calendarOptions!.events = this.eventos;
+
             this.alertService.cargando = false;
 
           } else {
@@ -132,7 +134,7 @@ export class CalendarioComponent implements OnInit {
     this.mes_seleccionado = currentMonth;
     this.ano_seleccionado = currentYear;
 
-    this.cargar_eventos_calendario();
+    // this.cargar_eventos_calendario();
 
 
     console.log('Mes visible:', currentMonth, 'Año:', currentYear);

@@ -73,6 +73,20 @@ public async listar_eventos(req: Request, res: Response): Promise<void> {
     var mes_eventos = req.params.mes_eventos;
     var ano_eventos = req.params.ano_eventos;
 
+    const fechaActual = new Date();
+    const anioActual = fechaActual.getFullYear();
+    const mesActual = fechaActual.getMonth() + 1; 
+
+    if(mes_eventos == null || mes_eventos == 'null' || mes_eventos == '-' || mes_eventos == '' || mes_eventos == 'undefined' || mes_eventos == undefined)
+    {
+        mes_eventos = mesActual.toString();
+    }
+    
+    if(ano_eventos == null || ano_eventos == 'null' || ano_eventos == '-' || ano_eventos == '' || ano_eventos == 'undefined' || ano_eventos == undefined)
+    {
+        ano_eventos = anioActual.toString();
+    }
+
     pool.query(`call bsp_listar_eventos('${mes_eventos}','${ano_eventos}')`, function(err: any, result: any){
         if(err){
             logger.error("Error en listar_eventos - eventosController");
