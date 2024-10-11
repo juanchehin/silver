@@ -42,9 +42,9 @@ export class CalendarioService {
 // ==================================================
 //
 // ==================================================
-  listar_eventos(){
+  listar_eventos(p_mes_eventos: any,p_ano_eventos: any){
 
-    let url = URL_SERVICIOS + '/calendario/listar/' + this.IdPersona;
+    let url = URL_SERVICIOS + '/eventos/listar/' + p_mes_eventos + '/' + p_ano_eventos + '/' + this.IdPersona;
 
     return this.http.get( url, this.headers );
   }  

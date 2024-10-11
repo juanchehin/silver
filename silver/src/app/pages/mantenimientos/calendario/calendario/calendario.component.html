@@ -5,7 +5,7 @@
 <!-- ============================================================== -->
     <div class="content-page">
         <div class="content">
-                <full-calendar [options]="calendarOptions"></full-calendar>
+                <full-calendar [options]="calendarOptions" (datesSet)="onDatesSet($event)"></full-calendar>
         </div>
     </div>
 <!-- ============================================================== -->

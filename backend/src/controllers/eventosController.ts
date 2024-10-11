@@ -68,22 +68,14 @@ public async baja_evento(req: Request, res: Response): Promise<void> {
 // ==================================================
 //   Listado de eventos
 // ==================================================
-public async listar_eventos_paginado(req: Request, res: Response): Promise<void> {
+public async listar_eventos(req: Request, res: Response): Promise<void> {
 
-    var desde = req.params.pDesde || 0;
-    desde  = Number(desde);
-    
-    var pEstadoVoucher = req.params.estado_evento || 'T';
-    var id_sucursal = req.params.id_sucursal || 1;
+    var mes_eventos = req.params.mes_eventos;
+    var ano_eventos = req.params.ano_eventos;
 
-    if(pEstadoVoucher == null || pEstadoVoucher == 'null' || pEstadoVoucher == '-' || pEstadoVoucher == '')
-    {
-        pEstadoVoucher = 'T';
-    }
-
-    pool.query(`call bsp_listar_eventos_paginado('${desde}','${pEstadoVoucher}','${id_sucursal}')`, function(err: any, result: any){
+    pool.query(`call bsp_listar_eventos('${mes_eventos}','${ano_eventos}')`, function(err: any, result: any){
         if(err){
-            logger.error("Error en listar_eventos_paginado - eventosController");
+            logger.error("Error en listar_eventos - eventosController");
 
             res.status(400).json(err);
             return;

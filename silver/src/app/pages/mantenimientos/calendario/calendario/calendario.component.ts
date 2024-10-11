@@ -4,6 +4,7 @@ import interactionPlugin from '@fullcalendar/interaction'; // para el arrastrar 
 import { CalendarOptions } from '@fullcalendar/core'; // useful for typechecking
 import { AlertService } from 'src/app/services/alert.service';
 import { CalendarioService } from 'src/app/services/calendario.service';
+
 // import Swal from 'sweetalert2';
 
 @Component({
@@ -15,18 +16,12 @@ export class CalendarioComponent implements OnInit {
   
   descripcion_evento: any;
   fecha_evento: any;
+  eventos = [];
+  mes_seleccionado: any;
+  ano_seleccionado: any;
+  calendarOptions: CalendarOptions | undefined;
 
   @ViewChild('modalCerrarNuevoEvento') modalCerrarNuevoEvento!: ElementRef;
-
-  calendarOptions: CalendarOptions = {
-    initialView: 'dayGridMonth',
-    plugins: [dayGridPlugin,interactionPlugin],
-    dateClick: (arg) => this.handleDateClick(arg),
-    events: [
-      { title: 'event 1', date: '2024-10-10' },
-      { title: 'event 2', date: '2019-04-02' }
-    ]
-  };
 
   constructor(
     public alertService: AlertService,
@@ -35,14 +30,19 @@ export class CalendarioComponent implements OnInit {
    }
 
   ngOnInit() {
-   this.cargar_eventos_calendario();
+    this.calendarOptions = {
+      initialView: 'dayGridMonth',
+      plugins: [dayGridPlugin,interactionPlugin],
+      dateClick: (arg) => this.handleDateClick(arg),
+      events: this.eventos,
+      datesSet: this.onDatesSet.bind(this)
+    };
   }
 
   // =====================
   handleDateClick(arg: any) {
     console.log("🚀 ~ CalendarioComponent ~ handleDateClick ~ arg:", arg)
     this.fecha_evento = arg.dateStr;
-    // alert('date click! ' + arg.dateStr)
 
     const modal = document.getElementById('modal_nuevo_evento');
     if (modal) {
@@ -54,7 +54,32 @@ export class CalendarioComponent implements OnInit {
 
   // =====================
   cargar_eventos_calendario() {
-    
+
+      this.calendarioService.listar_eventos( this.mes_seleccionado, this.ano_seleccionado  )
+      .subscribe( {
+        next: (resp: any) => { 
+        console.log("🚀 ~ CalendarioComponent ~ cargar_eventos_calendario ~ resp:", resp)
+
+          if ( resp[1][0].mensaje == 'Ok') {
+            
+            this.eventos = resp[0];
+            this.alertService.cargando = false;
+
+          } else {
+            this.alertService.alertFail('Ocurrio un error',false,2000);
+            this.alertService.cargando = false;
+
+          }
+          this.alertService.cargando = false;
+
+          return;
+          },
+      error: () => { 
+        this.alertService.alertFail('Ocurrio un error',false,2000);
+        this.alertService.cargando = false;
+
+      }
+    });
   }
 
   // =====================
@@ -92,6 +117,25 @@ export class CalendarioComponent implements OnInit {
 
     this.cargar_eventos_calendario();
     
+  }
+
+  // Este método captura el evento datesSet y obtiene el mes visible
+  onDatesSet(event: any) {
+    const currentMonth = event.view.currentStart.getMonth() + 1; // Sumar 1 para obtener el número del mes correcto
+
+    const startDate = event.start; // fecha de inicio visible en el calendario
+    const endDate = event.end; // fecha de fin visible en el calendario
+
+    // Obtener el mes actualmente visible
+    const currentYear = startDate.getFullYear();
+
+    this.mes_seleccionado = currentMonth;
+    this.ano_seleccionado = currentYear;
+
+    this.cargar_eventos_calendario();
+
+
+    console.log('Mes visible:', currentMonth, 'Año:', currentYear);
   }
 
 }
