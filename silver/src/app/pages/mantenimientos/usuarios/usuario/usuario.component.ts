@@ -34,7 +34,7 @@ export class UsuarioComponent implements OnInit {
       observaciones: new FormControl(null ),
       codigo: new FormControl(null ),
       contrasena: new FormControl(null ),
-      id_rol: new FormControl(null )
+      id_rol: new FormControl(1 )
     });
   }
 

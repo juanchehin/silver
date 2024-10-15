@@ -100,7 +100,6 @@ public async buscarServicioPaginado(req: Request, res: Response): Promise<void> 
 public async buscarServicioAutoComplete(req: Request, res: Response): Promise<void> {
 
     var pParametroBusqueda = req.params.pServicioBuscado || '';
-    var pIdSucursal = req.params.pIdSucursal;
     var pIdUsuario = req.params.IdPersona;
 
     if(pParametroBusqueda == null || pParametroBusqueda == 'null')
@@ -108,7 +107,7 @@ public async buscarServicioAutoComplete(req: Request, res: Response): Promise<vo
         pParametroBusqueda = '';
     }
 
-    pool.query(`call bsp_buscar_servicio_autocomplete('${pParametroBusqueda}','${pIdSucursal}','${pIdUsuario}')`, function(err: any, result: any){
+    pool.query(`call bsp_buscar_servicio_autocomplete('${pParametroBusqueda}','${pIdUsuario}')`, function(err: any, result: any){
 
         if(err){
             logger.error("Error en bsp_buscar_servicio_autocomplete - serviciosController");

@@ -267,9 +267,8 @@ public async actualizaCliente(req: Request, res: Response) {
 // ==================================================
 public async buscarCliente(req: Request, res: Response): Promise<any> {
     var clienteBuscado = req.params.clienteBuscado;
-    var pIdSucursal = req.params.pIdSucursal;
 
-    pool.query(`call bsp_buscar_cliente('${clienteBuscado}','${pIdSucursal}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_buscar_cliente('${clienteBuscado}')`, function(err: any, result: any, fields: any){
         if(err){
             res.status(404).json({ text: "La personas no existe" });
             return;

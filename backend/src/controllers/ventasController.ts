@@ -99,7 +99,7 @@ async altaVenta(req: Request, res: Response) {
     var pMontoTotal = req.body[4];
     var pFechaVenta = req.body[5];
     var pDescripcion = req.body[6];
-
+    
     if(pDescripcion == null || pDescripcion == 'null' || pDescripcion == '-' || pDescripcion == '' || pDescripcion == 'undefined' || pDescripcion == undefined)
     {
         pDescripcion = '-';
@@ -151,6 +151,7 @@ async altaVenta(req: Request, res: Response) {
         });
 
         pIdVenta = result[0][0].IdVenta;
+        console.log("🚀 ~ VentasController ~ altaVenta ~ pIdVenta:", pIdVenta)
 
         // ======================= Confirmar transferencia exitosa ==========================================
       

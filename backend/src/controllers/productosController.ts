@@ -124,15 +124,14 @@ public async buscarProductoPaginado(req: Request, res: Response): Promise<void> 
 public async buscarProductoAutoComplete(req: Request, res: Response): Promise<void> {
 
     var pParametroBusqueda = req.params.pProductoBuscado || '';
-    var pIdSucursal = req.params.IdSucursal;
     var pIdUsuario = req.params.IdPersona;
     
     if(pParametroBusqueda == null || pParametroBusqueda == 'null' || pParametroBusqueda == 'undefined' || pParametroBusqueda == undefined)
     {
         pParametroBusqueda = '';
     }
-    
-    pool.query(`call bsp_buscar_producto_autocomplete('${pParametroBusqueda}','${pIdSucursal}','${pIdUsuario}')`, function(err: any, result: any){
+
+    pool.query(`call bsp_buscar_producto_autocomplete('${pParametroBusqueda}','${pIdUsuario}')`, function(err: any, result: any){
         
         if(err){
             logger.error("Error en bsp_buscar_producto_autocomplete - productosController");

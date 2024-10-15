@@ -199,6 +199,7 @@ cargarEmpleados() {
 
   this.empleadosService.cargarEmpleados( this.empleadoBuscado )
              .subscribe( (resp: any) => {
+             console.log("🚀 ~ NuevaVentaComponent ~ .subscribe ~ resp:", resp)
 
               this.empleados = resp;
 
