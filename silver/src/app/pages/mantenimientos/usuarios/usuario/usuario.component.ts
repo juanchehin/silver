@@ -26,11 +26,15 @@ export class UsuarioComponent implements OnInit {
     this.forma = new FormGroup({      
       Apellidos: new FormControl(null, Validators.required ),
       Nombres: new FormControl(null, Validators.required ),
-      DNI: new FormControl(null),
+      cedula: new FormControl(null),
       Telefono: new FormControl(null ),
       Email: new FormControl(null, Validators.email ),
-      Observaciones: new FormControl(null ),
-      codigo: new FormControl(null )
+      direccion: new FormControl(null ),
+      fecha_nac: new FormControl(null ),
+      observaciones: new FormControl(null ),
+      codigo: new FormControl(null ),
+      contrasena: new FormControl(null ),
+      id_rol: new FormControl(null )
     });
   }
 
@@ -48,31 +52,32 @@ export class UsuarioComponent implements OnInit {
       const usuario = new Array(
         this.forma.value.Apellidos,
         this.forma.value.Nombres,
-        this.forma.value.DNI,
+        this.forma.value.cedula,
         this.forma.value.Telefono,
         this.forma.value.Email,
         this.forma.value.direccion,
         this.forma.value.fecha_nac,
-        this.forma.value.Observaciones,
+        this.forma.value.observaciones,
         this.forma.value.codigo,
-        this.IdRol
+        this.forma.value.contrasena,
+        this.forma.value.id_rol
       );
 
       this.usuariosService.altaUsuario( usuario )
-                .subscribe(
-                  {
+                .subscribe({
                     next: (resp: any) => {
-                      if ( resp[0][0].mensaje == 'Ok') {
+
+                      if (resp.ok != false && resp.mensaje == 'Ok') {
 
                             this.alertService.alertSuccess('Mensaje','Usuario cargado',2000);
                             
                             this.router.navigate(['/dashboard/usuarios']);
-                          } else {
-                            this.alertService.alertFail('Mensaje','Ocurrio un error : ' + resp[0][0].mensaje,2000);
-                          }
-                          return;
+                      } else {
+                        this.alertService.alertFail('Mensaje','Ocurrio un error al procesar el pedido',2000);
+                      }
+                      return;
                      },
-                    error: (resp: any) => {
+                    error: () => {
                 
                       this.alertService.alertFailWithText('Error','Ocurrio un error al procesar el pedido',2000);
                     

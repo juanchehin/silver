@@ -55,23 +55,26 @@ public async altaUsuario(req: Request, res: Response) {
 
     var Apellidos = req.body[0];
     var Nombres = req.body[1];
-    var Usuario = req.body[2];
-    var Correo = req.body[3];
-    var Telefono = req.body[4];
-    var DNI = req.body[5];
-    var Password = req.body[6];
-    var Observaciones = req.body[7];
-    var FechaNac = req.body[8];
-    var IdSucursal = req.body[9];
-
+    var cedula = req.body[2];
+    var telefono = req.body[3];
+    var mail = req.body[4];
+    var direccion = req.body[5];
+    var fecha_nac = req.body[6];
+    var observaciones = req.body[7];
+    var codigo = req.body[8];
+    var pass = req.body[9];
+    var id_rol = req.body[10];
+    
     const saltRounds = 10;  //  Data processing speed
 
     bcrypt.genSalt(saltRounds, function(err: any, salt: any) {
-        bcrypt.hash(Password, salt, async function(err: any, hash: any) {
+        bcrypt.hash(pass, salt, async function(err: any, hash: any) {
 
-            pool.query(`call bsp_alta_usuario('${IdUsuario}','${Apellidos}','${Nombres}','${hash}','${Telefono}','${DNI}','${Correo}','${FechaNac}','${Usuario}','${IdSucursal}','${Observaciones}')`, function(err: any, result: any, fields: any){        
+            pool.query(`call bsp_alta_usuario('${IdUsuario}','${Apellidos}','${Nombres}'
+                ,'${hash}','${telefono}','${cedula}','${mail}','${fecha_nac}'
+                ,'${direccion}','${codigo}','${id_rol}','${observaciones}')`, function(err: any, result: any, fields: any){        
             
-                if(err || result[0][0].mensaje != 'Ok'){
+                if(err && result && result[0] && result[0][0].mensaje != 'Ok'){
                     logger.error("Error bsp_alta_usuario - altaUsuario - usuariosController ");
 
                     return res.json({
@@ -80,8 +83,12 @@ public async altaUsuario(req: Request, res: Response) {
                     });
                 }
 
-                // =============Fin permisos=================
-                return res.json({ mensaje: 'Ok' });
+                // =============Fin permisos================                
+                return res.json({
+                    ok: true,
+                    mensaje: result[0][0].mensaje
+                });
+
             })
 
         });

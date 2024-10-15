@@ -21,7 +21,7 @@
                                 <input formControlName="Apellidos" name="Apellidos" type="text" placeholder="Apellidos..." class="form-control" maxLength="30">
                             </div>
                             <div class="col-sm-6 form-group">
-                                <label>Nombres : </label><input formControlName="Nombres" name="Nombres" min="1" maxLength="15" step="1" type="text" placeholder="Nombres" class="form-control">
+                                <label>Nombres : </label><input formControlName="Nombres" name="Nombres" maxLength="30" type="text" placeholder="Nombres" class="form-control">
                             </div>
                             <div class="col-sm-6 form-group">
                                 <label>Codigo : </label><input formControlName="codigo" name="codigo" type="text" placeholder="Codigo..." class="form-control">
@@ -30,10 +30,10 @@
                                 <label>Telefono : </label><input formControlName="Telefono" name="Telefono" type="text" min="1" maxLength="15" step="1" placeholder="Telefono" class="form-control">
                             </div>
                             <div class="col-sm-6 form-group">
-                                <label>DNI : </label><input formControlName="DNI" name="DNI" type="text" min="1" maxLength="10" step="1" placeholder="DNI" class="form-control">
+                                <label>Cedula : </label><input formControlName="cedula" name="cedula" type="text" min="1" maxLength="10" step="1" placeholder="cedula..." class="form-control">
                             </div>
                             <div class="col-sm-6 form-group">
-                                <label>Email : </label><input formControlName="Email" name="Email" type="email" min="1" maxLength="30" step="1" placeholder="Email" class="form-control">
+                                <label>Email : </label><input formControlName="Email" name="Email" type="email" maxLength="30" placeholder="Email" class="form-control">
                             </div>
                             <div class="col-sm-6 form-group">
                                 <label>Direccion : </label><input formControlName="direccion" name="direccion" type="text" placeholder="Direccion..." class="form-control">
@@ -43,10 +43,14 @@
                             </div>
                             <div class="col-sm-6 form-group">
                                 <label>Rol : </label>
-                                <select [(ngModel)]="IdRol" name="IdRol" class="form-control">
+                                <select formControlName="id_rol" name="id_rol" class="form-control">
                                     <option [value]="1">Admin</option>
                                     <option [value]="2">Ventas</option>
+                                    <option [value]="5">Vendedor/Especialista</option>
                                 </select>
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <label>Contraseña : </label><input formControlName="contrasena" name="contrasena" type="password" class="form-control" placeholder="Contraseña...">
                             </div>
                         </div>
                         <div class="row">
