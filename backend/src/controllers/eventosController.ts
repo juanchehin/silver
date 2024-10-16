@@ -53,12 +53,15 @@ public async listarEventosPaginado(req: Request, res: Response): Promise<void> {
 //       
 // ==================================================
 public async baja_evento(req: Request, res: Response): Promise<void> {
-
+    
     var IdPersona = req.params.IdPersona;
-    var IdVoucher = req.params.pIdVoucher;
+    var id_evento = req.body.id_evento;
 
-    pool.query(`call bsp_baja_evento('${IdPersona}','${IdVoucher}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_baja_evento('${IdPersona}','${id_evento}')`, function(err: any, result: any, fields: any){
+        
         if(err){
+            logger.error("Error en baja_evento - EventosController - " + err);
+
             res.status(404).json(err);
             return;
         }

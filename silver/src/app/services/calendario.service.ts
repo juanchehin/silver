@@ -68,6 +68,19 @@ alta_evento( fecha: any,id_persona: any, descripcion_evento: any ) {
 // ==================================================
 //        
 // ==================================================
+baja_evento( id_evento: any ) {
+
+  const data = {
+    id_evento
+  }
+
+  let url = URL_SERVICIOS + '/eventos/baja/' + this.IdPersona;
+
+  return this.http.post( url, data, this.headers);
+}
+// ==================================================
+//        
+// ==================================================
 cierre( monto: any, observaciones: any ) {
 
   const data = {

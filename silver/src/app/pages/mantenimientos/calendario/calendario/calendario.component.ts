@@ -19,6 +19,7 @@ export class CalendarioComponent implements OnInit {
   mes_seleccionado: any;
   ano_seleccionado: any;
   calendarOptions: CalendarOptions | undefined;
+  id_evento_a_eliminar: any;
 
   // Empleados
   empleados: any;
@@ -27,6 +28,7 @@ export class CalendarioComponent implements OnInit {
   IdEmpleado = 0;
 
   @ViewChild('modalCerrarNuevoEvento') modalCerrarNuevoEvento!: ElementRef;
+  @ViewChild('modalCerrarBajaEvento') modalCerrarBajaEvento!: ElementRef;
 
   constructor(
     public alertService: AlertService,
@@ -40,6 +42,7 @@ export class CalendarioComponent implements OnInit {
     this.calendarOptions = {
       initialView: 'dayGridMonth',
       plugins: [dayGridPlugin,interactionPlugin],
+      eventClick: this.handleEventClick.bind(this),
       dateClick: (arg) => this.handleDateClick(arg),
       events: [],
       datesSet: this.onDatesSet.bind(this)
@@ -48,7 +51,7 @@ export class CalendarioComponent implements OnInit {
 
   // =====================
   handleDateClick(arg: any) {
-    console.log("🚀 ~ CalendarioComponent ~ handleDateClick ~ arg:", arg)
+
     this.fecha_evento = arg.dateStr;
 
     const modal = document.getElementById('modal_nuevo_evento');
@@ -57,6 +60,18 @@ export class CalendarioComponent implements OnInit {
       bootstrapModal.show();
     }
 
+  }
+
+  handleEventClick(clickInfo: any) {
+
+    this.id_evento_a_eliminar = clickInfo.event.extendedProps.id_evento;
+
+    const modal = document.getElementById('modal_baja_evento');
+    if (modal) {
+      const bootstrapModal = new (window as any).bootstrap.Modal(modal);
+      bootstrapModal.show();
+    }
+    
   }
 
   // =====================
@@ -98,7 +113,6 @@ cargarEmpleados() {
 
   this.empleadosService.cargarEmpleados( this.empleadoBuscado )
              .subscribe( (resp: any) => {
-             console.log("🚀 ~ NuevaVentaComponent ~ .subscribe ~ resp:", resp)
 
               this.empleados = resp;
 
@@ -166,6 +180,36 @@ cargarEmpleados() {
       });
   }
 
+    // =====================
+    baja_evento() {
+
+      if((this.id_evento_a_eliminar == '') || (this.id_evento_a_eliminar == 'undefined') || (this.id_evento_a_eliminar == undefined))
+      {
+        this.alertService.alertFail('Mensaje','Evento invalido',2000);
+        return;
+      }
+      
+        this.calendarioService.baja_evento( this.id_evento_a_eliminar )
+        .subscribe({
+          next: (resp: any) => { 
+      
+            if(resp[0][0].mensaje == 'Ok') {
+              this.alertService.alertSuccess('Atencion','Evento eliminado',3000);
+              // this.buscarCaja();
+      
+              let el: HTMLElement = this.modalCerrarBajaEvento.nativeElement;
+              el.click();
+          
+              this.refrescar();
+              
+            } else {
+              this.alertService.alertFail(resp[0][0].mensaje,false,1200);
+              
+            }
+            },
+          error: (resp: any) => {  this.alertService.alertFail(resp[0][0].mensaje,false,1200); }
+        });
+    }
   refrescar() {
 
     this.cargar_eventos_calendario();
