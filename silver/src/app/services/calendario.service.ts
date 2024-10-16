@@ -92,4 +92,17 @@ cierre( monto: any, observaciones: any ) {
 
   return this.http.post( url, data, this.headers);
 }
+// ==================================================
+//        
+// ==================================================
+dame_detalle_evento( id_evento: any ) {
+
+  const data = {
+    id_evento
+  }
+
+  let url = URL_SERVICIOS + '/eventos/detalle/' + this.IdPersona;
+
+  return this.http.post( url, data, this.headers);
+}
 }

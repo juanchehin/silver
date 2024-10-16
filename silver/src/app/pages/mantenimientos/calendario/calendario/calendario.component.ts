@@ -19,7 +19,8 @@ export class CalendarioComponent implements OnInit {
   mes_seleccionado: any;
   ano_seleccionado: any;
   calendarOptions: CalendarOptions | undefined;
-  id_evento_a_eliminar: any;
+  id_evento_seleccionado: any;
+  detalles_evento: any;
 
   // Empleados
   empleados: any;
@@ -27,8 +28,18 @@ export class CalendarioComponent implements OnInit {
   empleadoBuscado = '';
   IdEmpleado = 0;
 
+  // Evento
+  detalle_evento_id_evento: any;
+  detalle_evento_apellidos: any;
+  detalle_evento_nombres: any;
+  detalle_evento_fecha_evento: any;
+  detalle_evento_fecha_creacion_evento: any;
+  detalle_evento_nro_identidad: any;
+  detalle_evento_titulo: any;
+
   @ViewChild('modalCerrarNuevoEvento') modalCerrarNuevoEvento!: ElementRef;
   @ViewChild('modalCerrarBajaEvento') modalCerrarBajaEvento!: ElementRef;
+  @ViewChild('modalCerrarDetallesEvento') modalCerrarDetallesEvento!: ElementRef;
 
   constructor(
     public alertService: AlertService,
@@ -62,9 +73,24 @@ export class CalendarioComponent implements OnInit {
 
   }
 
+  // =====================
   handleEventClick(clickInfo: any) {
 
-    this.id_evento_a_eliminar = clickInfo.event.extendedProps.id_evento;
+    this.id_evento_seleccionado = clickInfo.event.extendedProps.id_evento;
+    
+    this.dame_detalle_evento();
+
+    const modal = document.getElementById('modal_detalles_evento');
+    if (modal) {
+      const bootstrapModal = new (window as any).bootstrap.Modal(modal);
+      bootstrapModal.show();
+    }
+    
+  }
+
+  // =====================
+  modal_baja_evento() {
+
 
     const modal = document.getElementById('modal_baja_evento');
     if (modal) {
@@ -104,6 +130,8 @@ export class CalendarioComponent implements OnInit {
       }
     });
   }
+
+
 
 // ==================================================
 // Carga
@@ -183,13 +211,13 @@ cargarEmpleados() {
     // =====================
     baja_evento() {
 
-      if((this.id_evento_a_eliminar == '') || (this.id_evento_a_eliminar == 'undefined') || (this.id_evento_a_eliminar == undefined))
+      if((this.id_evento_seleccionado == '') || (this.id_evento_seleccionado == 'undefined') || (this.id_evento_seleccionado == undefined))
       {
         this.alertService.alertFail('Mensaje','Evento invalido',2000);
         return;
       }
       
-        this.calendarioService.baja_evento( this.id_evento_a_eliminar )
+        this.calendarioService.baja_evento( this.id_evento_seleccionado )
         .subscribe({
           next: (resp: any) => { 
       
@@ -199,6 +227,9 @@ cargarEmpleados() {
       
               let el: HTMLElement = this.modalCerrarBajaEvento.nativeElement;
               el.click();
+
+              let el1: HTMLElement = this.modalCerrarDetallesEvento.nativeElement;
+              el1.click();
           
               this.refrescar();
               
@@ -210,6 +241,45 @@ cargarEmpleados() {
           error: (resp: any) => {  this.alertService.alertFail(resp[0][0].mensaje,false,1200); }
         });
     }
+
+// ==================================================
+// Carga
+// ==================================================
+
+dame_detalle_evento() {
+
+  if((this.id_evento_seleccionado == '') || (this.id_evento_seleccionado == 'undefined') || (this.id_evento_seleccionado == undefined))
+    {
+      this.alertService.alertFail('Mensaje','Evento invalido',2000);
+      return;
+    }
+    
+      this.calendarioService.dame_detalle_evento( this.id_evento_seleccionado )
+      .subscribe({
+        next: (resp: any) => { 
+    
+          if(resp[1][0].mensaje == 'Ok') {
+
+            this.detalles_evento = resp;
+
+            this.detalle_evento_id_evento = resp[0][0].id_evento;
+            this.detalle_evento_apellidos  = resp[0][0].apellidos;
+            this.detalle_evento_nombres  = resp[0][0].nombres;
+            this.detalle_evento_fecha_evento  = resp[0][0].fecha_evento;
+            this.detalle_evento_fecha_creacion_evento  = resp[0][0].created_at;
+            this.detalle_evento_nro_identidad  = resp[0][0].nro_identidad;
+            this.detalle_evento_titulo  = resp[0][0].title;
+
+            
+          } else {
+            this.alertService.alertFail(resp[0][0].mensaje,false,1200);
+            
+          }
+          },
+        error: (resp: any) => {  this.alertService.alertFail(resp[0][0].mensaje,false,1200); }
+      });
+
+}
   refrescar() {
 
     this.cargar_eventos_calendario();

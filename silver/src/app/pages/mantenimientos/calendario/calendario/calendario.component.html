@@ -59,7 +59,52 @@
   </div>
 </div>
   
-
+<!-- Modal - detalles evento -->
+<div class="modal fade" id="modal_detalles_evento" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Detalles del evento</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <!-- == body == -->
+      <br>
+      <div class="modal-body">
+        <!--  -->
+        <div class="row">         
+          <h4>Titulo : {{ detalle_evento_titulo }} </h4>
+        </div>
+        <!--  -->
+        <div class="row">
+          <h4>Id Evento : {{ detalle_evento_id_evento }} </h4>
+        </div>  
+        <!--  -->
+        <div class="row">
+          <h4>Fecha evento : {{ detalle_evento_fecha_evento }} </h4>
+        </div> 
+        <!--  -->
+        <div class="row">
+          <h4>Fecha creacion : {{ detalle_evento_fecha_creacion_evento }} </h4>          
+        </div> 
+        <!--  -->
+        <div class="row">         
+          <h4>Empleado : {{ detalle_evento_apellidos }} , {{ detalle_evento_nombres }} ( {{ detalle_evento_nro_identidad }} ) </h4>
+        </div>
+        <br><br>
+        <div class="row">         
+          <button type="button" class="btn btn-danger" (click)="modal_baja_evento()">Eliminar evento</button>
+        </div>
+        <!--  -->
+      </div>
+      <br>
+      <!-- == fin body == -->
+      <div class="modal-footer">
+        <button #modalCerrarDetallesEvento type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Modal - baja evento -->
 <div class="modal fade" id="modal_baja_evento" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

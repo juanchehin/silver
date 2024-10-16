@@ -70,6 +70,27 @@ public async baja_evento(req: Request, res: Response): Promise<void> {
 }
 
 // ==================================================
+//       
+// ==================================================
+public async dame_detalle_evento(req: Request, res: Response): Promise<void> {
+    
+    var IdPersona = req.params.IdPersona;
+    var id_evento = req.body.id_evento;
+
+    pool.query(`call bsp_dame_detalle_evento('${IdPersona}','${id_evento}')`, function(err: any, result: any, fields: any){
+        
+        if(err){
+            logger.error("Error en dame_detalle_evento - EventosController - " + err);
+
+            res.status(404).json(err);
+            return;
+        }
+        res.status(200).json(result);
+    })
+}
+
+
+// ==================================================
 //   Listado de eventos
 // ==================================================
 public async listar_eventos(req: Request, res: Response): Promise<void> {
