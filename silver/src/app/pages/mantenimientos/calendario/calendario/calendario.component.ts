@@ -4,8 +4,7 @@ import interactionPlugin from '@fullcalendar/interaction'; // para el arrastrar 
 import { CalendarOptions } from '@fullcalendar/core'; // useful for typechecking
 import { AlertService } from 'src/app/services/alert.service';
 import { CalendarioService } from 'src/app/services/calendario.service';
-
-// import Swal from 'sweetalert2';
+import { EmpleadosService } from 'src/app/services/empleados.service';
 
 @Component({
   selector: 'app-calendario',
@@ -21,11 +20,18 @@ export class CalendarioComponent implements OnInit {
   ano_seleccionado: any;
   calendarOptions: CalendarOptions | undefined;
 
+  // Empleados
+  empleados: any;
+  keywordEmpleado = 'empleado';
+  empleadoBuscado = '';
+  IdEmpleado = 0;
+
   @ViewChild('modalCerrarNuevoEvento') modalCerrarNuevoEvento!: ElementRef;
 
   constructor(
     public alertService: AlertService,
-    private calendarioService: CalendarioService
+    private calendarioService: CalendarioService,
+    public empleadosService: EmpleadosService
   ) {
    }
 
@@ -84,6 +90,51 @@ export class CalendarioComponent implements OnInit {
     });
   }
 
+// ==================================================
+// Carga
+// ==================================================
+
+cargarEmpleados() {
+
+  this.empleadosService.cargarEmpleados( this.empleadoBuscado )
+             .subscribe( (resp: any) => {
+             console.log("🚀 ~ NuevaVentaComponent ~ .subscribe ~ resp:", resp)
+
+              this.empleados = resp;
+
+            });
+
+}
+
+
+// ==============================
+  // Para empleados
+  // ================================
+  selectEventEmpleado(item: any) {
+    this.IdEmpleado = item.id_persona;
+    // this.agregarLineaVenta(item);
+    // do something with selected item
+  }
+
+  onChangeSearchEmpleado(val: any) {
+
+    if(val == '' || val == null)
+    {
+      return;
+    }
+
+    this.empleadoBuscado = val;
+    this.cargarEmpleados();
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+
+  onFocused(e: any){
+    // console.log("pasa on onFocused",e)
+    // do something when input is focused
+  }
+
+
   // =====================
   alta_evento() {
 
@@ -93,7 +144,7 @@ export class CalendarioComponent implements OnInit {
       return;
     }
     
-      this.calendarioService.alta_evento( this.fecha_evento, this.descripcion_evento )
+      this.calendarioService.alta_evento( this.fecha_evento, this.IdEmpleado , this.descripcion_evento )
       .subscribe({
         next: (resp: any) => { 
     

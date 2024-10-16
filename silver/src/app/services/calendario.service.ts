@@ -52,10 +52,11 @@ export class CalendarioService {
 // ==================================================
 //        
 // ==================================================
-alta_evento( fecha: any, descripcion_evento: any ) {
+alta_evento( fecha: any,id_persona: any, descripcion_evento: any ) {
 
   const data = {
     fecha,
+    id_persona,
     descripcion_evento
   }
 

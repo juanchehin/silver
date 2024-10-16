@@ -13,13 +13,14 @@ public async alta_evento(req: Request, res: Response) {
 
     var fecha_evento = req.body.fecha;
     var descripcion_evento = req.body.descripcion_evento;
-    
+    var id_persona = req.body.id_persona;
+
     if(descripcion_evento == null || descripcion_evento == 'null' || descripcion_evento == '-' || descripcion_evento == '' || descripcion_evento == 'undefined' || descripcion_evento == undefined)
     {
         descripcion_evento = '-';
     }
     
-    pool.query(`call bsp_alta_evento('${fecha_evento}','${descripcion_evento}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_alta_evento('${fecha_evento}','${id_persona}','${descripcion_evento}')`, function(err: any, result: any, fields: any){
 
         if(err){
             logger.error("Error en bsp_alta_evento - EventosController - " + err);

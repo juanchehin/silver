@@ -25,6 +25,24 @@
         <br>
         <div class="modal-body">
           <div class="row">
+            <h5 class="m-t-30">Vendedor : </h5>
+              <div class="ng-autocomplete" style="width:450px">
+                  <ng-autocomplete [data]="empleados" [searchKeyword]="keywordEmpleado" 
+                  placeholder="Selecciona vendedor" (selected)='selectEventEmpleado($event)' 
+                  (inputChanged)='onChangeSearchEmpleado($event)' (inputFocused)='onFocused($event)' 
+                  [itemTemplate]="itemTemplateEmpleado" [notFoundTemplate]="notFoundTemplate">
+                  </ng-autocomplete>
+              </div>
+              <ng-template #itemTemplateEmpleado let-item>
+                <a [innerHTML]="item.empleado"></a>
+              </ng-template>
+              <ng-template #notFoundTemplate let-notFound>
+                  <div [innerHTML]="notFound"></div>
+              </ng-template>
+          </div>
+          <br><br>
+          <!--  -->        
+          <div class="row">
             <div class="col-sm-12">
                 <label>Descripcion : </label>
                 <textarea class="form-control" [(ngModel)]="descripcion_evento" name="observaciones" placeholder="Descripcion..."></textarea>
