@@ -39,6 +39,11 @@ export class CalendarioComponent implements OnInit {
   detalle_evento_nro_identidad: any;
   detalle_evento_titulo: any;
 
+  // 
+  citas_pendientes = 0;
+  citas_mes = 0;
+  citas_hoy = 0;
+
   @ViewChild('modalCerrarNuevoEvento') modalCerrarNuevoEvento!: ElementRef;
   @ViewChild('modalCerrarBajaEvento') modalCerrarBajaEvento!: ElementRef;
   @ViewChild('modalCerrarDetallesEvento') modalCerrarDetallesEvento!: ElementRef;
@@ -51,7 +56,7 @@ export class CalendarioComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.cargar_eventos_calendario();
+    this.cargar_info_calendario();
     this.calendarOptions = {
       initialView: 'dayGridMonth',
       plugins: [dayGridPlugin,interactionPlugin],
@@ -263,7 +268,6 @@ dame_detalle_evento() {
 
   // Este método captura el evento datesSet y obtiene el mes visible
   onDatesSet(event: any) {
-    console.log("🚀 ~ CalendarioComponent ~ onDatesSet ~ event:", event)
 
     const currentMonth = event.view.currentStart.getMonth() + 1; // Sumar 1 para obtener el número del mes correcto
 
@@ -280,5 +284,32 @@ dame_detalle_evento() {
     // this.cargar_eventos_calendario();
     
   }
+
+// ==================================================
+// cargar_info_calendario
+// ==================================================
+
+cargar_info_calendario() {
+    
+  this.calendarioService.cargar_info_calendario( )
+  .subscribe({
+    next: (resp: any) => { 
+
+      if(resp[3][0].mensaje == 'ok') {
+
+        this.citas_pendientes = resp[0][0].citas_pendientes;
+        this.citas_mes  = resp[1][0].citas_mes;
+        this.citas_hoy  = resp[2][0].citas_hoy;
+
+        
+      } else {
+        this.alertService.alertFail(resp[0][0].mensaje,false,1200);
+        
+      }
+      },
+    error: (resp: any) => {  this.alertService.alertFail(resp[0][0].mensaje,false,1200); }
+  });
+
+}
 
 }

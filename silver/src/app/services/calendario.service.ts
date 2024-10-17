@@ -118,4 +118,15 @@ listar_citas_fecha( fecha_cita: any ) {
 
   return this.http.get( url, this.headers );
 }
+
+// ==================================================
+//        
+// ==================================================
+cargar_info_calendario( ) {
+
+  let url = URL_SERVICIOS + '/eventos/info';
+
+  return this.http.get( url, this.headers );
+}
+
 }
