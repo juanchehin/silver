@@ -4,8 +4,32 @@
 <!-- Start Page Content here -->
 <!-- ============================================================== -->
     <div class="content-page">
-        <div class="content">
-                <full-calendar [options]="calendarOptions" (datesSet)="onDatesSet($event)"></full-calendar>
+        <div class="row">
+          <div class="col-sm-6">
+            <table id="table-edit" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                          <h4>Resumen citas</h4>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr >
+                        <td>
+                          <h5> Citas hoy: 2 </h5>  <br>
+                          <h5> Citas pendientes : 5 </h5> <br>
+                          <h5> Citas confirmadas : 23 </h5> <br>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+          </div>
+          <div class="col-sm-6">
+            <div class="content">
+              <full-calendar [options]="calendarOptions" (datesSet)="onDatesSet($event)"></full-calendar>
+            </div>
+          </div>
         </div>
     </div>
 <!-- ============================================================== -->
