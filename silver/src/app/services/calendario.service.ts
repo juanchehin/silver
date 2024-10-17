@@ -52,13 +52,17 @@ export class CalendarioService {
 // ==================================================
 //        
 // ==================================================
-alta_evento( fecha: any,id_persona: any, descripcion_evento: any ) {
+alta_evento( fecha_evento: any,horario_evento: any,id_persona: any,id_cliente: any,id_servicio: any, descripcion_evento: any ) {
 
   const data = {
-    fecha,
+    fecha_evento,
+    horario_evento,
     id_persona,
+    id_cliente,
+    id_servicio,
     descripcion_evento
   }
+  console.log("🚀 ~ CalendarioService ~ alta_evento ~ data:", data)
 
   let url = URL_SERVICIOS + '/eventos/alta/' + this.IdPersona;
 

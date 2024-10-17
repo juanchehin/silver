@@ -8,6 +8,13 @@
                     <div class="col-sm-6">
                         <h3 class="card-title"> Citas: {{ fecha_cita }} </h3>
                     </div>
+                    <div class="col-sm-6">
+                      <button (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary ">
+                        <span class="material-icons">
+                        refresh
+                        </span></button>
+                  </div>
+                   
                 </div>
             </div>
 
@@ -52,8 +59,7 @@
                       </td>
                       <!--  -->
                       <td>
-                        <td>
-                          <button class="btn btn-success" type="button">
+                          <button class="btn btn-success" type="button" (click)="modal_alta_evento(hora.hora)">
                               <i class="mdi mdi-calendar-plus"></i>                                                           
                           </button>
                           <button class="btn btn-secondary" type="button">
@@ -78,21 +84,116 @@
 </div>
 
 
-<!--  -->
-<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Confirmacion</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+<!-- Modal - nuevo evento -->
+<div class="modal fade" id="modal_nuevo_evento" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo evento</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <br>
+      <div class="modal-body">
+        <!-- =========== Vendedor ==================  -->
+        <div class="row">
+          <h5 class="m-t-30">Vendedor : </h5>
+            <div class="ng-autocomplete" style="width:450px">
+                <ng-autocomplete [data]="empleados" [searchKeyword]="keywordEmpleado" 
+                placeholder="Selecciona vendedor" (selected)='selectEventEmpleado($event)' 
+                (inputChanged)='onChangeSearchEmpleado($event)' (inputFocused)='onFocused($event)' 
+                [itemTemplate]="itemTemplateEmpleado" [notFoundTemplate]="notFoundTemplate">
+                </ng-autocomplete>
+            </div>
+            <ng-template #itemTemplateEmpleado let-item>
+              <a [innerHTML]="item.empleado"></a>
+            </ng-template>
+            <ng-template #notFoundTemplate let-notFound>
+                <div [innerHTML]="notFound"></div>
+            </ng-template>
         </div>
-        <div class="modal-body">
-          ¿Desea confirmar la operacion?
+        <br>
+        <!--  -->
+        <!-- =========== Cliente ==================  -->
+        <div class="row">
+          <h5 class="m-t-30">Cliente : </h5>
+                  <div class="ng-autocomplete" style="width:450px">
+                      <ng-autocomplete 
+                      [data]="clientes" 
+                      [searchKeyword]="keywordCliente" 
+                      placeholder="Selecciona cliente" 
+                      (selected)='selectEventCliente($event)' 
+                      (inputChanged)='onChangeSearchCliente($event)' 
+                      (inputFocused)='onFocusedCliente($event)' 
+                      [itemTemplate]="itemTemplateCliente" 
+                      [notFoundTemplate]="notFoundTemplate">
+                      </ng-autocomplete>
+                  </div>
+                  <ng-template #itemTemplateCliente let-item>
+                      <a [innerHTML]="item.NombreCompleto"></a>
+                  </ng-template>
+                  <ng-template #notFoundTemplate let-notFound>
+                      <div [innerHTML]="notFound"></div>
+                  </ng-template>                
         </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" #divCerrarModalBajaProducto aria-label="Close" data-bs-dismiss="modal">Cancelar</button>
-            <!-- <button class="btn btn-danger" (click)="baja_producto()">Aceptar</button> -->
+        <br>
+        <!-- =========== Servicio ==================  -->
+        <div class="row">
+          <h5 class="m-t-30">Servicio : </h5> <br>
+          <div class="ng-autocomplete" style="width:450px">
+              <ng-autocomplete [data]="servicios" [searchKeyword]="keywordServicio" placeholder="Selecciona servicio" 
+              (selected)='selectEventServicio($event)' (inputChanged)='onChangeSearchServicio($event)' 
+              (inputFocused)='onFocusedServicio($event)' [itemTemplate]="itemTemplateServicio"
+              [notFoundTemplate]="notFoundTemplateServicio">
+              </ng-autocomplete>
+          </div>
+          <ng-template #itemTemplateServicio let-item>
+              <a [innerHTML]="item.servicio"></a>
+          </ng-template>
+          <ng-template #notFoundTemplateServicio let-notFound>
+              <div [innerHTML]="notFound"></div>
+          </ng-template>
         </div>
+        <br><br>
+        <!--  -->        
+        <div class="row">
+          <div class="col-sm-12">
+              <label>Descripcion : </label>
+              <textarea class="form-control" [(ngModel)]="descripcion_evento" name="observaciones" placeholder="Descripcion..."></textarea>
+        </div>
+      </div>
+      <br>
+      <!--  -->
+      <div class="modal-footer">
+        <button #modalCerrarNuevoEvento type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="alta_evento()">Aceptar</button>
       </div>
     </div>
   </div>
+</div>
+</div>
+
+<!-- Modal - baja evento -->
+<div class="modal fade" id="modal_baja_evento" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar evento</h1>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <!--  -->
+    <br>
+    <div class="modal-body">      
+      <div class="row">
+        <h2>¿Desea eliminar el evento?</h2>          
+      </div> 
+    </div>
+    <br>
+    <!--  -->
+    <div class="modal-footer">
+      <button #modalCerrarBajaEvento type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+      <!-- <button type="button" class="btn btn-primary" (click)="baja_evento()">Aceptar</button> -->
+    </div>
+  </div>
+</div>
+</div>

@@ -6,6 +6,7 @@ import { AlertService } from 'src/app/services/alert.service';
 import { CalendarioService } from 'src/app/services/calendario.service';
 import { EmpleadosService } from 'src/app/services/empleados.service';
 import { Router } from '@angular/router';
+import { ServiciosService } from 'src/app/services/servicios.service';
 
 @Component({
   selector: 'app-calendario',
@@ -46,8 +47,7 @@ export class CalendarioComponent implements OnInit {
     public alertService: AlertService,
     private calendarioService: CalendarioService,
     public empleadosService: EmpleadosService,
-    private router: Router
-  ) {
+    private router: Router  ) {
    }
 
   ngOnInit() {
@@ -155,7 +155,6 @@ cargarEmpleados() {
 
 }
 
-
 // ==============================
   // Para empleados
   // ================================
@@ -183,37 +182,6 @@ cargarEmpleados() {
     // do something when input is focused
   }
 
-
-  // =====================
-  alta_evento() {
-
-    if((this.descripcion_evento == '') || (this.descripcion_evento == 'undefined') || (this.descripcion_evento == undefined))
-    {
-      this.alertService.alertFail('Mensaje','Descripcion invalido',2000);
-      return;
-    }
-    
-      this.calendarioService.alta_evento( this.fecha_evento, this.IdEmpleado , this.descripcion_evento )
-      .subscribe({
-        next: (resp: any) => { 
-    
-          if(resp[0][0].mensaje == 'Ok') {
-            this.alertService.alertSuccess('Atencion','Evento cargado',3000);
-            // this.buscarCaja();
-    
-            let el: HTMLElement = this.modalCerrarNuevoEvento.nativeElement;
-            el.click();
-        
-            this.refrescar();
-            
-          } else {
-            this.alertService.alertFail(resp[0][0].mensaje,false,1200);
-            
-          }
-          },
-        error: (resp: any) => {  this.alertService.alertFail(resp[0][0].mensaje,false,1200); }
-      });
-  }
 
     // =====================
     baja_evento() {

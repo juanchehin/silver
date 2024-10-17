@@ -10,17 +10,25 @@ class EventosController {
 public async alta_evento(req: Request, res: Response) {
     
     const { IdPersona } = req.params;
+    console.log("🚀 ~ EventosController ~ alta_evento ~ req.body:", req.body)
 
-    var fecha_evento = req.body.fecha;
+    var fecha_evento = req.body.fecha_evento;
+    var horario_evento = req.body.horario_evento;
+
     var descripcion_evento = req.body.descripcion_evento;
-    var id_persona = req.body.id_persona;
+    var id_empleado = req.body.id_persona;
+    var id_cliente = req.body.id_cliente;
+    var id_servicio = req.body.id_servicio;
+
+    console.log("🚀 ~ EventosController ~ alta_evento ~ req.body:", req.body)
 
     if(descripcion_evento == null || descripcion_evento == 'null' || descripcion_evento == '-' || descripcion_evento == '' || descripcion_evento == 'undefined' || descripcion_evento == undefined)
     {
         descripcion_evento = '-';
     }
     
-    pool.query(`call bsp_alta_evento('${fecha_evento}','${id_persona}','${descripcion_evento}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_alta_evento('${fecha_evento}','${horario_evento}','${id_empleado}','${id_cliente}','${id_servicio}',
+        '${descripcion_evento}')`, function(err: any, result: any, fields: any){
 
         if(err){
             logger.error("Error en bsp_alta_evento - EventosController - " + err);
