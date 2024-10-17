@@ -8,6 +8,7 @@ import { CalendarioRoutingModule } from './calendario-routing.module';
 import { CalendarioComponent } from './calendario/calendario.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { CitasComponent } from './citas/citas.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
     AutocompleteLibModule
   ],
   declarations: [
-    CalendarioComponent
+    CalendarioComponent,
+    CitasComponent
   ]
 })
 export class CalendarioModule { }

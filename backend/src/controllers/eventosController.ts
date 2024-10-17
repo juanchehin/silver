@@ -143,6 +143,27 @@ public async confirmar_evento(req: Request, res: Response): Promise<void> {
 
 
 
+// ==================================================
+//   Listado de eventos por fecha
+// ==================================================
+public async listar_citas_fecha(req: Request, res: Response): Promise<void> {
+
+    var fecha = req.params.fecha_evento;
+    console.log("🚀 ~ EventosController ~ listar_citas_fecha ~ fecha:", fecha)
+    
+    pool.query(`call bsp_listar_citas_fecha('${fecha}')`, function(err: any, result: any){
+        console.log("🚀 ~ EventosController ~ pool.query ~ result:", result)
+        if(err){
+            logger.error("Error en listar_citas_fecha - eventosController");
+
+            res.status(400).json(err);
+            return;
+        }
+
+        res.status(200).json(result);
+    })
+}
+
 }
 
 

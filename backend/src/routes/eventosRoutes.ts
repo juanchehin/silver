@@ -16,7 +16,8 @@ class EventosRoutes {
         this.router.post('/baja/:IdPersona/',  [mdAutenticacion.verificaToken],eventosController.baja_evento);
         this.router.post('/detalle/:IdPersona/',  [mdAutenticacion.verificaToken],eventosController.dame_detalle_evento);
 
-        this.router.get('/listar/:mes_eventos/:ano_eventos/:IdPersona/',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],eventosController.listar_eventos);
+        // this.router.get('/listar/:mes_eventos/:ano_eventos/:IdPersona/',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],eventosController.listar_eventos);
+        this.router.get('/listar/fecha/:fecha_evento/:IdPersona/',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],eventosController.listar_citas_fecha);
 
     }
 

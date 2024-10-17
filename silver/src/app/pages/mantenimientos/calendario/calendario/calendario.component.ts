@@ -5,6 +5,7 @@ import { CalendarOptions } from '@fullcalendar/core'; // useful for typechecking
 import { AlertService } from 'src/app/services/alert.service';
 import { CalendarioService } from 'src/app/services/calendario.service';
 import { EmpleadosService } from 'src/app/services/empleados.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-calendario',
@@ -44,7 +45,8 @@ export class CalendarioComponent implements OnInit {
   constructor(
     public alertService: AlertService,
     private calendarioService: CalendarioService,
-    public empleadosService: EmpleadosService
+    public empleadosService: EmpleadosService,
+    private router: Router
   ) {
    }
 
@@ -62,29 +64,34 @@ export class CalendarioComponent implements OnInit {
 
   // =====================
   handleDateClick(arg: any) {
+  console.log("🚀 ~ CalendarioComponent ~ handleDateClick ~ arg:", arg.dateStr)
 
     this.fecha_evento = arg.dateStr;
 
-    const modal = document.getElementById('modal_nuevo_evento');
-    if (modal) {
-      const bootstrapModal = new (window as any).bootstrap.Modal(modal);
-      bootstrapModal.show();
-    }
+    this.router.navigate(['/dashboard/calendario/citas', arg.dateStr]);
+
+
+    // const modal = document.getElementById('modal_nuevo_evento');
+    // if (modal) {
+    //   const bootstrapModal = new (window as any).bootstrap.Modal(modal);
+    //   bootstrapModal.show();
+    // }
 
   }
 
   // =====================
   handleEventClick(clickInfo: any) {
+  console.log("🚀 ~ CalendarioComponent ~ handleEventClick ~ clickInfo:", clickInfo.dateStr)
 
-    this.id_evento_seleccionado = clickInfo.event.extendedProps.id_evento;
+    // this.id_evento_seleccionado = clickInfo.event.extendedProps.id_evento;
     
-    this.dame_detalle_evento();
+    // this.dame_detalle_evento();
 
-    const modal = document.getElementById('modal_detalles_evento');
-    if (modal) {
-      const bootstrapModal = new (window as any).bootstrap.Modal(modal);
-      bootstrapModal.show();
-    }
+    // const modal = document.getElementById('modal_detalles_evento');
+    // if (modal) {
+    //   const bootstrapModal = new (window as any).bootstrap.Modal(modal);
+    //   bootstrapModal.show();
+    // }
     
   }
 
@@ -288,6 +295,8 @@ dame_detalle_evento() {
 
   // Este método captura el evento datesSet y obtiene el mes visible
   onDatesSet(event: any) {
+    console.log("🚀 ~ CalendarioComponent ~ onDatesSet ~ event:", event)
+
     const currentMonth = event.view.currentStart.getMonth() + 1; // Sumar 1 para obtener el número del mes correcto
 
     const startDate = event.start; // fecha de inicio visible en el calendario
@@ -299,7 +308,8 @@ dame_detalle_evento() {
     this.mes_seleccionado = currentMonth;
     this.ano_seleccionado = currentYear;
 
-    this.cargar_eventos_calendario();
+
+    // this.cargar_eventos_calendario();
     
   }
 

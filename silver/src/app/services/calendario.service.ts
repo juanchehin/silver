@@ -105,4 +105,13 @@ dame_detalle_evento( id_evento: any ) {
 
   return this.http.post( url, data, this.headers);
 }
+// ==================================================
+//        
+// ==================================================
+listar_citas_fecha( fecha_cita: any ) {
+
+  let url = URL_SERVICIOS + '/eventos/listar/fecha/' + fecha_cita + '/' + this.IdPersona;
+
+  return this.http.get( url, this.headers );
+}
 }

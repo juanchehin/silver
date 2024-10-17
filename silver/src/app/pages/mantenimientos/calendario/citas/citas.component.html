@@ -1,0 +1,98 @@
+<div id="wrapper">
+    <div class="content-page">
+<!-- <div class="page-content"> -->
+    <div class="container-fluid">
+        <section class="box-typical">
+            <div class="table-responsive">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h3 class="card-title"> Citas: {{ fecha_cita }} </h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== Tabla =========== -->
+
+            <div class="container">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Horario</th>
+                      <th>Especialista</th>
+                      <th>Cliente</th>
+                      <th>Servicio</th>
+                      <th>Accion</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let hora of horarios">
+                      <td>{{ hora.label }}</td>
+                      <td>
+                        <ng-container *ngFor="let cal of calendario">
+                          <div *ngIf="cal.horario === hora.hora">
+                            {{ cal.empleado }}
+                          </div>
+                        </ng-container>
+                      </td>
+                      <!--  -->
+                      <td>
+                        <ng-container *ngFor="let cal of calendario">
+                          <div *ngIf="cal.horario === hora.hora">
+                            {{ cal.cliente }}
+                          </div>
+                        </ng-container>
+                      </td>
+                      <!--  -->
+                      <td>
+                        <ng-container *ngFor="let cal of calendario">
+                          <div *ngIf="cal.horario === hora.hora">
+                            {{ cal.servicio }}
+                          </div>
+                        </ng-container>
+                      </td>
+                      <!--  -->
+                      <td>
+                        <td>
+                          <button class="btn btn-success" type="button">
+                              <i class="mdi mdi-calendar-plus"></i>                                                           
+                          </button>
+                          <button class="btn btn-secondary" type="button">
+                              <i class="mdi mdi-reorder-horizontal"></i>                                                           
+                          </button>
+                          <button class="btn btn-primary" type="button" >
+                              <i class="mdi mdi-account-edit"></i>   
+                          </button>
+                        </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              
+        </section>
+        <!--.box-typical-->
+
+    </div>
+    <!--.container-fluid-->
+</div>
+<!--.page-content-->
+</div>
+
+
+<!--  -->
+<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Confirmacion</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ¿Desea confirmar la operacion?
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" #divCerrarModalBajaProducto aria-label="Close" data-bs-dismiss="modal">Cancelar</button>
+            <!-- <button class="btn btn-danger" (click)="baja_producto()">Aceptar</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
