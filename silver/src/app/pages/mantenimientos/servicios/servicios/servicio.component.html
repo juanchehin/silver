@@ -24,11 +24,17 @@
                     <input tabindex="1" [(ngModel)]="servicio" name="servicio" required type="text" placeholder="Servicio..." class="form-control">
                 </div>
             </div>
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <label>Codigo : </label>
+                    <input tabindex="1" [(ngModel)]="codigo" name="codigo" required type="text" placeholder="codigo..." class="form-control">
+                </div>
+            </div>
             <!--  -->
             <div class="row" *ngIf="id_rol == 1">
                 <!-- solo acceso para usuario admin -->
                 <div class="col-sm-6 form-group">
-                    <label>Precio : </label>
+                    <label>Precio (USD) : </label>
                     <input tabindex="2" [(ngModel)]="precio" name="precio" required type="number" placeholder="Precio..." class="form-control">
                 </div>
                 <div class="col-sm-6 form-group">

@@ -56,7 +56,7 @@ altaServicio( servicio: any ) {
 
   const IdSucursal = localStorage.getItem('id_sucursal')
 
-  let url = URL_SERVICIOS + '/servicios/alta/' + this.IdPersona + '/' + IdSucursal;
+  let url = URL_SERVICIOS + '/servicios/alta/' + this.IdPersona;
 
   return this.http.post( url, servicio, this.headers);
 }

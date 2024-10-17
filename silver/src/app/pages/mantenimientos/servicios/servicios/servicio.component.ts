@@ -16,6 +16,7 @@ export class ServicioComponent implements OnInit {
  
   // ==============================    
   servicio = '';
+  codigo = '';
   descripcion = '';
   id_cat_servicio = 1;
   precio: any;
@@ -63,11 +64,17 @@ altaServicio() {
         return;
       }
 
+      if((this.codigo == undefined || this.codigo.length <= 0 || this.codigo == '') ){
+        this.alertService.alertFailWithText('Debe cargar un codigo para el servicio','Atencion',2000);
+        return;
+      }
+
       const servicio = new Array(        
         this.servicio,
         this.id_cat_servicio,
         this.precio,
         this.comision,
+        this.codigo,
         this.descripcion
       );
 
