@@ -8,6 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 import { PagesComponent } from './pages.component';
 import { ConfiguracionesModule } from './mantenimientos/configuraciones/configuraciones.module';
 import { CalendarioModule } from './mantenimientos/calendario/calendario.module';
+import { EgresosModule } from './mantenimientos/egresos/egresos.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { CalendarioModule } from './mantenimientos/calendario/calendario.module'
     SharedModule,
     RouterModule,
     ConfiguracionesModule,
-    CalendarioModule
+    CalendarioModule,
+    EgresosModule
   ]
 })
 export class PagesModule { }

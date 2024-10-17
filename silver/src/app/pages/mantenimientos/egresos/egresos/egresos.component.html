@@ -1,0 +1,74 @@
+<div id="wrapper">
+    <div class="content-page">
+<!-- <div class="page-content"> -->
+    <div class="container-fluid">
+        <section class="box-typical">
+            <div class="table-responsive">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h3 class="card-title">Cantidad egresos ( {{ totalEgresos }} )</h3>
+                    </div>
+                    <div class="col-2">
+                        <button (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary ">
+                            <i class="mdi mdi-refresh"></i> 
+                        </button>
+                    </div>
+                    <div class="col-sm-4">
+                        <!-- <button [routerLink]="['/dashboard/egresos/nuevo']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                            <i class="mdi mdi-plus"></i> 
+                            Nuevo Egreso
+                        </button> -->
+                    </div>
+                </div>
+            </div>
+
+             <!-- ========== Tabla =========== -->
+
+             <div class="row">
+                <div class="col-12">
+                    <div class="card-box">
+
+                        <div class="responsive-table-plugin">
+                            <div class="table-rep-plugin">
+                                <div class="table-responsive" data-pattern="priority-columns">
+                                    <table id="tech-companies-1" class="table table-striped mb-0">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Descripcion</th>
+                                            <th>Monto</th>
+                                        </tr>
+                                        </thead>
+                                         <tbody>
+                                            <tr *ngFor="let egreso of egresos">
+                                                <td>{{ egreso.id_transaccion }}</td>
+                                                <td>{{ egreso.descripcion }}</td>
+                                                <td>$ {{ egreso.monto }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+            
+            <!-- ========== Fin tabla =========== -->
+        </section>
+        <!--.box-typical-->
+
+    </div>
+    <div role="group" aria-label="Basic example" style="text-align: right;">
+        <button (click)="cambiarDesde(-20) " type="button" class="btn btn-default-outline btn-info">Anteriores</button>
+        <button (click)="cambiarDesde(20) " type="button" class="btn btn-default-outline btn-info">Siguientes</button>
+    </div>
+    
+    <br><br>
+    <!--.container-fluid-->
+</div>
+<!--.page-content-->
+</div>

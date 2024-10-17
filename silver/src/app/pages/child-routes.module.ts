@@ -29,6 +29,13 @@ const childRoutes: Routes = [
     loadChildren: () => import('./mantenimientos/ventas/ventas-routing.module').then( m => m.VentasRoutingModule )
   },
   { 
+    path: 'egresos',
+    canActivate: [LoginGuardGuard, VerificaTokenGuard],
+    data: { ruta: 'egresos'},
+    loadChildren: () => import('./mantenimientos/egresos/egresos-routing.module').then( m => m.EgresosRoutingModule )
+  }
+  ,
+  { 
     path: 'clientes',
     canActivate: [LoginGuardGuard, VerificaTokenGuard],
     loadChildren: () => import('./mantenimientos/clientes/clientes-routing.module').then( m => m.ClientesRoutingModule )
