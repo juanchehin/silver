@@ -84,9 +84,9 @@ dameDatosPDFVenta( pIdTransaccion: any ){
 // ==================================================
 //
 // ==================================================
-listar_comisiones( desde: number , pfechaInicio : any , pfechaFin : any ){
+listar_comisiones(id_servicio_seleccionado: any, desde: number , pfechaInicio : any , pfechaFin : any ){
 
-  let url = URL_SERVICIOS + '/comisiones/listar/' + desde + '/' + pfechaInicio + '/' + pfechaFin;
+  let url = URL_SERVICIOS + '/comisiones/listar/' + desde + '/' + pfechaInicio + '/' + pfechaFin + '/' + id_servicio_seleccionado;
 
   return this.http.get( url ,this.headers);
 }

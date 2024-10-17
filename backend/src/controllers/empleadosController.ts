@@ -188,6 +188,8 @@ public async listar_historico_empleado(req: Request, res: Response): Promise<voi
     
     pool.query(`call bsp_listar_historico_empleado('${desde}','${id_empleado}','${fecha_inicio}','${fecha_fin}')`, function(err: any, result: any, fields: any){
         if(err){
+            logger.error("Error en bsp_listar_historico_empleado - empleadosController " + err);
+
            res.status(404).json(result);
            return;
        }
@@ -195,7 +197,23 @@ public async listar_historico_empleado(req: Request, res: Response): Promise<voi
     })
 
  }
+ 
 
+  // ==================================================
+//        
+// ==================================================
+public async listar_todos_empleados(req: Request, res: Response): Promise<void> {
+    
+    
+    pool.query(`call listar_todos_empleados()`, function(err: any, result: any, fields: any){
+        if(err){
+           res.status(404).json(result);
+           return;
+       }
+       res.status(200).json(result);
+    })
+
+ }
 // ==================================================
 //        
 // ==================================================

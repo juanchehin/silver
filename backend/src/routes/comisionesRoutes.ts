@@ -15,7 +15,7 @@ class ComisionesRoutes {
     config(): void {
 
         // 
-        this.router.get('/listar/:desde/:p_fecha_inicio/:p_fecha_fin',[mdAutenticacion.verificaToken],comisionesController.listar_comisiones);
+        this.router.get('/listar/:desde/:p_fecha_inicio/:p_fecha_fin/:id_empleado_seleccionado',[mdAutenticacion.verificaToken],comisionesController.listar_comisiones);
         this.router.post('/alta/:IdPersona',[mdAutenticacion.verificaToken],comisionesController.alta_comision);
 
     }

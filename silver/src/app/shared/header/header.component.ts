@@ -69,7 +69,6 @@ dame_tasa_dia() {
   this.tasasService.dame_tasa_dia( )
   .subscribe( {
           next: (resp: any) => {
-          console.log("🚀 ~ LoginComponent ~ dame_tasa_dia ~ resp:", resp)
 
             if((resp[1][0].mensaje == 'Ok')) {
 

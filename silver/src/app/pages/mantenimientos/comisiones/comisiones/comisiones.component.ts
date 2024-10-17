@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertService } from 'src/app/services/alert.service';
 import { ComisionesService } from 'src/app/services/comisiones.service';
+import { EmpleadosService } from 'src/app/services/empleados.service';
 import { UtilService } from 'src/app/services/util.service';
 
 @Component({
@@ -16,19 +17,20 @@ export class ComisionesComponent implements OnInit {
   comisiones!: any;
   totalComisiones = 0;
   descripcion_egreso : any;
-  id_servicio_seleccionado: any;
+  // id_servicio_seleccionado: any;
   especialistas: any;
-  IdEspecialistaSelect: any;
+  IdEspecialistaSelect: any = 0;
 
   //
-  fecha_inicio: any;
-  fecha_fin: any;
+  fecha_inicio = this.utilService.formatDateNow(new Date(Date.now()));
+  fecha_fin = this.utilService.formatDateNow(new Date(Date.now()));
 
 
   constructor(
     public comisionesService: ComisionesService,
     public alertaService: AlertService,
-    private utilService: UtilService
+    private utilService: UtilService,
+    public empleadosService: EmpleadosService
   ) {
    }
 
@@ -48,11 +50,11 @@ listar_comisiones() {
 
   this.alertaService.cargando = true;
   
-    this.comisionesService.listar_comisiones( this.desde , pfechaInicio , pfechaFin )
+    this.comisionesService.listar_comisiones( this.IdEspecialistaSelect, this.desde , pfechaInicio , pfechaFin )
                .subscribe( {
                 next: (resp: any) => { 
 
-                  if(resp[0].length <= 0)
+                  if(resp.length <= 0)
                   { 
                     this.comisiones = [];
                     this.totalComisiones = 0;
@@ -61,7 +63,9 @@ listar_comisiones() {
                     return;
                   }
   
-                  if ( resp[2][0].mensaje == 'Ok') {
+                  if ( resp[3][0].mensaje == 'Ok') {
+
+                    this.especialistas = resp[2];
                     
                     this.totalComisiones = resp[1][0].cantidad_transacciones_egreso;
                     this.comisiones = resp[0];
@@ -134,40 +138,4 @@ refrescar() {
 
   }
 
-// ==================================================
-//        Crear egreso
-// ==================================================
-
-alta_egreso() {
-
-  if(this.monto_egreso <= 0){
-    this.alertaService.alertFailWithText('Atencion','Egreso invalido',4000);
-    return;
-  }
-
-  const egreso = new Array(
-    this.monto_egreso,
-    this.descripcion_egreso
-  );
-
-  this.comisionesService.alta_egreso( egreso )
-            .subscribe( (resp: any) => {
-              
-              if ( resp[0][0].mensaje == 'Ok') {
-
-                this.alertaService.alertSuccess('Mensaje','Egreso cargado con exito',2000);
-           
-                this.monto_egreso = 0;
-                this.descripcion_egreso  = '';
-
-                this.refrescar();
-                
-              } else {
-                this.alertaService.alertFailWithText('Ocurrio un error','Contactese con el administrador',4000);
-              }
-              return;
-            });
-
-
-}
 }

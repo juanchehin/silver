@@ -127,4 +127,14 @@ listar_historico_empleado( desde: number , id_empleado: any, fecha_inicio: strin
   return this.http.get( url ,this.headers);
 }
 
+// ==================================================
+//
+// ==================================================
+listar_todos_empleados( ){
+
+  let url = URL_SERVICIOS + '/empleados/listar/todos';
+
+  return this.http.get( url ,this.headers);
+}
+
 }
