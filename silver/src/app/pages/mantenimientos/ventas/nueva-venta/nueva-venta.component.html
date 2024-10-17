@@ -102,12 +102,12 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4 class="card-title">Productos/Servicios agregados</h4>
+                                        <h4 class="card-title">Servicios agregados</h4>
                                         <div class="table-responsive">
                                             <table class="table table-bordered">
                                                 <thead>
                                                     <tr>
-                                                        <th>Producto/Servicio</th>
+                                                        <th>Servicio</th>
                                                         <th>Cantidad</th>
                                                         <th>SubTotal</th>
                                                         <th>Tipo</th>
@@ -131,7 +131,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <h4>Total Venta : $ {{totalVenta}}</h4>
+                                                <h4>Total Venta (* tasa) : $ {{totalVenta}}</h4>
                                             </div>
                                         </div>
                                     </div>
@@ -155,7 +155,17 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Formas de pago</h4>
+                    <!--  -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4 class="modal-title">Formas de pago</h4>
+                        </div>
+                        <br>
+                        <div class="col-md-12">
+                            <h5>Tasa del dia : {{tasa_dia}} </h5>
+                        </div>                        
+                    </div>
+                    <!--  -->
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 </div>
                 <div class="modal-body">

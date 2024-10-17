@@ -11,6 +11,7 @@ import { VentasService } from 'src/app/services/ventas.service';
 import { UtilService } from '../../../../services/util.service';
 import { ServiciosService } from 'src/app/services/servicios.service';
 import { EmpleadosService } from 'src/app/services/empleados.service';
+import { TasasService } from 'src/app/services/tasas.service';
 
 @Component({
   selector: 'app-nueva-venta',
@@ -25,6 +26,7 @@ export class NuevaVentaComponent implements OnInit {
   keywordProducto = 'producto';
 
   descuentoEfectivo: any = 0;
+  tasa_dia: any = 0;
   productos: any;
   clienteBuscado = '';
   productoBuscado = '';
@@ -110,7 +112,8 @@ export class NuevaVentaComponent implements OnInit {
     public empleadosService: EmpleadosService,
     public alertaService: AlertService,
     private utilService: UtilService,
-    private router: Router
+    private router: Router,
+    public tasasService: TasasService
     ) {
     
   }
@@ -120,6 +123,7 @@ export class NuevaVentaComponent implements OnInit {
     this.fecha_venta = this.utilService.formatDateNow(new Date(Date.now()));
     this.IdPersona = this.authService.IdPersona;
     this.datosVendedor = [];
+    this.dame_tasa_dia();
     // this.cargarDatosVendedor();
   }
   
@@ -402,6 +406,14 @@ agregarLineaVentaServicio() {
 
   this.totalVenta += Number(this.precio_servicio_pendiente) * this.cantidadLineaVentaServicio;
 
+  if(isNaN(Number(this.tasa_dia)) || (this.tasa_dia <= 0))
+  { 
+    this.alertaService.alertFailWithText('Atencion','Error en tasa del dia',2000);
+    return;
+  }
+
+  this.totalVenta = this.totalVenta * this.tasa_dia;
+  
   const checkExistsLineaVenta = this.lineas_venta.find((linea_venta) => {
     if((linea_venta.IdProductoServicio == this.itemPendienteServicio.id_servicio) && (linea_venta.tipo == 'servicio'))
     {
@@ -888,6 +900,31 @@ altaCliente() {
             });
 
 
+}
+
+  // ==================================================
+//  
+// ==================================================
+dame_tasa_dia() {
+
+  this.tasasService.dame_tasa_dia( )
+  .subscribe( {
+          next: (resp: any) => {
+            if((resp[1][0].mensaje == 'Ok')) {
+
+              if((resp[0][0] !== null && resp[0][0] !== undefined))
+              {
+                this.tasa_dia = resp[0][0].tasa;
+              }
+              
+            } else {                      
+              this.alertaService.alertFailWithText('Error','Ocurrio un error al procesar el pedido',1200);
+            }            
+      },
+      error: () => { 
+      this.alertaService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000) 
+      }
+  });
 }
 
 }

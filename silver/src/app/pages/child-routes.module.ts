@@ -66,6 +66,12 @@ const childRoutes: Routes = [
     canActivate: [LoginGuardGuard, VerificaTokenGuard],
     data: { ruta: 'tasas'},
     loadChildren: () => import('./mantenimientos/tasas/tasas-routing.module').then( m => m.TasasRoutingModule )
+  },
+  { 
+    path: 'comisiones',
+    canActivate: [LoginGuardGuard, VerificaTokenGuard],
+    data: { ruta: 'comisiones'},
+    loadChildren: () => import('./mantenimientos/comisiones/comisiones-routing.module').then( m => m.ComisionesRoutingModule )
   }
  
 ]

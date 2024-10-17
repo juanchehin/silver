@@ -9,6 +9,7 @@ import { PagesComponent } from './pages.component';
 import { ConfiguracionesModule } from './mantenimientos/configuraciones/configuraciones.module';
 import { CalendarioModule } from './mantenimientos/calendario/calendario.module';
 import { EgresosModule } from './mantenimientos/egresos/egresos.module';
+import { ComisionesModule } from './mantenimientos/comisiones/comisiones.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { EgresosModule } from './mantenimientos/egresos/egresos.module';
     RouterModule,
     ConfiguracionesModule,
     CalendarioModule,
-    EgresosModule
+    EgresosModule,
+    ComisionesModule
   ]
 })
 export class PagesModule { }

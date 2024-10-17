@@ -86,6 +86,14 @@
                         </ul>
                 </li>
 
+                <li (click)="toggleMenu('menu_comisiones')">
+                    <i class="mdi mdi-google-circles-extended"></i>
+                    <span> Comisiones </span>
+                    <ul *ngIf="openMenu === 'menu_comisiones'">
+                        <li [routerLink]="['comisiones']">Comisiones</li>
+                    </ul>
+            </li>
+
                 <li (click)="logout()">
                     <i class="mdi mdi-logout"></i>
                     <span> LogOut </span>
