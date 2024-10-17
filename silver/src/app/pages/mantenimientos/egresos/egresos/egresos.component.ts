@@ -11,13 +11,13 @@ export class EgresosComponent implements OnInit {
 
   desde = 0;
   totalAsistencias = true;
-  ClasesDisponibles = 0;
+  monto_egreso = 0;
   egresos!: any;
   totalEgresos = 0;
+  descripcion_egreso : any;
   id_servicio_seleccionado: any;
 
-  @ViewChild('inputEgresoBuscado') inputEgresoBuscado!: ElementRef;
-  @ViewChild('divCerrarModalBajaEgreso') divCerrarModalBajaEgreso!: ElementRef;
+  @ViewChild('botonCerrarModalAltaEgreso') botonCerrarModalAltaEgreso!: ElementRef;
 
 
   constructor(
@@ -109,4 +109,43 @@ refrescar() {
 
 }
 
+// ==================================================
+//        Crear egreso
+// ==================================================
+
+alta_egreso() {
+
+  if(this.monto_egreso <= 0){
+    this.alertaService.alertFailWithText('Atencion','Egreso invalido',4000);
+    return;
+  }
+
+  const egreso = new Array(
+    this.monto_egreso,
+    this.descripcion_egreso
+  );
+
+  this.egresosService.alta_egreso( egreso )
+            .subscribe( (resp: any) => {
+              
+              if ( resp[0][0].mensaje == 'Ok') {
+
+                this.alertaService.alertSuccess('Mensaje','Egreso cargado con exito',2000);
+
+                let el: HTMLElement = this.botonCerrarModalAltaEgreso.nativeElement;
+                el.click();
+
+                this.monto_egreso = 0;
+                this.descripcion_egreso  = '';
+
+                this.refrescar();
+                
+              } else {
+                this.alertaService.alertFailWithText('Ocurrio un error','Contactese con el administrador',4000);
+              }
+              return;
+            });
+
+
+}
 }

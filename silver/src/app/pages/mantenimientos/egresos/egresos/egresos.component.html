@@ -14,10 +14,10 @@
                         </button>
                     </div>
                     <div class="col-sm-4">
-                        <!-- <button [routerLink]="['/dashboard/egresos/nuevo']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                        <button type="button" class="btn btn-success" style="text-align: center; display: block; margin: 0 auto;" data-toggle="modal" data-target="#responsive-modal-alta-egreso">
                             <i class="mdi mdi-plus"></i> 
                             Nuevo Egreso
-                        </button> -->
+                        </button>
                     </div>
                 </div>
             </div>
@@ -71,4 +71,37 @@
     <!--.container-fluid-->
 </div>
 <!--.page-content-->
+</div>
+
+<!-- =========== MODAL NUEVO egreso =========== -->
+<div class="col-md-4">
+    <div id="responsive-modal-alta-egreso" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Nuevo egreso</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12 form-group">
+                            <label>Monto : </label>
+                            <input [(ngModel)]="monto_egreso" name="Monto" type="text" placeholder="Monto..." class="form-control" maxLength="30">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 form-group">
+                            <label>Descripcion : </label>
+                            <textarea [(ngModel)]="descripcion_egreso" name="Descripcion" type="textarea" placeholder="Descripcion..." rows="3" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button #botonCerrarModalAltaEgreso type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success waves-effect waves-light" (click)="alta_egreso()">Cargar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal -->
 </div>

@@ -16,7 +16,8 @@ class EgresosRoutes {
 
         // 
         this.router.get('/listar/:desde',[mdAutenticacion.verificaToken],egresosController.listar_egresos);
-       
+        this.router.post('/alta/:IdPersona',[mdAutenticacion.verificaToken],egresosController.alta_egreso);
+
     }
 
 }

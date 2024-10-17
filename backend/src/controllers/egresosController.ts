@@ -28,37 +28,19 @@ public async listar_egresos(req: Request, res: Response): Promise<void> {
 // ==================================================
 async alta_egreso(req: Request, res: Response) {
 
-    var pIdVendedor = req.params.IdPersona;
-    var pIdVenta;
+    var pMontoEgreso = req.body[0];
+    var pDescripcion = req.body[1];
 
-    var pIdEmpleado = req.body[0];
-    var pIdUsuarioActual = req.body[1];
-    var pMonto = req.body[2];
-    var pIdTipoPago = req.body[3];
-    var pMetodoPago = req.body[4];
-    var pDescripcion = req.body[5];
-
-    // ==============================
-    try {
-        // ====================== Alta  ===========================================
-        let sql = `call bsp_alta_egreso('${pMonto}','${pIdTipoPago}','${pMetodoPago}','${pIdEmpleado}','${pIdUsuarioActual}','${pDescripcion}')`;
-        const [result] = await pool.promise().query(sql)
-        
-
-        if(result[0][0].Mensaje != 'Ok')
-        {
+    pool.query(`call bsp_alta_egreso('${pMontoEgreso}','${pDescripcion}')`, function(err: any, result: any, fields: any){
+        if(err){
             logger.error("Error bsp_alta_egreso - altaEgreso - egresosController");
 
+             res.status(404).json(err);
+            return;
         }
+        res.json(result);
+    })
 
-        // return result
-      } catch (error) {
-        logger.error("Error funcion alta egreso - egresosController");
-        res.status(404).json({ "error" : error});
-        return;
-      }
-      res.json({ Mensaje : 'Ok'});
-    //   res.json({"mensaje": await confirmarTransaccion(pIdVenta)});
 }
 
 

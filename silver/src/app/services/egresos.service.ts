@@ -106,7 +106,7 @@ baja_transaccion(id_transaccion: any ) {
 // ==================================================
 alta_egreso( egreso : any){
 
-  let url = URL_SERVICIOS + '/egresos/egreso/alta/' + this.IdPersona;
+  let url = URL_SERVICIOS + '/egresos/alta/' + this.IdPersona;
 
   return this.http.post( url, egreso,this.headers );
 }

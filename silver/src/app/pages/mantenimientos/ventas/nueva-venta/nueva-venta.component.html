@@ -4,10 +4,10 @@
         <div class="content">
             
             
-             <!-- ========== Empleado ============ -->
+             <!-- ========== Especialista ============ -->
              <div class="row">
                     <div class="col-md-6">
-                        <h5 class="m-t-30">Vendedor : </h5>
+                        <h5 class="m-t-30">Especialista : </h5>
                         <div class="ng-autocomplete" style="width:450px">
                             <ng-autocomplete [data]="empleados" [searchKeyword]="keywordEmpleado" placeholder="Selecciona vendedor" (selected)='selectEventEmpleado($event)' (inputChanged)='onChangeSearchEmpleado($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplateEmpleado" [notFoundTemplate]="notFoundTemplate">
                             </ng-autocomplete>
@@ -59,37 +59,6 @@
             <div class="row">
                 <div class="card">
                     <div class="card-body">
-                        <!-- ========== Buscador producto ============ -->
-                        <div class="row">
-                            <div class="col-md-5">
-                                <h4 >Producto :</h4>
-                                <div class="ng-autocomplete" style="width:350px">
-                                    <ng-autocomplete [data]="productos" [searchKeyword]="keywordProducto" placeholder="Selecciona producto" 
-                                    (selected)='selectEventProducto($event)' (inputChanged)='onChangeSearchProducto($event)' 
-                                    (inputFocused)='onFocusedProducto($event)' [itemTemplate]="itemTemplateProducto"
-                                    [notFoundTemplate]="notFoundTemplateProducto">
-                                    </ng-autocomplete>
-                                </div>
-                                <ng-template #itemTemplateProducto let-item>
-                                    <a [innerHTML]="item.producto"></a>
-                                </ng-template>
-                                <ng-template #notFoundTemplateProducto let-notFound>
-                                    <div [innerHTML]="notFound"></div>
-                                </ng-template>
-                            </div>
-                            <div class="col-md-2">
-                                <h4 >Cantidad :</h4>
-                                <input [(ngModel)]="cantidadLineaVentaProducto" (input)="cambiaCantidadVentaProducto($event)" type="text" class="form-control form-control-line" placeholder="Cantidad...">
-                            </div>
-                            <div class="col-md-2">
-                                <h4 >Precio :</h4>
-                                <input [(ngModel)]="precio_producto_pendiente" type="text" class="form-control form-control-line" placeholder="Precio producto...">
-                            </div>
-                            <div class="col-md-2" >
-                                <br><br>
-                                <button (click)="agregarLineaVentaProducto()" type="button" class="btn btn-info btn-circle"><i class="mdi mdi-plus"></i> </button>
-                            </div>
-                        </div>
 
                         <!-- ========== Fin Buscador producto ============ -->
                         <br>
@@ -291,8 +260,8 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6 form-group">
-                            <label>DNI : </label>
-                            <input [(ngModel)]="dni_nuevo_cliente" name="DNI" type="text" placeholder="DNI" class="form-control">
+                            <label>Cedula : </label>
+                            <input [(ngModel)]="dni_nuevo_cliente" name="DNI" type="text" placeholder="Cedula..." class="form-control">
                         </div>
                         <div class="col-sm-6 form-group">
                             <label>Telefono : </label>
