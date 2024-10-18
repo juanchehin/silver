@@ -50,7 +50,7 @@ buscarProveedores() {
 
                   if(resp[2][0].mensaje == 'Ok')
                   { 
-                    this.totalProveedores = resp[1][0].cantProveedores;
+                    this.totalProveedores = resp[1][0].total_proveedores;
     
                     this.proveedores = resp[0];
                     this.alertService.cargando = false;
