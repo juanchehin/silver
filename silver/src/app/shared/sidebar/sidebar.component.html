@@ -41,6 +41,7 @@
                     <i class="mdi mdi-package-variant-closed"></i>
                     <span> Inventarios </span>
                     <ul *ngIf="openMenu === 'menu_productos'">
+                        <li [routerLink]="['/dashboard/compras/nueva']">Nueva entrada</li>
                         <li [routerLink]="['productos']">Productos</li>
                         <li [routerLink]="['servicios']">Servicios</li>
                     </ul>
@@ -51,6 +52,7 @@
                     <span> Catalogos </span>
                     <ul *ngIf="openMenu === 'menu_catalogos'">
                         <li [routerLink]="['productos']">Catalogos</li>
+                        <li [routerLink]="['proveedores']">Proveedores</li>
                     </ul>
                 </li>
 

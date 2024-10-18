@@ -10,6 +10,8 @@ import { ConfiguracionesModule } from './mantenimientos/configuraciones/configur
 import { CalendarioModule } from './mantenimientos/calendario/calendario.module';
 import { EgresosModule } from './mantenimientos/egresos/egresos.module';
 import { ComisionesModule } from './mantenimientos/comisiones/comisiones.module';
+import { ComprasModule } from './mantenimientos/compras/compras.module';
+import { ProveedoresModule } from './mantenimientos/proveedores/proveedores.module';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { ComisionesModule } from './mantenimientos/comisiones/comisiones.module'
     ConfiguracionesModule,
     CalendarioModule,
     EgresosModule,
-    ComisionesModule
+    ComisionesModule,
+    ComprasModule,
+    ProveedoresModule
   ]
 })
 export class PagesModule { }

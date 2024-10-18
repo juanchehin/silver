@@ -1,0 +1,153 @@
+
+<div id="wrapper">
+
+
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+
+
+    <div class="content-page">
+        <div class="content">
+ 
+            <!-- Start Content-->
+            <div class="container-fluid">
+
+                <!-- ==============  =============== -->
+
+                <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <label>Proveedor :  </label>
+                        <input (keyup.enter)="buscarProveedores( )" #inputProveedorBuscado type="text" class="form-control" placeholder="Buscar proveedor..." id="proveedorBuscado">
+                    </div>
+                    <div class="col-sm-1 form-group">
+                        <button (click)="buscarProveedores( )" class="btn btn-primary" style="margin-top: 26px;">
+                            <i class="mdi mdi-account-search"></i> 
+                            </button>
+                    </div>
+                    <div class="col-sm-1 form-group" style="margin-top: 25px;">
+                        <button (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary ">
+                            <i class="mdi mdi-refresh"></i> 
+                        </button>
+                    </div>       
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h3 class="card-title">Cantidad proveedores ( {{ totalProveedores }}  )</h3>
+                    </div>
+                    <div class="col-sm-4">
+                    </div>
+                    <div class="col-sm-4">
+                        <button type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                          <i class="mdi mdi-account-multiple-plus"></i> 
+                          Nuevo Proveedor
+                        </button>
+                    </div>     
+                </div>
+
+                <!-- ======= Fin Fechas ================= -->
+
+                <!-- ========== Tabla =========== -->
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-box">
+
+                            <div class="responsive-table-plugin">
+                                <div class="table-rep-plugin">
+                                    <div class="table-responsive" data-pattern="priority-columns">
+                                        <table id="tech-companies-1" class="table table-striped mb-0">
+                                            <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th >Apellidos</th>
+                                                <th >Nombres</th>
+                                                <th >Codigo</th>
+                                                <th >ID</th>
+                                                <th width="10%">Email</th>
+                                                <th >Telefono</th>
+                                                <th >Direccion</th>
+                                                <th >Fecha nacimiento</th>
+                                                <th >Rol</th>
+                                                <th >Accion</th>
+                                            </tr>
+                                            </thead>
+                                             <tbody>
+                                                <tr *ngFor="let proveedor of proveedores">
+                                                    <td>{{ proveedor.id_persona }}</td>
+                                                    <td>{{ proveedor.apellidos }}</td>
+                                                    <td>{{ proveedor.nombres }}</td>
+                                                    <td>{{ proveedor.codigo }}</td>
+                                                    <td>{{ proveedor.dni }}</td>
+                                                    <td>{{ proveedor.email }}</td>
+                                                    <td>{{ proveedor.telefono }}</td>
+                                                    <td>{{ proveedor.direccion }}</td>
+                                                    <td>{{ proveedor.fecha_nac }}</td>
+                                                    <td>{{ proveedor.rol }}</td>
+                                                    <td>
+                                                        <!-- <button class="btn btn-secondary" type="button" [routerLink]="['/dashboard/proveedores/historico',proveedor.id_persona]">
+                                                            <i class="mdi mdi-reorder-horizontal"></i>                                                  
+                                                        </button> -->
+                                                        <button class="btn btn-primary" type="button">
+                                                            <i class="mdi mdi-account-edit"></i>                                                           
+                                                        </button>
+                                                        <button class="btn btn-danger" type="button" data-bs-toggle="modal" 
+                                                        data-bs-target="#exampleModalToggle" (click)="modal_baja_proveedor(proveedor.id_persona)">
+                                                            <i class="mdi mdi-delete"></i>  
+                                                        </button>
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+                
+                <!-- ========== Fin tabla =========== -->
+
+                <div role="group" aria-label="Basic example" style="text-align: right;">
+                    <button (click)="cambiarDesde(-20) " type="button" class="btn btn-default-outline btn-info">Anteriores</button>
+                    <button (click)="cambiarDesde(20) " type="button" class="btn btn-default-outline btn-info">Siguientes</button>
+                </div>
+                <!--.container-fluid-->
+                <br><br>
+
+            </div> <!-- container-fluid -->
+
+        </div> <!-- content -->
+
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
+
+</div>
+
+<!--  -->
+<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Confirmacion</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ¿Desea confirmar la operacion?
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" #divCerrarModalBajaProveedor aria-label="Close" data-bs-dismiss="modal">Cancelar</button>
+            <button class="btn btn-danger" (click)="baja_proveedor()">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

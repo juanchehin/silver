@@ -27,18 +27,28 @@ const childRoutes: Routes = [
     canActivate: [LoginGuardGuard, VerificaTokenGuard],
     data: { ruta: 'ventas'},
     loadChildren: () => import('./mantenimientos/ventas/ventas-routing.module').then( m => m.VentasRoutingModule )
+  },  
+  { 
+    path: 'compras',
+    canActivate: [LoginGuardGuard, VerificaTokenGuard],
+    data: { ruta: 'compras'},
+    loadChildren: () => import('./mantenimientos/compras/compras-routing.module').then( m => m.ComprasRoutingModule )
   },
   { 
     path: 'egresos',
     canActivate: [LoginGuardGuard, VerificaTokenGuard],
     data: { ruta: 'egresos'},
     loadChildren: () => import('./mantenimientos/egresos/egresos-routing.module').then( m => m.EgresosRoutingModule )
-  }
-  ,
+  },
   { 
     path: 'clientes',
     canActivate: [LoginGuardGuard, VerificaTokenGuard],
     loadChildren: () => import('./mantenimientos/clientes/clientes-routing.module').then( m => m.ClientesRoutingModule )
+  },
+  { 
+    path: 'proveedores',
+    canActivate: [LoginGuardGuard, VerificaTokenGuard],
+    loadChildren: () => import('./mantenimientos/proveedores/proveedores-routing.module').then( m => m.ProveedoresRoutingModule )
   },
   { 
     path: 'usuarios',
