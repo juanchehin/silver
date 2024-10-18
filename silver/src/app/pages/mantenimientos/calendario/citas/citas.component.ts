@@ -23,6 +23,10 @@ export class CitasComponent implements OnInit {
   descripcion_evento: any;
   horario_nuevo_evento: any;
   itemPendienteServicio: any = [];
+  eventos_horas: any;
+  horario_seleccionado: any;
+  id_evento_a_eliminar: any;
+  horario_evento_eliminar: any
 
   @ViewChild('modalCerrarNuevoEvento') modalCerrarNuevoEvento!: ElementRef;
   @ViewChild('modalCerrarBajaEvento') modalCerrarBajaEvento!: ElementRef;
@@ -125,7 +129,50 @@ listar_citas() {
 
   }
 
+// ==================================================
+// Carga
+// ==================================================
 
+listar_eventos_hora() {
+
+  this.alertaService.cargando = true;
+
+
+    this.calendarioService.listar_eventos_hora( this.fecha_cita,  this.horario_seleccionado )
+               .subscribe( {
+                next: (resp: any) => { 
+
+                  if(resp[0].length <= 0)
+                  { 
+                    this.calendario = [];
+                    this.totalCalendario = 0;
+                    this.alertaService.cargando = false;
+
+                    return;
+                  }
+  
+                  if ( resp[1][0].mensaje == 'Ok') {
+                    
+                    this.eventos_horas = resp[0];
+                    this.alertaService.cargando = false;
+
+                  } else {
+                    this.alertaService.alertFail('Ocurrio un error',false,2000);
+                    this.alertaService.cargando = false;
+
+                  }
+                  this.alertaService.cargando = false;
+
+                  return;
+                 },
+                error: () => { 
+                  this.alertaService.alertFail('Ocurrio un error',false,2000);
+                  this.alertaService.cargando = false;
+
+                }
+              });
+
+  }
 // ==================================================
 //        Cambio de valor
 // ==================================================
@@ -275,73 +322,124 @@ cargarClientes() {
             });
 
 }
-    // =====================
-    alta_evento() {
+  // =====================
+  alta_evento() {
 
-      if((this.descripcion_evento == '') || (this.descripcion_evento == 'undefined') || (this.descripcion_evento == undefined))
-      {
-        this.alertaService.alertFail('Mensaje','Descripcion invalido',2000);
-        return;
-      }
-
-      if((this.itemPendienteServicio == '') || (this.itemPendienteServicio == 'undefined') || (this.itemPendienteServicio == undefined))
-      {
-        this.alertaService.alertFail('Mensaje','Servicio invalido',2000);
-        return;
-      }
-
-      if((this.IdCliente <= 0) || (this.IdCliente == undefined))
-      {
-        this.alertaService.alertFail('Mensaje','Cliente invalido',2000);
-        return;
-      }
-
-      if((this.IdEmpleado <= 0) || (this.IdEmpleado == undefined))
-      {
-        this.alertaService.alertFail('Mensaje','Cliente invalido',2000);
-        return;
-      }
-
-        this.calendarioService.alta_evento( this.fecha_cita, this.horario_nuevo_evento,
-           this.IdEmpleado, this.IdCliente, this.itemPendienteServicio.id_servicio , this.descripcion_evento )
-        .subscribe({
-          next: (resp: any) => { 
-      
-            if(resp[0][0].mensaje == 'Ok') {
-              this.alertaService.alertSuccess('Atencion','Evento cargado',3000);
-              // this.buscarCaja();
-      
-              let el: HTMLElement = this.modalCerrarNuevoEvento.nativeElement;
-              el.click();
-
-
-              // this.horario_nuevo_evento  = null;
-              this.keywordEmpleado = '';
-              this.keywordCliente = '';
-              this.keywordServicio = '';
-              // this.itemPendienteServicio.id_servicio  = null;
-              this.descripcion_evento  = '';
-          
-              this.refrescar();
-              
-            } else {
-              this.alertaService.alertFail(resp[0][0].mensaje,false,1200);
-              
-            }
-            },
-          error: (resp: any) => {  this.alertaService.alertFail(resp[0][0].mensaje,false,1200); }
-        });
+    if((this.descripcion_evento == '') || (this.descripcion_evento == 'undefined') || (this.descripcion_evento == undefined))
+    {
+      this.alertaService.alertFail('Mensaje','Descripcion invalido',2000);
+      return;
     }
-    //  ==================
-    modal_alta_evento(horario: any){
 
-      this.horario_nuevo_evento = horario;
-      
-
-      const modal = document.getElementById('modal_nuevo_evento');
-      if (modal) {
-        const bootstrapModal = new (window as any).bootstrap.Modal(modal);
-        bootstrapModal.show();
-      }
+    if((this.itemPendienteServicio == '') || (this.itemPendienteServicio == 'undefined') || (this.itemPendienteServicio == undefined))
+    {
+      this.alertaService.alertFail('Mensaje','Servicio invalido',2000);
+      return;
     }
+
+    if((this.IdCliente <= 0) || (this.IdCliente == undefined))
+    {
+      this.alertaService.alertFail('Mensaje','Cliente invalido',2000);
+      return;
+    }
+
+    if((this.IdEmpleado <= 0) || (this.IdEmpleado == undefined))
+    {
+      this.alertaService.alertFail('Mensaje','Cliente invalido',2000);
+      return;
+    }
+
+      this.calendarioService.alta_evento( this.fecha_cita, this.horario_nuevo_evento,
+          this.IdEmpleado, this.IdCliente, this.itemPendienteServicio.id_servicio , this.descripcion_evento )
+      .subscribe({
+        next: (resp: any) => { 
+    
+          if(resp[0][0].mensaje == 'Ok') {
+            this.alertaService.alertSuccess('Atencion','Evento cargado',3000);
+            // this.buscarCaja();
+    
+            let el: HTMLElement = this.modalCerrarNuevoEvento.nativeElement;
+            el.click();
+
+
+            // this.horario_nuevo_evento  = null;
+            this.keywordEmpleado = '';
+            this.keywordCliente = '';
+            this.keywordServicio = '';
+            // this.itemPendienteServicio.id_servicio  = null;
+            this.descripcion_evento  = '';
+        
+            this.refrescar();
+            
+          } else {
+            this.alertaService.alertFail(resp[0][0].mensaje,false,1200);
+            
+          }
+          },
+        error: (resp: any) => {  this.alertaService.alertFail(resp[0][0].mensaje,false,1200); }
+      });
+  }
+
+  // =====================
+  baja_evento() {
+
+      this.calendarioService.baja_evento( this.id_evento_a_eliminar )
+      .subscribe({
+        next: (resp: any) => { 
+    
+          if(resp[0][0].mensaje == 'Ok') {
+            this.alertaService.alertSuccess('Atencion','Evento eliminado',3000);
+    
+            let el: HTMLElement = this.modalCerrarBajaEvento.nativeElement;
+            el.click();
+        
+            this.refrescar();
+            
+          } else {
+            this.alertaService.alertFail(resp[0][0].mensaje,false,1200);
+            
+          }
+          },
+        error: (resp: any) => {  this.alertaService.alertFail(resp[0][0].mensaje,false,1200); }
+      });
+  }
+
+  //  ==================
+  modal_alta_evento(horario: any){
+
+    this.horario_nuevo_evento = horario;      
+
+    const modal = document.getElementById('modal_nuevo_evento');
+    if (modal) {
+      const bootstrapModal = new (window as any).bootstrap.Modal(modal);
+      bootstrapModal.show();
+    }
+  }
+
+  //  ==================
+  modal_listar_eventos_hora(horario: any){
+
+    this.horario_seleccionado = horario;    
+    this.listar_eventos_hora();  
+
+    const modal = document.getElementById('modal_listar_eventos_hora');
+    if (modal) {
+      const bootstrapModal = new (window as any).bootstrap.Modal(modal);
+      bootstrapModal.show();
+    }
+  }
+
+  //  ==================
+  levantar_modal_confirmar_baja_evento_hora(p_id_evento: any){
+
+  this.id_evento_a_eliminar = p_id_evento;
+
+    const modal_2 = document.getElementById('modal_confirmar_baja_evento_hora');
+    if (modal_2) {
+      const bootstrapModal_2 = new (window as any).bootstrap.Modal(modal_2);
+      bootstrapModal_2.show();
+    }
+  }
+      
+    
 }

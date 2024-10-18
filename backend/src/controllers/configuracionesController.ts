@@ -13,7 +13,6 @@ public async dame_configuraciones(req: Request, res: Response): Promise<void> {
 
   pool.query(`call bsp_listar_configuraciones()`, function(err: any, result: any, fields: any){
       if(err){
-          console.log("error", err);
           return;
       }
       res.json(result);

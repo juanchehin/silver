@@ -10,7 +10,6 @@ class ServiciosController {
 // ==================================================
 public async altaServicio(req: Request, res: Response) {
     
-    console.log("🚀 ~ ServiciosController ~ altaServicio ~ req.body:", req.body)
     var servicio = req.body[0];
     var id_cat_servicio = req.body[1];
     var precio = req.body[2];
@@ -20,8 +19,6 @@ public async altaServicio(req: Request, res: Response) {
 
     pool.query(`call bsp_alta_servicio('${servicio}','${id_cat_servicio}',
         '${precio}','${comision}','${codigo}','${descripcion}')`, async function(err: any, result: any, fields: any){
-        console.log("🚀 ~ ServiciosController ~ '${precio}','${comision}','${codigo}','${descripcion}')`,function ~ err:", err)
-        console.log("🚀 ~ ServiciosController ~ '${precio}','${comision}','${codigo}','${descripcion}')`,function ~ result:", result)
         
         if(err || result[0][0].mensaje != 'Ok'){
             logger.error("Error en bsp_alta_servicio - serviciosController " + err);

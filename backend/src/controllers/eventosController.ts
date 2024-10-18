@@ -10,7 +10,6 @@ class EventosController {
 public async alta_evento(req: Request, res: Response) {
     
     const { IdPersona } = req.params;
-    console.log("🚀 ~ EventosController ~ alta_evento ~ req.body:", req.body)
 
     var fecha_evento = req.body.fecha_evento;
     var horario_evento = req.body.horario_evento;
@@ -20,7 +19,6 @@ public async alta_evento(req: Request, res: Response) {
     var id_cliente = req.body.id_cliente;
     var id_servicio = req.body.id_servicio;
 
-    console.log("🚀 ~ EventosController ~ alta_evento ~ req.body:", req.body)
 
     if(descripcion_evento == null || descripcion_evento == 'null' || descripcion_evento == '-' || descripcion_evento == '' || descripcion_evento == 'undefined' || descripcion_evento == undefined)
     {
@@ -63,6 +61,7 @@ public async listarEventosPaginado(req: Request, res: Response): Promise<void> {
 public async baja_evento(req: Request, res: Response): Promise<void> {
     
     var IdPersona = req.params.IdPersona;
+
     var id_evento = req.body.id_evento;
 
     pool.query(`call bsp_baja_evento('${IdPersona}','${id_evento}')`, function(err: any, result: any, fields: any){
@@ -170,6 +169,28 @@ public async listar_citas_fecha(req: Request, res: Response): Promise<void> {
     })
 }
 
+
+// ==================================================
+//   Listado
+// ==================================================
+public async listar_eventos_hora(req: Request, res: Response): Promise<void> {
+
+    var horario = req.params.horario;
+    var fecha_evento = req.params.fecha_evento;
+
+    console.log("🚀 ~ EventosController ~ listar_eventos_hora ~ horario:", horario)
+    
+    pool.query(`call bsp_listar_eventos_hora('${fecha_evento}','${horario}')`, function(err: any, result: any){
+        if(err){
+            logger.error("Error en listar_eventos_hora - eventosController");
+
+            res.status(400).json(err);
+            return;
+        }
+
+        res.status(200).json(result);
+    })
+}
 // ==================================================
 //  
 // ==================================================

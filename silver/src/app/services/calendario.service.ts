@@ -119,6 +119,17 @@ listar_citas_fecha( fecha_cita: any ) {
   return this.http.get( url, this.headers );
 }
 
+
+// ==================================================
+//        
+// ==================================================
+listar_eventos_hora( fecha_evento: any, horario_seleccionado: any ) {
+
+  let url = URL_SERVICIOS + '/eventos/hora/' + fecha_evento + '/' + horario_seleccionado + '/' + this.IdPersona;
+
+  return this.http.get( url, this.headers );
+}
+
 // ==================================================
 //        
 // ==================================================

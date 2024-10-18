@@ -19,7 +19,6 @@ public async dame_tasas(req: Request, res: Response): Promise<void> {
       if(err){
         logger.error("Error en bsp_listar_tasas - dame_tasas " + err);
 
-          console.log("error", err);
           return;
       }
       res.json(result);
@@ -69,7 +68,6 @@ public async dame_tasa_dia(req: Request, res: Response): Promise<void> {
       if(err){
         logger.error("Error en dame_tasa_dia " + err);
 
-          console.log("error", err);
           return;
       }
       res.json(result);
