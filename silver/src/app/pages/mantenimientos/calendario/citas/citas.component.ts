@@ -87,12 +87,10 @@ listar_citas() {
 
   this.alertaService.cargando = true;
 
-  console.log("🚀 ~ CitasComponent ~ listar_citas ~ this.fecha_cita:", this.fecha_cita)
 
     this.calendarioService.listar_citas_fecha( this.fecha_cita )
                .subscribe( {
                 next: (resp: any) => { 
-                console.log("🚀 ~ CitasComponent ~ listar_citas ~ resp:", resp)
 
                   if(resp[0].length <= 0)
                   { 
@@ -198,7 +196,6 @@ cargarEmpleados() {
   }
 
   onFocusedCliente(e: any){
-    // console.log("pasa on onFocused",e)
     // do something when input is focused
   }
 
@@ -261,7 +258,6 @@ cargarServicios() {
   }
 
   onFocused(e: any){
-    // console.log("pasa on onFocused",e)
     // do something when input is focused
   }
 
@@ -318,7 +314,6 @@ cargarClientes() {
               let el: HTMLElement = this.modalCerrarNuevoEvento.nativeElement;
               el.click();
 
-              console.log("pasas ");
 
               // this.horario_nuevo_evento  = null;
               this.keywordEmpleado = '';

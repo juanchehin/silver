@@ -73,7 +73,6 @@ cargarVentasIdUsuario() {
     .subscribe({
       next: (resp: any) => { 
 
-        console.log("resp cargarVentasIdUsuario : ",resp)
 
         if(resp[2][0].mensaje == 'Ok') {
           this.ventas = resp[0];

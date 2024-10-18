@@ -69,7 +69,6 @@ export class CalendarioComponent implements OnInit {
 
   // =====================
   handleDateClick(arg: any) {
-  console.log("🚀 ~ CalendarioComponent ~ handleDateClick ~ arg:", arg.dateStr)
 
     this.fecha_evento = arg.dateStr;
 
@@ -86,7 +85,6 @@ export class CalendarioComponent implements OnInit {
 
   // =====================
   handleEventClick(clickInfo: any) {
-  console.log("🚀 ~ CalendarioComponent ~ handleEventClick ~ clickInfo:", clickInfo.dateStr)
 
     // this.id_evento_seleccionado = clickInfo.event.extendedProps.id_evento;
     
@@ -183,7 +181,6 @@ cargarEmpleados() {
   }
 
   onFocused(e: any){
-    // console.log("pasa on onFocused",e)
     // do something when input is focused
   }
 

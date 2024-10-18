@@ -209,7 +209,6 @@ cargarEmpleados() {
 
   this.empleadosService.cargarEmpleados( this.empleadoBuscado )
              .subscribe( (resp: any) => {
-             console.log("🚀 ~ NuevaVentaComponent ~ .subscribe ~ resp:", resp)
 
               this.empleados = resp;
 
@@ -479,37 +478,37 @@ agregarLineaTipoPago(): any {
     return;
   }
   
-  console.log("🚀 ~ NuevaVentaComponent ~ agregarLineaTipoPago ~ this.IdTipoPagoSelect:", this.IdTipoPagoSelect)
 
   // ============== control caso pago USD =======================
   if((this.IdTipoPagoSelect == 18) || (this.IdTipoPagoSelect == 19))
   {
-    if((this.monto > this.total_venta_dolares))
+
+      if ( (+this.total_venta_dolares - +this.monto) <= 0.2 )
       {
-        this.alertaService.alertFail('El monto es mayor que el total de la venta (USD)',false,2000);
+        this.alertaService.alertFail('El monto es mayor que el total de la venta (USD) 1',false,2000);
         return;
       }
     
-      if(((this.total_tipos_pagos_usd + +this.monto) > this.total_venta_dolares))
+      if(((+this.total_tipos_pagos_usd + +this.monto) - +this.total_venta_dolares) >= 0.9)
       {
-        this.alertaService.alertFail('El monto total es mayor que el total de la venta (USD)',false,2000);
+        this.alertaService.alertFail('El monto total es mayor que el total de la venta (USD) 2',false,2000);
         return;
       }
   }
- 
 
   // ============== control caso pago VES =======================
   if((this.IdTipoPagoSelect == 15) || (this.IdTipoPagoSelect == 16) || (this.IdTipoPagoSelect == 17))
   {
-    if(this.monto > this.total_venta_bs)
+
+    if((+this.total_venta_bs - +this.monto) <= 0.9)
       {
-        this.alertaService.alertFail('El monto es mayor que el total de la venta (Bs.)',false,2000);
+        this.alertaService.alertFail('El monto es mayor que el total de la venta (Bs.) 1',false,2000);
         return;
       }
     
-      if(((this.total_tipos_pagos_usd + +this.monto) > this.total_venta_bs))
+      if(((this.total_tipos_pagos_bs + +this.monto) - this.total_venta_bs) >= 0.9 )
       {
-        this.alertaService.alertFail('El monto total es mayor que el total de la venta (Bs.)',false,2000);
+        this.alertaService.alertFail('El monto total es mayor que el total de la venta (Bs.) 2',false,2000);
         return;
       }
     
@@ -595,9 +594,7 @@ if(!bandera)
     if((this.IdTipoPagoSelect == 15) || (this.IdTipoPagoSelect == 16) || (this.IdTipoPagoSelect == 17))
     {
       let monto_usd = (this.monto / this.tasa_dia);
-      console.log("🚀 ~ NuevaVentaComponent ~ agregarLineaTipoPago ~ monto_usd:", monto_usd)
       let monto_bs = this.monto;
-      console.log("🚀 ~ NuevaVentaComponent ~ agregarLineaTipoPago ~ monto_bs:", monto_bs)
 
       exists_ltp.SubTotal = +exists_ltp.SubTotal + monto_bs; // sumo al descuento existente
 
@@ -624,7 +621,6 @@ if(!bandera)
     });
 
     
-    console.log("🚀 ~ NuevaVentaComponent ~ agregarLineaTipoPago ~ obj.id_tipo_pago:", obj.id_tipo_pago)
     switch (obj.id_tipo_pago) {
       case 1: // Pago efectivo
             this.total_tipos_pagos_usd = this.total_tipos_pagos_usd + +this.monto;
@@ -684,7 +680,7 @@ if(!bandera)
       // ========== 15 - Pago movil Bs ===============
       case 15:
         
-        this.total_tipos_pagos_usd = this.total_tipos_pagos_usd + (+this.monto / this.tasa_dia);
+        this.total_tipos_pagos_usd = +(this.total_tipos_pagos_usd + (+this.monto / this.tasa_dia)).toFixed(1);
         this.total_tipos_pagos_bs = this.total_tipos_pagos_bs + +this.monto; 
         
         this.total_tipos_pagos_restantes_usd = this.total_venta_dolares - +this.total_tipos_pagos_usd;
@@ -694,7 +690,7 @@ if(!bandera)
       // ========== 16 - tarjeta debito bs ===============
       case 16:
 
-      this.total_tipos_pagos_usd = this.total_tipos_pagos_usd + (+this.monto / this.tasa_dia);
+      this.total_tipos_pagos_usd = +(this.total_tipos_pagos_usd + (+this.monto / this.tasa_dia)).toFixed(1);
       this.total_tipos_pagos_bs = this.total_tipos_pagos_bs + +this.monto; 
       
       this.total_tipos_pagos_restantes_usd = this.total_venta_dolares - +this.total_tipos_pagos_usd;
@@ -702,7 +698,7 @@ if(!bandera)
         break;
       // ========== 17 - tarjeta cred bs ===============
       case 17:
-        this.total_tipos_pagos_usd = this.total_tipos_pagos_usd + (+this.monto / this.tasa_dia);
+        this.total_tipos_pagos_usd = +(this.total_tipos_pagos_usd + (+this.monto / this.tasa_dia)).toFixed(1);
         this.total_tipos_pagos_bs = this.total_tipos_pagos_bs + +this.monto; 
         
         this.total_tipos_pagos_restantes_usd = this.total_venta_dolares - +this.total_tipos_pagos_usd;
@@ -713,10 +709,10 @@ if(!bandera)
       case 18:      
 
         this.total_tipos_pagos_usd = this.total_tipos_pagos_usd + +this.monto;  
-        this.total_tipos_pagos_bs = this.total_tipos_pagos_usd * this.tasa_dia; 
+        this.total_tipos_pagos_bs = +(this.total_tipos_pagos_usd + (+this.monto * this.tasa_dia)).toFixed(1);
 
         this.total_tipos_pagos_restantes_usd = this.total_venta_dolares - +this.total_tipos_pagos_usd;
-        this.total_tipos_pagos_restantes_bs = this.total_tipos_pagos_restantes_usd * this.tasa_dia;
+        this.total_tipos_pagos_restantes_bs = +(+this.total_tipos_pagos_restantes_usd * this.tasa_dia).toFixed(1);
 
         break;
       // ========== 19 - zelle USD ===============
@@ -725,7 +721,7 @@ if(!bandera)
         this.total_tipos_pagos_bs = this.total_tipos_pagos_usd * this.tasa_dia; 
 
         this.total_tipos_pagos_restantes_usd = this.total_venta_dolares - +this.total_tipos_pagos_usd;
-        this.total_tipos_pagos_restantes_bs = this.total_tipos_pagos_restantes_usd * this.tasa_dia;
+        this.total_tipos_pagos_restantes_bs = +(+this.total_tipos_pagos_restantes_usd * this.tasa_dia).toFixed(1);
 
       break;
       // ========== default ===============
@@ -794,7 +790,6 @@ this.monto = 0;
   }
 
   onFocused(e: any){
-    // console.log("pasa on onFocused",e)
     // do something when input is focused
   }
 

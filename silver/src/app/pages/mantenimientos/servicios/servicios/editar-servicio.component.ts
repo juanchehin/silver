@@ -66,9 +66,7 @@ update_servicio() {
       this.serviciosService.editarServicio( servicioEditado )
                 .subscribe( {
                   next: (resp: any) => { 
-  
-                    console.log("resp serv : ",resp)
-                  
+                    
                     if ( resp.mensaje === 'Ok') {
                       this.alertService.alertSuccess('Mensaje','Servicio actualizado',2000);
                       this.router.navigate(['/dashboard/servicios']);

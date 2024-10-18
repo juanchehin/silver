@@ -151,7 +151,6 @@ async altaVenta(req: Request, res: Response) {
         });
 
         pIdVenta = result[0][0].IdVenta;
-        console.log("🚀 ~ VentasController ~ altaVenta ~ pIdVenta:", pIdVenta)
 
         // ======================= Confirmar transferencia exitosa ==========================================
       
