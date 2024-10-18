@@ -19,6 +19,7 @@ import empleadosRoutes from './routes/empleadosRoutes';
 import egresosRoutes from './routes/egresosRoutes';
 import comisionesRoutes from './routes/comisionesRoutes';
 import proveedoresRoutes from './routes/proveedoresRoutes';
+import comprasRoutes from './routes/comprasRoutes';
 
 class Server {
 
@@ -56,6 +57,7 @@ class Server {
         this.app.use('/api/configuraciones', configuracionesRoutes);
         this.app.use('/api/tasas', tasasRoutes);
         this.app.use('/api/ventas', ventasRoutes);
+        this.app.use('/api/compras', comprasRoutes);
         this.app.use('/api/cuentas', cuentasRoutes);
         this.app.use('/api/empleados', empleadosRoutes);
         this.app.use('/api/proveedores', proveedoresRoutes);

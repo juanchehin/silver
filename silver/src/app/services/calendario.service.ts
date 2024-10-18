@@ -62,7 +62,6 @@ alta_evento( fecha_evento: any,horario_evento: any,id_persona: any,id_cliente: a
     id_servicio,
     descripcion_evento
   }
-  console.log("🚀 ~ CalendarioService ~ alta_evento ~ data:", data)
 
   let url = URL_SERVICIOS + '/eventos/alta/' + this.IdPersona;
 

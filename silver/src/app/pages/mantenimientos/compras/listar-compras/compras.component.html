@@ -1,0 +1,62 @@
+<div class="page-content">
+    <div class="container-fluid">
+        <section class="box-typical">
+            <div class="table-responsive">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h3 class="card-title">Cantidad compras ( {{ totalCompras }} )</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label for="start">Fecha Inicio : &nbsp;</label>
+                        <!-- <input type="date" [(ngModel)]="fechaInicio" required> &nbsp;&nbsp;&nbsp;&nbsp; -->
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="start">Fecha Fin : &nbsp;</label>
+                        <!-- <input type="date" [(ngModel)]="fechaFin" required> &nbsp;&nbsp;&nbsp;&nbsp; -->
+                    </div>
+                    <!-- <button (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary "><span class="material-icons">
+                        refresh
+                        </span></button> -->
+                    <div class="col-sm-4">
+                        <!-- <button [routerLink]="['/dashboard/compras/nueva']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                      <i class="fa fa-plus"></i> 
+                      Nueva Venta
+                    </button> -->
+                    </div>
+                </div>
+                <table id="table-edit" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th width="1">
+                                #
+                            </th>
+                            <th>Fecha</th>
+                            <th>Vendedor</th>
+                            <th>Comprador</th>
+                            <th>Monto total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let compra of compras">
+                            <td>{{ compra.IdTransaccion }}</td>
+                            <td>{{ compra.Fecha }}</td>
+                            <td>{{ compra.Vendedor }}</td>
+                            <td>{{ compra.Comprador }}</td>
+                            <td>$ {{ compra.MontoTotal }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <!--.box-typical-->
+
+    </div>
+    <div role="group" aria-label="Basic example" style="text-align: right;">
+        <button (click)="cambiarDesde(-20) " type="button" class="btn btn-default-outline">Anteriores</button>
+        <button (click)="cambiarDesde(20) " type="button" class="btn btn-default-outline">Siguientes</button>
+    </div>
+    <!--.container-fluid-->
+</div>
+<!--.page-content-->

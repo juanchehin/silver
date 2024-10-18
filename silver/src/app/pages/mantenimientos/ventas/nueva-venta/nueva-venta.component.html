@@ -60,6 +60,38 @@
                 <div class="card">
                     <div class="card-body">
 
+                         <!-- ========== Buscador producto ============ -->
+                         <div class="row">
+                            <div class="col-md-5">
+                                <h4 >Producto :</h4>
+                                <div class="ng-autocomplete" style="width:350px">
+                                    <ng-autocomplete [data]="productos" [searchKeyword]="keywordProducto" placeholder="Selecciona producto" 
+                                    (selected)='selectEventProducto($event)' (inputChanged)='onChangeSearchProducto($event)' 
+                                    (inputFocused)='onFocusedProducto($event)' [itemTemplate]="itemTemplateProducto"
+                                    [notFoundTemplate]="notFoundTemplateProducto">
+                                    </ng-autocomplete>
+                                </div>
+                                <ng-template #itemTemplateProducto let-item>
+                                    <a [innerHTML]="item.producto"></a>
+                                </ng-template>
+                                <ng-template #notFoundTemplateProducto let-notFound>
+                                    <div [innerHTML]="notFound"></div>
+                                </ng-template>
+                            </div>
+                            <div class="col-md-2">
+                                <h4 >Cantidad :</h4>
+                                <input [(ngModel)]="cantidadLineaVentaProducto" (input)="cambiaCantidadVentaProducto($event)" type="text" class="form-control form-control-line" placeholder="Cantidad...">
+                            </div>
+                            <div class="col-md-2">
+                                <h4 >Precio :</h4>
+                                <input [(ngModel)]="precio_producto_pendiente" type="text" class="form-control form-control-line" placeholder="Precio producto...">
+                            </div>
+                            <div class="col-md-2" >
+                                <br><br>
+                                <button (click)="agregarLineaVentaProducto()" type="button" class="btn btn-info btn-circle"><i class="mdi mdi-plus"></i> </button>
+                            </div>
+                        </div>
+
                         <!-- ========== Fin Buscador producto ============ -->
                         <br>
                         <!-- ========== Buscador servicio ============ -->
@@ -106,7 +138,7 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4 class="card-title">Servicios agregados</h4>
+                                        <h4 class="card-title">Productos/Servicios agregados</h4>
                                         <div class="table-responsive">
                                             <table class="table table-bordered">
                                                 <thead>
