@@ -152,6 +152,8 @@ altaCompra() {
       this.fecha_compra,
       this.descripcion_compra
     );
+    console.log("🚀 ~ NuevaCompraComponent ~ altaCompra ~ this.arrayCompra:", this.arrayCompra)
+    console.log("🚀 ~ NuevaCompraComponent ~ altaCompra ~ this.lineas_compra:", this.lineas_compra)
 
       this.comprasService.altaCompra(  this.arrayCompra )
       .subscribe({
@@ -271,25 +273,13 @@ agregarLineaCompraProducto() {
 
   if(isNaN(Number(this.cantidadLineaCompraProducto)))
   { 
-    this.alertaService.alertFail('Error en cantidad',false,2000);
-    return;
-  }
-
-  if((this.itemPendienteProducto.Stock <= 0) || (this.itemPendienteProducto.stock < this.cantidadLineaCompraProducto))
-  { 
-    this.alertaService.alertFail('Stock insuficiente para "' + this.itemPendienteProducto.producto + '"',false,2000);
+    this.alertaService.alertFail('Cantidad invalida',false,2000);
     return;
   }
 
   if(this.itemPendienteProducto.length <= 0)
   { 
     this.alertaService.alertFailWithText('Atencion','Debe seleccionar un producto en el buscador',2000);
-    return;
-  }
-
-  if(isNaN(Number(this.precio_producto_pendiente)) || (this.precio_producto_pendiente <= 0))
-  { 
-    this.alertaService.alertFailWithText('Atencion','Error en precio producto',2000);
     return;
   }
 

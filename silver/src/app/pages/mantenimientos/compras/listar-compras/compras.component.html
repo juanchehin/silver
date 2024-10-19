@@ -13,11 +13,11 @@
                         <label for="start">Fecha Fin : &nbsp;</label>
                         <input type="date" class="form-control" [(ngModel)]="fechaFin" required> &nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
-                    <button (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary ">
-                        <span class="material-icons">
-                            refresh
-                        </span>
-                    </button>
+                    <div class="col-sm-4">
+                        <button (click)="refrescar()" class="btn btn-primary" style="margin-top: 30px;">
+                            <i class="mdi mdi-refresh"></i> 
+                        </button>
+                    </div>
                 </div>
                 <!--  -->
                 <br><br>
@@ -29,7 +29,8 @@
                     <div class="col-2">
                     </div>
                     <div class="col-sm-4">
-                        <button [routerLink]="['/dashboard/compras/nueva']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                        <button [routerLink]="['/dashboard/compras/nueva']" type="button" 
+                        class="btn waves-effect waves-light btn-rounded btn-primary">
                             <i class="mdi mdi-plus"></i> 
                             Nuevo compra
                         </button>
@@ -62,7 +63,7 @@
                                                 <td>{{ compra.id_transaccion }}</td>
                                                 <td>{{ compra.fecha }}</td>
                                                 <td>{{ compra.proveedor }}</td>
-                                                <td>${{ compra.monto }}</td>
+                                                <td>$ {{ compra.monto_total }}</td>
                                                 <td>{{ compra.descripcion }}</td>
                                                 <td>
                                                     <!-- <button class="btn btn-primary" type="button" 

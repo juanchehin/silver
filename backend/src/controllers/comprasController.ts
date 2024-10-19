@@ -74,13 +74,16 @@ public async listarComprasIdUsuario(req: Request, res: Response): Promise<void> 
 async altaCompra(req: Request, res: Response) {    
 
     // var pIdVendedor = req.params.IdPersona;
+    console.log("🚀 ~ ComprasController ~ altaCompra ~ req.body:", req.body)
+    
     var pIdCompra;
-
+    
     var pIdProveedor = req.body[0];
     var pLineasCompra = req.body[1];
     var pMontoTotal = req.body[3];
     var pFechaCompra = req.body[4];
     var pDescripcion = req.body[5];
+    console.log("🚀 ~ ComprasController ~ altaCompra ~ pLineasCompra:", pLineasCompra)
     
     if(pDescripcion == null || pDescripcion == 'null' || pDescripcion == '-' || pDescripcion == '' || pDescripcion == 'undefined' || pDescripcion == undefined)
     {
@@ -102,11 +105,13 @@ async altaCompra(req: Request, res: Response) {
         // ========================== Lineas de compra =======================================
 
         pLineasCompra.forEach(async function (value: any) {
+        console.log("🚀 ~ ComprasController ~ value:", value)
 
             let sql2 = `call bsp_alta_linea_compra('${result[0][0].id_compra}','${value.IdProductoServicio}',
             '${value.precio_compra}','${value.cantidad}')`;
             
             const [result2] = await pool.promise().query(sql2)
+            console.log("🚀 ~ ComprasController ~ result2:", result2)
 
             if(result2[0][0].mensaje != 'Ok')
             {
