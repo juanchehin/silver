@@ -42,7 +42,7 @@ buscarProveedores() {
   this.alertService.cargando = true;
 
     const inputElement: HTMLInputElement = document.getElementById('proveedorBuscado') as HTMLInputElement;
-    const proveedorBuscado: any = inputElement.value || null;
+    const proveedorBuscado: any = inputElement.value || '-';
 
     this.proveedoresService.buscarProveedoresPaginado( this.desde,proveedorBuscado  )
                .subscribe( {

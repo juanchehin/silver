@@ -64,13 +64,10 @@
                                                 <th>#</th>
                                                 <th >Apellidos</th>
                                                 <th >Nombres</th>
-                                                <th >Codigo</th>
                                                 <th >ID</th>
-                                                <th width="10%">Email</th>
+                                                <th >Email</th>
                                                 <th >Telefono</th>
                                                 <th >Direccion</th>
-                                                <th >Fecha nacimiento</th>
-                                                <th >Rol</th>
                                                 <th >Accion</th>
                                             </tr>
                                             </thead>
@@ -79,13 +76,10 @@
                                                     <td>{{ proveedor.id_persona }}</td>
                                                     <td>{{ proveedor.apellidos }}</td>
                                                     <td>{{ proveedor.nombres }}</td>
-                                                    <td>{{ proveedor.codigo }}</td>
-                                                    <td>{{ proveedor.dni }}</td>
+                                                    <td>{{ proveedor.nro_identificacion }}</td>
                                                     <td>{{ proveedor.email }}</td>
                                                     <td>{{ proveedor.telefono }}</td>
                                                     <td>{{ proveedor.direccion }}</td>
-                                                    <td>{{ proveedor.fecha_nac }}</td>
-                                                    <td>{{ proveedor.rol }}</td>
                                                     <td>
                                                         <!-- <button class="btn btn-secondary" type="button" [routerLink]="['/dashboard/proveedores/historico',proveedor.id_persona]">
                                                             <i class="mdi mdi-reorder-horizontal"></i>                                                  

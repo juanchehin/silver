@@ -34,10 +34,8 @@ public async buscarProveedorPaginado(req: Request, res: Response): Promise<void>
         pParametroBusqueda = '-';
     }
 
-    pool.query(`call bsp_buscar_proveedores_paginado('${pParametroBusqueda}','${desde}')`, function(err: any, result: any){
+    pool.query(`call bsp_buscar_proveedores_paginado_2('${pParametroBusqueda}','${desde}')`, function(err: any, result: any){
         
-        console.log("🚀 ~ ProveedoresController ~ result:", result)
-        console.log("🚀 ~ ProveedoresController ~ err:", err)
         if(err){
             logger.error("Error en bsp_buscar_proveedores_paginado - ProveedoresController - " + err);
 

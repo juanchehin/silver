@@ -178,7 +178,6 @@ public async listar_eventos_hora(req: Request, res: Response): Promise<void> {
     var horario = req.params.horario;
     var fecha_evento = req.params.fecha_evento;
 
-    console.log("🚀 ~ EventosController ~ listar_eventos_hora ~ horario:", horario)
     
     pool.query(`call bsp_listar_eventos_hora('${fecha_evento}','${horario}')`, function(err: any, result: any){
         if(err){
