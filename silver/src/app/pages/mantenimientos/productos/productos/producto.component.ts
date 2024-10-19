@@ -63,6 +63,7 @@ alta_producto() {
       this.productosService.altaProducto( producto )
                 .subscribe( {
                   next: (resp: any) => { 
+                    console.log("🚀 ~ ProductoComponent ~ alta_producto ~ resp:", resp)
                     
                     if ( resp[0][0].mensaje === 'Ok') {
                       this.alertService.alertSuccess('Mensaje','Producto cargado',2000);

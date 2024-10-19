@@ -10,7 +10,6 @@ class ProductosController {
 public async altaProducto(req: Request, res: Response) {
     
     const { IdPersona } = req.params;
-    const { id_sucursal } = req.params;
 
     var producto = req.body[0];
     var codigo = req.body[1];
@@ -45,7 +44,9 @@ public async altaProducto(req: Request, res: Response) {
     }
 
     
-    pool.query(`call bsp_alta_producto('${id_sucursal}','${producto}','${codigo}','${stock}','${precio_compra}','${precio_venta}','${observaciones}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_alta_producto('${producto}','${codigo}',
+        '${stock}','${precio_compra}','${precio_venta}',
+        '${observaciones}')`, function(err: any, result: any, fields: any){
 
         if(err){
             res.status(404).json(err);

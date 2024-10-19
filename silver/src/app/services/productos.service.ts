@@ -54,9 +54,7 @@ export class ProductosService {
 // ==================================================
 altaProducto( producto: any ) {
 
-  const id_sucursal = localStorage.getItem('id_sucursal');
-
-  let url = URL_SERVICIOS + '/productos/alta/' + this.IdPersona + '/' + id_sucursal;
+  let url = URL_SERVICIOS + '/productos/alta/' + this.IdPersona;
 
   return this.http.post( url, producto, this.headers);
 }
