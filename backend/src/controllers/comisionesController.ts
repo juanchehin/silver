@@ -16,8 +16,9 @@ public async listar_comisiones(req: Request, res: Response): Promise<void> {
     var p_fecha_fin = req.params.p_fecha_fin || 0;
     var id_empleado_seleccionado = req.params.id_empleado_seleccionado || 0;
 
-    pool.query(`call bsp_listar_comisiones_fecha('${desde}','${p_fecha_inicio}','${p_fecha_fin}','${id_empleado_seleccionado}')`, function(err: any, result: any, fields: any){
-        
+    pool.query(`call bsp_listar_comisiones_fecha('${desde}','${p_fecha_inicio}',
+        '${p_fecha_fin}','${id_empleado_seleccionado}')`, function(err: any, result: any, fields: any){
+
         if(err){
             logger.error("Error en bsp_listar_comisiones_paginado - ComisionesController ");
 

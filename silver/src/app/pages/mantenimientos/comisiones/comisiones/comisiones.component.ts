@@ -20,6 +20,8 @@ export class ComisionesComponent implements OnInit {
   // id_servicio_seleccionado: any;
   especialistas: any;
   IdEspecialistaSelect: any = 0;
+  cantidad_transacciones = 0;
+  monto_total = 0;
 
   //
   fecha_inicio = this.utilService.formatDateNow(new Date(Date.now()));
@@ -67,7 +69,9 @@ listar_comisiones() {
 
                     this.especialistas = resp[2];
                     
-                    this.totalComisiones = resp[1][0].cantidad_transacciones_egreso;
+                    this.cantidad_transacciones = resp[1][0].cantidad_transacciones;
+                    this.monto_total = resp[1][0].monto_total || 0;
+
                     this.comisiones = resp[0];
                     this.alertaService.cargando = false;
 

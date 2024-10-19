@@ -152,9 +152,6 @@ altaCompra() {
       this.fecha_compra,
       this.descripcion_compra
     );
-    console.log("🚀 ~ NuevaCompraComponent ~ altaCompra ~ this.arrayCompra:", this.arrayCompra)
-    console.log("🚀 ~ NuevaCompraComponent ~ altaCompra ~ this.lineas_compra:", this.lineas_compra)
-
       this.comprasService.altaCompra(  this.arrayCompra )
       .subscribe({
         next: (resp: any) => {
