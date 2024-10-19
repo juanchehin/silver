@@ -1,62 +1,124 @@
-<div class="page-content">
+<div id="wrapper">
+    <div class="content-page">
+<!-- <div class="page-content"> -->
     <div class="container-fluid">
         <section class="box-typical">
             <div class="table-responsive">
                 <div class="row">
-                    <div class="col-sm-6">
-                        <h3 class="card-title">Cantidad compras ( {{ totalCompras }} )</h3>
-                    </div>
-                </div>
-                <div class="row">
                     <div class="col-sm-4">
                         <label for="start">Fecha Inicio : &nbsp;</label>
-                        <!-- <input type="date" [(ngModel)]="fechaInicio" required> &nbsp;&nbsp;&nbsp;&nbsp; -->
+                        <input type="date" class="form-control" [(ngModel)]="fechaInicio" required> &nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
                     <div class="col-sm-4">
                         <label for="start">Fecha Fin : &nbsp;</label>
-                        <!-- <input type="date" [(ngModel)]="fechaFin" required> &nbsp;&nbsp;&nbsp;&nbsp; -->
+                        <input type="date" class="form-control" [(ngModel)]="fechaFin" required> &nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
-                    <!-- <button (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary "><span class="material-icons">
-                        refresh
-                        </span></button> -->
+                    <button (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary ">
+                        <span class="material-icons">
+                            refresh
+                        </span>
+                    </button>
+                </div>
+                <!--  -->
+                <br><br>
+                <!--  -->
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h3 class="card-title">Cantidad compras ( {{ totalCompras }} )</h3>
+                    </div>
+                    <div class="col-2">
+                    </div>
                     <div class="col-sm-4">
-                        <!-- <button [routerLink]="['/dashboard/compras/nueva']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
-                      <i class="fa fa-plus"></i> 
-                      Nueva Venta
-                    </button> -->
+                        <button [routerLink]="['/dashboard/compras/nueva']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                            <i class="mdi mdi-plus"></i> 
+                            Nuevo compra
+                        </button>
                     </div>
                 </div>
-                <table id="table-edit" class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th width="1">
-                                #
-                            </th>
-                            <th>Fecha</th>
-                            <th>Vendedor</th>
-                            <th>Comprador</th>
-                            <th>Monto total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let compra of compras">
-                            <td>{{ compra.IdTransaccion }}</td>
-                            <td>{{ compra.Fecha }}</td>
-                            <td>{{ compra.Vendedor }}</td>
-                            <td>{{ compra.Comprador }}</td>
-                            <td>$ {{ compra.MontoTotal }}</td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
+
+            <!-- ========== Tabla =========== -->
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card-box">
+
+                        <div class="responsive-table-plugin">
+                            <div class="table-rep-plugin">
+                                <div class="table-responsive" data-pattern="priority-columns">
+                                    <table id="tech-companies-1" class="table table-striped mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Fecha</th>
+                                                <th>Proveedor</th>
+                                                <th>Monto</th>
+                                                <th>Descripcion</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let compra of compras" [ngClass]="{'table-danger': (compra.stock <= 0)}">
+                                                <td>{{ compra.id_transaccion }}</td>
+                                                <td>{{ compra.fecha }}</td>
+                                                <td>{{ compra.proveedor }}</td>
+                                                <td>${{ compra.monto }}</td>
+                                                <td>{{ compra.descripcion }}</td>
+                                                <td>
+                                                    <!-- <button class="btn btn-primary" type="button" 
+                                                     [routerLink]="['editar',producto.id_producto]">
+                                                        <i class="mdi mdi-account-edit"></i>                                                           
+                                                    </button>
+                                                    <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" (click)="modal_baja_producto(producto.id_producto)">
+                                                        <i class="mdi mdi-delete"></i>  
+                                                    </button> -->
+                                                </td>
+                                            </tr>
+                    
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+
+            <div role="group" aria-label="Basic example" style="text-align: right;">
+                <button (click)="cambiarDesde(-20) " type="button" class="btn btn-default-outline btn-info">Anteriores</button>
+                <button (click)="cambiarDesde(20) " type="button" class="btn btn-default-outline btn-info">Siguientes</button>
+            </div>
+            <!--.container-fluid-->
+            <br><br>
+            
         </section>
         <!--.box-typical-->
 
     </div>
-    <div role="group" aria-label="Basic example" style="text-align: right;">
-        <button (click)="cambiarDesde(-20) " type="button" class="btn btn-default-outline">Anteriores</button>
-        <button (click)="cambiarDesde(20) " type="button" class="btn btn-default-outline">Siguientes</button>
-    </div>
     <!--.container-fluid-->
 </div>
 <!--.page-content-->
+</div>
+
+
+<!--  -->
+<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Confirmacion</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ¿Desea confirmar la operacion?
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" #divCerrarModalBajaProducto aria-label="Close" data-bs-dismiss="modal">Cancelar</button>
+            <!-- <button class="btn btn-danger" (click)="baja_producto()">Aceptar</button> -->
+        </div>
+      </div>
+    </div>
+  </div>

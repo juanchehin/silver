@@ -43,15 +43,10 @@ cargarCompras() {
              .subscribe( {
               next: (resp: any) => { 
                 
-                this.totalCompras = resp[1][0].totalCompras;
+                this.totalCompras = resp[1][0].cantidad_transacciones;
 
                 this.compras = resp[0];
-
-                if (resp[1][0].cantCompras === undefined || resp[1][0].cantCompras === null) {
-                  this.totalCompras = 0;
-                }else {
-                  this.alertService.alertFail('Ocurrio un error',false,2000);
-                }
+                
                 return;
                },
               error: () => { 

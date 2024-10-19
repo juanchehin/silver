@@ -32,27 +32,11 @@ public async listarCompras(req: Request, res: Response): Promise<void> {
 
     var fecha_inicio = req.params.FechaInicio;
     var fecha_fin = req.params.FechaFin;
-    var pTurno = req.params.pTurno;
-        
-    if(pTurno == 'manana')
-    {
-        fecha_inicio = fecha_inicio + " 09:00:00";
-        fecha_fin = fecha_fin + " 15:00:00";
-    }else{
-        if (pTurno == 'tarde'){ 
-                fecha_inicio = fecha_inicio + " 15:00:00";
-                fecha_fin = fecha_fin + " 21:00:00";
-            }else{
-                fecha_inicio = fecha_inicio + " 00:00:01";
-                fecha_fin = fecha_fin + " 23:59:59";
-            }
-    }
 
-
-    pool.query(`call bsp_listar_transacciones_fecha('${desde}','${fecha_inicio}','${fecha_fin}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_listar_compras_fecha('${desde}','${fecha_inicio}','${fecha_fin}')`, function(err: any, result: any, fields: any){
 
        if(err){
-            logger.error("Error bsp_listar_transacciones_fecha - listarCompras - comprasController");
+            logger.error("Error bsp_listar_compras_fecha - listarCompras - comprasController");
             res.status(404).json(err);
             return;
        }

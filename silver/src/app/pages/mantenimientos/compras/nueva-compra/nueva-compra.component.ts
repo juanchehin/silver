@@ -161,7 +161,7 @@ altaCompra() {
             this.alertaService.alertSuccess('Mensaje','Compra cargada',2000);
 
             // this.resetearVariables();
-            this.router.navigate(['compras']);
+            this.router.navigate(['/dashboard/compras/listar']);
 
             
           } else {
