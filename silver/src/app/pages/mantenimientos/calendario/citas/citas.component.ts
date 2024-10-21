@@ -51,21 +51,32 @@ export class CitasComponent implements OnInit {
   keywordCliente = 'NombreCompleto';
   clienteBuscado = '';
 
-
   horarios = [
     { label: '08:00 AM' , hora: '08:00:00' },
+    { label: '08:30 AM' , hora: '08:30:00' },
     { label: '09:00 AM' , hora: '09:00:00' },
+    { label: '09:30 AM' , hora: '09:30:00' },
     { label: '10:00 AM' , hora: '10:00:00' },
+    { label: '10:30 AM' , hora: '10:30:00' },
     { label: '11:00 AM' , hora: '11:00:00' },
-    { label: '12:00 AM' , hora: '12:00:00' },
+    { label: '11:30 AM' , hora: '11:30:00' },
+    { label: '12:00 PM' , hora: '12:00:00' },
+    { label: '12:30 PM' , hora: '12:30:00' },
     { label: '01:00 PM' , hora: '13:00:00' },
+    { label: '01:30 PM' , hora: '13:30:00' },
     { label: '02:00 PM' , hora: '14:00:00' },
+    { label: '02:30 PM' , hora: '14:30:00' },
     { label: '03:00 PM' , hora: '15:00:00' },
+    { label: '03:30 PM' , hora: '15:30:00' },
     { label: '04:00 PM' , hora: '16:00:00' },
+    { label: '04:30 PM' , hora: '16:30:00' },
     { label: '05:00 PM' , hora: '17:00:00' },
+    { label: '05:30 PM' , hora: '17:30:00' },
     { label: '06:00 PM' , hora: '18:00:00' },
+    { label: '06:30 PM' , hora: '18:30:00' },
     { label: '07:00 PM' , hora: '19:00:00' }
   ];
+  
 
 
   constructor(
