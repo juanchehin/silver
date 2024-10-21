@@ -87,6 +87,14 @@ export class NuevaVentaComponent implements OnInit {
   fecha_nac_nuevo_cliente: any;
   observaciones_nuevo_cliente: any;
 
+  // serv avanzado - modal
+  servicios_modal!: any;
+  totalServicios = 0;
+  id_servicio_seleccionado_modal: any;
+  @ViewChild('inputServicioBuscado') inputServicioBuscado!: ElementRef;
+  @ViewChild('inputServicioBuscadoModal') inputServicioBuscadoModal!: ElementRef;
+
+
   // Modals
   activarModal = false;
   activarModalDescuentoEfectivo = false;
@@ -467,6 +475,87 @@ agregarLineaVentaServicio() {
 
 }
 
+// ==================================================
+// 
+// ==================================================
+agregarLineaVentaServicioModal(p_servicio: any) {
+
+  // if(isNaN(Number(this.cantidadLineaVentaServicio)))
+  // { 
+  //   this.alertaService.alertFail('Error en cantidad',false,2000);
+  //   return;
+  // }
+
+
+  if(p_servicio.length <= 0)
+  { 
+    this.alertaService.alertFailWithText('Atencion','Debe seleccionar un servicio en el buscador',2000);
+    return;
+  }
+
+  if(isNaN(Number(p_servicio.precio)) || (p_servicio.precio <= 0))
+  { 
+    this.alertaService.alertFailWithText('Atencion','Error en precio producto',2000);
+    return;
+  }
+
+  this.total_venta_dolares += Number(p_servicio.precio) * 1;
+
+  this.total_venta_bs = this.total_venta_dolares;
+
+  if(isNaN(Number(this.tasa_dia)) || (this.tasa_dia <= 0))
+  { 
+    this.alertaService.alertFailWithText('Atencion','Error en tasa del dia',2000);
+    return;
+  }
+
+
+  this.total_venta_bs = this.total_venta_dolares * this.tasa_dia;
+
+
+  
+  const checkExistsLineaVenta = this.lineas_venta.find((linea_venta) => {
+    if((linea_venta.IdProductoServicio == p_servicio.precio.id_servicio) && (linea_venta.tipo == 'servicio'))
+    {
+      return true;
+    }else{
+      return false;
+    }
+  });
+
+  //
+  if(!(checkExistsLineaVenta != undefined))
+  {
+    this.lineas_venta.push(
+      {
+        id_item: this.IdItem,
+        IdProductoServicio: Number(p_servicio.id_servicio),
+        codigo: p_servicio.codigo,
+        producto_servicio: p_servicio.servicio,
+        cantidad: 1,
+        precio_venta: p_servicio.precio,
+        tipo: 'servicio'
+      }
+    );
+
+    this.IdItem += 1;
+  
+    this.cantidadLineaVentaProducto = 1;
+  }
+  else{
+    this.itemCheckExists = checkExistsLineaVenta;
+
+    for (let item of this.lineas_venta) {
+
+      if((item.IdProductoServicio == this.itemCheckExists.IdProductoServicio) && (item.tipo == 'servicio'))
+      { 
+        item.cantidad = Number(item.cantidad) + Number(this.cantidadLineaVentaServicio);
+      }
+     }
+  }
+ 
+
+}
 // ==================================================
 // Carga las lineas en el modal de tipos de pago
 // ==================================================
@@ -1036,6 +1125,86 @@ dame_tasa_dia() {
       }
   });
 }
+
+// ==================================================
+// Carga
+// ==================================================
+
+buscarServicio() {
+
+  this.alertaService.cargando = true;
+  var servicioBuscadoModal: any = '-';
+
+  const inputElement: HTMLInputElement = document.getElementById('inputServicioBuscadoModal') as HTMLInputElement;
+
+  if(inputElement == null || inputElement == undefined)
+  {
+    servicioBuscadoModal = '-';
+  }else{
+    servicioBuscadoModal = inputElement.value || '-';
+  }
+
+
+    this.serviciosService.listarServiciosPaginado( 0, servicioBuscadoModal  )
+               .subscribe( {
+                next: (resp: any) => { 
+
+                  if(resp[0].length <= 0)
+                  { 
+                    this.servicios_modal = [];
+                    this.totalServicios = 0;
+                    this.alertaService.cargando = false;
+                    
+                    return;
+                  }
+  
+                  if ( resp[2][0].mensaje == 'Ok') {
+                    
+                    // this.totalServicios = resp[1][0].cantServiciosBuscados;
+                    this.servicios_modal = resp[0];
+                    this.alertaService.cargando = false;
+
+                  } else {
+                    this.alertaService.alertFail('Ocurrio un error',false,2000);
+                    this.alertaService.cargando = false;
+
+                  }
+                  this.alertaService.cargando = false;
+
+                  return;
+                 },
+                error: () => { 
+                  this.alertaService.alertFail('Ocurrio un error',false,2000);
+                  this.alertaService.cargando = false;
+                }
+              });
+
+  }
+
+// ==================================================
+//    Funcion para recargar el listado
+// ==================================================
+
+refrescar() {
+  // Reseteo 'desde' a cero
+  this.inputServicioBuscadoModal.nativeElement.value = '';
+  
+  // this.desde = 0;
+  this.buscarServicio();
+
+}
+
+// ==================================================
+seleccionar_servicio_modal(p_id_servicio_modal: any) {
+  
+  
+  this.inputServicioBuscadoModal.nativeElement.value = '';
+  
+  // this.desde = 0;
+  this.buscarServicio();
+
+}
+
 
 }
 
