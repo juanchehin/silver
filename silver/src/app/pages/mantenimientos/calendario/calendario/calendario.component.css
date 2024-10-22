@@ -1,0 +1,14 @@
+.btn-ver-mas {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0px 5px; /* Sin padding vertical, menos espacio */
+  line-height: 1; /* Ajusta la altura de la línea */
+  font-size: 10px; /* Reduce el tamaño de la letra */
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.btn-ver-mas:hover {
+  background-color: #0056b3;
+}

@@ -11,7 +11,7 @@ import { ServiciosService } from 'src/app/services/servicios.service';
 @Component({
   selector: 'app-calendario',
   templateUrl: './calendario.component.html',
-  styles: []
+  styleUrls: ['./calendario.component.css']
 })
 export class CalendarioComponent implements OnInit {
   
@@ -62,6 +62,7 @@ export class CalendarioComponent implements OnInit {
       plugins: [dayGridPlugin,interactionPlugin],
       eventClick: this.handleEventClick.bind(this),
       dateClick: (arg) => this.handleDateClick(arg),
+      dayCellContent: this.renderButton.bind(this),
       events: [],
       datesSet: this.onDatesSet.bind(this)
     };
@@ -96,6 +97,12 @@ export class CalendarioComponent implements OnInit {
     //   bootstrapModal.show();
     // }
     
+  }
+
+  
+  // Función para renderizar el botón "ver más" en cada celda de día
+  renderButton(arg: any) {
+    return { html: '<button class="btn-ver-mas">Ver más</button>' };
   }
 
   // =====================
