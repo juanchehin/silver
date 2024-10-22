@@ -187,30 +187,6 @@
 </div>
 </div>
 
-<!-- Modal - confirmar baja evento -->
-<div class="modal fade" id="modal_confirmar_baja_evento_hora" tabindex="-1" aria-labelledby="modal_confirmar_baja_evento_hora" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="modal_confirmar_baja_evento_hora">Eliminar evento</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <!--  -->
-      <br>
-      <div class="modal-body">      
-        <div class="row">
-          <h2>¿Desea eliminar el evento?</h2>
-        </div> 
-      </div>
-      <br>
-      <!--  -->
-      <div class="modal-footer">
-        <button #modalCerrarBajaEvento type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button #modalCerrarBajaEvento2 type="button" class="btn btn-primary" (click)="baja_evento()">Aceptar</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- Modal - listado eventos de un horario -->
 <div class="modal fade" id="modal_listar_eventos_hora" tabindex="-1" aria-labelledby="modal_listar_eventos_hora" aria-hidden="true">
@@ -240,10 +216,12 @@
                   <td>{{ evento_hora.cliente }}</td>
                   <td>{{ evento_hora.servicio }}</td>
                   <td>
-                    <button class="btn btn-secondary" type="button" data-bs-toggle="modal" data-bs-target="#modal_confirmar_baja_evento_hora" 
-                      (click)="levantar_modal_confirmar_baja_evento_hora(evento_hora.id_evento)">
+                    <button class="btn btn-secondary" type="button" data-bs-toggle="modal"
+                    data-bs-target="#modal_confirmar_cancelar_evento_hora" 
+                      (click)="levantar_modal_confirmar_cancelar_evento_hora(evento_hora.id_evento)">
                       <i class="mdi mdi-cancel"></i> 
                     </button>
+                    <!--  -->
                     <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#modal_confirmar_baja_evento_hora" 
                       (click)="levantar_modal_confirmar_baja_evento_hora(evento_hora.id_evento)">
                       <i class="mdi mdi-delete"></i>  
@@ -259,6 +237,57 @@
       <div class="modal-footer">
         <button #modalCerrarListarEvento type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
         <button #modalCerrarListarEvento type="button" class="btn btn-primary">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal - confirmar baja evento -->
+<div class="modal fade" id="modal_confirmar_baja_evento_hora" tabindex="-1" aria-labelledby="modal_confirmar_baja_evento_hora" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modal_confirmar_baja_evento_hora">Eliminar evento</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <!--  -->
+      <br>
+      <div class="modal-body">      
+        <div class="row">
+          <h2>¿Desea eliminar el evento?</h2>
+        </div> 
+      </div>
+      <br>
+      <!--  -->
+      <div class="modal-footer">
+        <button #modalCerrarBajaEvento type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button #modalCerrarBajaEvento2 type="button" class="btn btn-primary" (click)="baja_evento()">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal - confirmar cancelar evento -->
+<div class="modal fade" id="modal_confirmar_cancelar_evento_hora" tabindex="-1" aria-labelledby="modal_confirmar_cancelar_evento_hora" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modal_confirmar_baja_evento_hora">Cancelar evento</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <!--  -->
+      <br>
+      <div class="modal-body">      
+        <div class="row">
+          <h2>¿Desea cancelar el evento?</h2>
+        </div> 
+      </div>
+      <br>
+      <!--  -->
+      <div class="modal-footer">
+        <button #modalCerrarCancelarEvento type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button #modalCerrarCancelarEvento2 type="button" class="btn btn-primary" (click)="cancelar_evento()">Aceptar</button>
       </div>
     </div>
   </div>

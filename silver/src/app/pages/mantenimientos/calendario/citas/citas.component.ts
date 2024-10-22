@@ -31,6 +31,7 @@ export class CitasComponent implements OnInit {
   @ViewChild('modalCerrarNuevoEvento') modalCerrarNuevoEvento!: ElementRef;
   @ViewChild('modalCerrarBajaEvento') modalCerrarBajaEvento!: ElementRef;
   @ViewChild('modalCerrarDetallesEvento') modalCerrarDetallesEvento!: ElementRef;
+  @ViewChild('modalCerrarCancelarEvento') modalCerrarCancelarEvento!: ElementRef;
 
   // Empleados
   empleados: any;
@@ -415,6 +416,33 @@ cargarClientes() {
       });
   }
 
+  // =====================
+  cancelar_evento() {
+  console.log("🚀 ~ CitasComponent ~ cancelar_evento ~ cancelar_evento:")
+
+    this.calendarioService.cancelar_evento( this.id_evento_a_eliminar )
+    .subscribe({
+      next: (resp: any) => { 
+  
+        if(resp[0][0].mensaje == 'Ok') {
+          this.alertaService.alertSuccess('Atencion','Evento cancelado',3000);
+  
+          let el: HTMLElement = this.modalCerrarCancelarEvento.nativeElement;
+          el.click();
+
+          this.cerrar_modal_confirmar_cancelar_evento_hora();
+
+      
+          this.refrescar();
+          
+        } else {
+          this.alertaService.alertFail(resp[0][0].mensaje,false,1200);
+          
+        }
+        },
+      error: (resp: any) => {  this.alertaService.alertFail(resp[0][0].mensaje,false,1200); }
+    });
+}
   //  ==================
   modal_alta_evento(horario: any){
 
@@ -450,6 +478,43 @@ cargarClientes() {
       const bootstrapModal_2 = new (window as any).bootstrap.Modal(modal_2);
       bootstrapModal_2.show();
     }
+  }
+
+  //  ==================
+  levantar_modal_confirmar_cancelar_evento_hora(p_id_evento: any){
+
+    this.cerrar_modal_confirmar_eliminar_evento_hora();
+    this.id_evento_a_eliminar = p_id_evento;
+  
+      const modal_3 = document.getElementById('modal_confirmar_cancelar_evento_hora');
+      if (modal_3) {
+        const bootstrapModal_3 = new (window as any).bootstrap.Modal(modal_3);
+        bootstrapModal_3.show();
+      }
+    }
+
+  //  ==================
+  cerrar_modal_confirmar_eliminar_evento_hora(){
+
+    const modal_4 = document.getElementById('modal_confirmar_baja_evento_hora');
+
+    let el: HTMLElement = this.modalCerrarBajaEvento.nativeElement;
+    el.click();
+
+    const bootstrapModal_4 = new (window as any).bootstrap.Modal(modal_4);
+    bootstrapModal_4.hide();
+  }
+
+   //  ==================
+   cerrar_modal_confirmar_cancelar_evento_hora(){
+
+    const modal_5 = document.getElementById('modal_confirmar_cancelar_evento_hora');
+
+    let el: HTMLElement = this.modalCerrarCancelarEvento.nativeElement;
+    el.click();
+
+    const bootstrapModal_5 = new (window as any).bootstrap.Modal(modal_5);
+    bootstrapModal_5.hide();
   }
       
     

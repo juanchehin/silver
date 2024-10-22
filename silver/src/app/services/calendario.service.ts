@@ -81,6 +81,20 @@ baja_evento( id_evento: any ) {
 
   return this.http.post( url, data, this.headers);
 }
+
+// ==================================================
+//        
+// ==================================================
+cancelar_evento( id_evento: any ) {
+
+  const data = {
+    id_evento
+  }
+
+  let url = URL_SERVICIOS + '/eventos/cancelar/evento/' + this.IdPersona;
+
+  return this.http.post( url, data, this.headers);
+}
 // ==================================================
 //        
 // ==================================================
