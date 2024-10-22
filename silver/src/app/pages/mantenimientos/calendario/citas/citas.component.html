@@ -28,16 +28,19 @@
                       <th>Especialista</th>
                       <th>Cliente</th>
                       <th>Servicio</th>
+                      <th>Estado</th>
                       <th>Accion</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let hora of horarios">
+                    <tr *ngFor="let hora of horarios" >
                       <td>{{ hora.label }}</td>
                       <td>
                         <ng-container *ngFor="let cal of calendario">
                           <div *ngIf="cal.horario === hora.hora">
-                            {{ cal.empleado }}
+                            <div [ngClass]="{'fila-cancelada': (cal.estado_evento == 'Cancelado')}">
+                              {{ cal.empleado }}
+                            </div>
                           </div>
                         </ng-container>
                       </td>
@@ -45,7 +48,9 @@
                       <td>
                         <ng-container *ngFor="let cal of calendario">
                           <div *ngIf="cal.horario === hora.hora">
-                            {{ cal.cliente }}
+                            <div [ngClass]="{'fila-cancelada': (cal.estado_evento == 'Cancelado')}">
+                              {{ cal.cliente }}
+                            </div>
                           </div>
                         </ng-container>
                       </td>
@@ -53,7 +58,19 @@
                       <td>
                         <ng-container *ngFor="let cal of calendario">
                           <div *ngIf="cal.horario === hora.hora">
-                            {{ cal.servicio }}
+                            <div [ngClass]="{'fila-cancelada': (cal.estado_evento == 'Cancelado')}">
+                              {{ cal.servicio }}
+                            </div>
+                          </div>
+                        </ng-container>
+                      </td>
+                       <!--  -->
+                       <td>
+                        <ng-container *ngFor="let cal of calendario">
+                          <div *ngIf="cal.horario === hora.hora">
+                            <div [ngClass]="{'fila-cancelada': (cal.estado_evento == 'Cancelado')}">
+                              {{ cal.estado_evento }}
+                            </div>
                           </div>
                         </ng-container>
                       </td>
@@ -218,11 +235,15 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let evento_hora of eventos_horas">
+                <tr *ngFor="let evento_hora of eventos_horas" [ngClass]="{'fila-cancelada': (evento_hora.estado_evento == 'C')}">
                   <td>{{ evento_hora.empleado }}</td>
                   <td>{{ evento_hora.cliente }}</td>
                   <td>{{ evento_hora.servicio }}</td>
                   <td>
+                    <button class="btn btn-secondary" type="button" data-bs-toggle="modal" data-bs-target="#modal_confirmar_baja_evento_hora" 
+                      (click)="levantar_modal_confirmar_baja_evento_hora(evento_hora.id_evento)">
+                      <i class="mdi mdi-cancel"></i> 
+                    </button>
                     <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#modal_confirmar_baja_evento_hora" 
                       (click)="levantar_modal_confirmar_baja_evento_hora(evento_hora.id_evento)">
                       <i class="mdi mdi-delete"></i>  
