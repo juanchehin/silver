@@ -42,8 +42,8 @@ export class NuevaVentaComponent implements OnInit {
   tiposPago: any;
   clientes = [];
   datosVendedor: any;
-  total_venta_bs: number = 0; // bolivares venezolanos
-  total_venta_dolares: number = 0;  // usd
+  total_venta_bs: any = 0; // bolivares venezolanos
+  total_venta_dolares: any = 0;  // usd
 
   //
   IdItem = 0;
@@ -503,6 +503,8 @@ agregarLineaVentaServicioModal(p_servicio: any) {
 
   this.total_venta_bs = this.total_venta_dolares;
 
+
+
   if(isNaN(Number(this.tasa_dia)) || (this.tasa_dia <= 0))
   { 
     this.alertaService.alertFailWithText('Atencion','Error en tasa del dia',2000);
@@ -511,8 +513,7 @@ agregarLineaVentaServicioModal(p_servicio: any) {
 
 
   this.total_venta_bs = this.total_venta_dolares * this.tasa_dia;
-
-
+  
   
   const checkExistsLineaVenta = this.lineas_venta.find((linea_venta) => {
     if((linea_venta.IdProductoServicio == p_servicio.precio.id_servicio) && (linea_venta.tipo == 'servicio'))
@@ -589,8 +590,10 @@ agregarLineaTipoPago(): any {
   // ============== control caso pago VES =======================
   if((this.IdTipoPagoSelect == 15) || (this.IdTipoPagoSelect == 16) || (this.IdTipoPagoSelect == 17))
   {
+    console.log("🚀 ~ NuevaVentaComponent ~ agregarLineaTipoPago ~ this.monto:", this.monto)
+    console.log("🚀 ~ NuevaVentaComponent ~ agregarLineaTipoPago ~ this.total_venta_bs:", this.total_venta_bs)
 
-    if((+this.total_venta_bs - +this.monto) >= 0.9)
+    if(((+this.total_venta_bs) - (+this.monto)) <= 0.9)
       {
         this.alertaService.alertFail('El monto es mayor que el total de la venta (Bs.) 1',false,2000);
         return;
@@ -618,7 +621,7 @@ agregarLineaTipoPago(): any {
     return;
   }
 
-    //
+  //
   let obj = this.tiposPago.find((o: any) => 
   {
     if(o.id_tipo_pago == this.IdTipoPagoSelect)
