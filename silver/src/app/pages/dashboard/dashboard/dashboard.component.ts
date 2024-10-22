@@ -33,6 +33,14 @@ export class DashboardComponent implements OnInit {
   monto_egreso = 0;
   turno_seleccionado = 'todos';
 
+  pago_movil = 0;
+  zelle = 0;
+  taj_deb_bs = 0;
+  taj_cred_bs = 0;
+  dolar_efectivo = 0;
+
+  // p_suma_pago_movil,p_suma_zelle,p_suma_taj_deb_bs,p_suma_taj_cred_bs,p_suma_dolar_efectivo
+
   //
   tiposPago: any;
   items_pago: any;
@@ -101,6 +109,12 @@ cargarDatosDashboard(){
                     this.voucher = resp[2][0].p_suma_voucher || 0;
                     this.estado_caja = resp[2][0].estado_caja || 'C';
                     this.tarjeta_debito = resp[2][0].p_suma_tarjeta_debito || 0;
+
+                    this.pago_movil = resp[2][0].p_suma_pago_movil || 0;
+                    this.zelle = resp[2][0].p_suma_zelle || 0;
+                    this.taj_deb_bs = resp[2][0].p_suma_taj_deb_bs || 0;
+                    this.taj_cred_bs = resp[2][0].p_suma_taj_cred_bs || 0;
+                    this.dolar_efectivo = resp[2][0].p_suma_dolar_efectivo || 0;
 
                     this.empleados = resp[3];
 

@@ -57,13 +57,13 @@ ingresar() {
 
         if(persona[2] !== null && persona[2] !== undefined)
         {
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/dashboard/calendario']);
             return;
         }
         else{
           if(this.tasa_dia !== null && this.tasa_dia !== undefined)
             {
-              this.router.navigate(['/dashboard']);
+              this.router.navigate(['/dashboard/calendario']);
               return;
             }else{            
               this.alertService.alertFailWithText('Debe cargar la tasa del dia','Atencion',3000);
@@ -94,7 +94,6 @@ dame_tasa_dia() {
   this.tasasService.dame_tasa_dia( )
   .subscribe( {
           next: (resp: any) => {
-          console.log("🚀 ~ LoginComponent ~ dame_tasa_dia ~ resp:", resp)
 
             if((resp[1][0].mensaje == 'Ok')) {
 

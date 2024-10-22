@@ -61,8 +61,8 @@
                                                 <td>{{ producto.codigo }}</td>
                                                 <td>{{ producto.producto }}</td>
                                                 <td>{{ producto.stock }}</td>
-                                                <td>${{ producto.precio_compra }}</td>
-                                                <td>${{ producto.precio_venta }}</td>
+                                                <td>{{ producto.precio_compra }}$</td>
+                                                <td>{{ producto.precio_venta }}$</td>
                                                 <td>{{ producto.descripcion }}</td>
                                                 <td>
                                                     <button class="btn btn-primary" type="button" [routerLink]="['editar',producto.id_producto]">
