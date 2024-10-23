@@ -476,7 +476,8 @@ agregarLineaVentaServicio() {
 }
 
 // ==================================================
-// 
+// carga un servicio en caso de busq avanzada de serv en el
+// modal
 // ==================================================
 agregarLineaVentaServicioModal(p_servicio: any) {
 
@@ -594,16 +595,16 @@ agregarLineaTipoPago(): any {
     console.log("🚀 ~ NuevaVentaComponent ~ agregarLineaTipoPago ~ this.total_venta_bs:", this.total_venta_bs)
 
     if(((+this.total_venta_bs) - (+this.monto)) <= 0.9)
-      {
-        this.alertaService.alertFail('El monto es mayor que el total de la venta (Bs.) 1',false,2000);
-        return;
-      }
-    
-      if(((this.total_tipos_pagos_bs + +this.monto) - this.total_venta_bs) >= 0.9 )
-      {
-        this.alertaService.alertFail('El monto total es mayor que el total de la venta (Bs.) 2',false,2000);
-        return;
-      }
+    {
+      this.alertaService.alertFail('El monto es mayor que el total de la venta (Bs.) 1',false,2000);
+      return;
+    }
+
+    if(((this.total_tipos_pagos_bs + +this.monto) - this.total_venta_bs) >= 0.9 )
+    {
+      this.alertaService.alertFail('El monto total es mayor que el total de la venta (Bs.) 2',false,2000);
+      return;
+    }
     
   }
   
@@ -670,7 +671,7 @@ if(!bandera)
       let monto_usd = this.monto;
       let monto_bs = this.monto * this.tasa_dia;
 
-      exists_ltp.SubTotal = +exists_ltp.SubTotal + +this.monto; // sumo al descuento existente
+      exists_ltp.SubTotal = +exists_ltp.SubTotal + +this.monto;
 
       this.total_tipos_pagos_usd = this.total_tipos_pagos_usd - +this.monto;
 
@@ -715,61 +716,6 @@ if(!bandera)
 
     
     switch (obj.id_tipo_pago) {
-      case 1: // Pago efectivo
-            this.total_tipos_pagos_usd = this.total_tipos_pagos_usd + +this.monto;
-            this.total_tipos_pagos_restantes_usd = this.total_venta_dolares - +this.total_tipos_pagos_usd;
-
-            break;
-      case 9: // 1 pago
-        var monto_aumento = +this.monto * ((this.porcentaje_un_pago / 100)); 
-        this.total_venta_dolares = +this.total_venta_dolares + +monto_aumento;
-        this.total_tipos_pagos_usd = this.total_tipos_pagos_usd + +this.monto + monto_aumento;          
-        this.total_tipos_pagos_restantes_usd = this.total_venta_dolares - +this.total_tipos_pagos_usd;
-
-        this.lineas_tipos_pago.push(
-          {
-            IdItem: this.IdItemTipoPago + 1,
-            IdTipoPago: 12,
-            TipoPago: 'Recargo Tarjeta',
-            SubTotal: monto_aumento
-          });
-
-          break;
-      case 10: // 3 pago            
-          var monto_aumento = +this.monto * ((this.porcentaje_tres_pago / 100)); 
-          this.total_venta_dolares = +this.total_venta_dolares + +monto_aumento;
-          this.total_tipos_pagos_usd = this.total_tipos_pagos_usd + +this.monto + monto_aumento;          
-          this.total_tipos_pagos_restantes_usd = this.total_venta_dolares - +this.total_tipos_pagos_usd;
-
-          this.lineas_tipos_pago.push(
-            {
-              IdItem: this.IdItemTipoPago + 1,
-              IdTipoPago: 12,
-              TipoPago: 'Recargo Tarjeta',
-              SubTotal: monto_aumento
-            });
-
-          break;
-      case 11:  // 6 pago
-        var monto_aumento = +this.monto * ((this.porcentaje_seis_pago / 100)); 
-        this.total_venta_dolares = +this.total_venta_dolares + +monto_aumento;
-        this.total_tipos_pagos_usd = this.total_tipos_pagos_usd + +this.monto + monto_aumento;          
-        this.total_tipos_pagos_restantes_usd = this.total_venta_dolares - +this.total_tipos_pagos_usd;
-
-        this.lineas_tipos_pago.push(
-          {
-            IdItem: this.IdItemTipoPago + 1,
-            IdTipoPago: 12,
-            TipoPago: 'Recargo Tarjeta',
-            SubTotal: monto_aumento
-          });
-
-          break;
-      case 13:  // Descuento
-        this.total_venta_dolares = +this.total_venta_dolares - +this.monto;
-        this.total_tipos_pagos_usd = this.total_tipos_pagos_usd - +this.monto;
-
-          break;
       // ========== 15 - Pago movil Bs ===============
       case 15:
         
@@ -823,7 +769,18 @@ if(!bandera)
           break;
     }
 
-    
+    // control por si los valores son debajo de cero
+    if((this.total_tipos_pagos_usd < 0) || (this.total_tipos_pagos_usd == null) || (this.total_tipos_pagos_usd == undefined))
+    {
+      this.total_tipos_pagos_usd = 0;
+    }
+
+    // control por si los valores son debajo de cero
+    if((this.total_tipos_pagos_restantes_bs < 0) || (this.total_tipos_pagos_restantes_bs == null) || (this.total_tipos_pagos_restantes_bs == undefined))
+    {
+      this.total_tipos_pagos_restantes_bs = 0;
+    }
+
 
     this.IdItemTipoPago += 1;
   }
