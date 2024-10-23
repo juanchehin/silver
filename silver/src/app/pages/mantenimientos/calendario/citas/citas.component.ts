@@ -212,7 +212,13 @@ cambiarDesde( valor: number ) {
 // ==================================================
 
 refrescar() {
-  
+
+  const backdrop = document.querySelector('.modal-backdrop');
+  if (backdrop) {
+      backdrop.remove();
+  }
+
+
   this.listar_citas();
 
 }
@@ -418,7 +424,6 @@ cargarClientes() {
 
   // =====================
   cancelar_evento() {
-  console.log("🚀 ~ CitasComponent ~ cancelar_evento ~ cancelar_evento:")
 
     this.calendarioService.cancelar_evento( this.id_evento_a_eliminar )
     .subscribe({
