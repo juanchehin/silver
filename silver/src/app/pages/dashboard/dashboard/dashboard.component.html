@@ -22,7 +22,7 @@
             
                             <div class="widget-chart-1">            
                                 <div class="widget-detail-1 text-right">
-                                    <h2 class="font-weight-normal pt-2 mb-1">$ {{ventas_total}} </h2>
+                                    <h2 class="font-weight-normal pt-2 mb-1">{{ventas_total}} </h2>
                                     <p class="text-muted mb-1">Ventas total</p>
                                 </div>
                             </div>
@@ -168,7 +168,7 @@
                                                     <td>{{ transaccion.Empleado }}</td>
                                                     <td>{{ transaccion.Cliente }}</td>
                                                     <td>{{ transaccion.Tipo }}</td>
-                                                    <td>$ {{ transaccion.Monto }}</td>
+                                                    <td>{{ transaccion.Monto }}</td>
                                                     <td>{{ transaccion.Descripcion }}</td>
                                                     <td>
                                                         <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#modal-ver-transaccion" (click)="ver_transaccion(transaccion)">
@@ -335,9 +335,9 @@
              <tbody>
                 <tr *ngFor="let lv of detalle_lineas_venta">
                     <td>{{ lv.nombre }}</td>
-                    <td>$ {{ lv.precio_venta }}</td>
+                    <td>{{ lv.precio_venta }}</td>
                     <td>{{ lv.cantidad }}</td>
-                    <td>$ {{ lv.SubTotal }}</td>
+                    <td>{{ lv.SubTotal }}</td>
                     <td>{{ lv.tipo }}</td>
                 </tr>
             </tbody>
@@ -356,12 +356,12 @@
             <tbody>
                 <tr *ngFor="let item of items_pago">
                     <td>{{ item.tipo_pago }}</td>
-                    <td>$ {{ item.monto }}</td>
+                    <td>{{ item.monto }}</td>
                 </tr>
             </tbody>
         </table>
 
-        <h4>Total : $ {{detalle_monto_total}}</h4>
+        <h4>Total : {{detalle_monto_total}}</h4>
         <br>       
 
         </div>
