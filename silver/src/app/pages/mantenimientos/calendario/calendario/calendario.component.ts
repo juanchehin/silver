@@ -102,7 +102,7 @@ export class CalendarioComponent implements OnInit {
   
   // Función para renderizar el botón "ver más" en cada celda de día
   renderButton(arg: any) {
-    return { html: '<button class="btn-ver-mas">Ver más</button>' };
+    return { html: '<button class="btn-ver-mas">Ver agenda</button>' };
   }
 
   // =====================
