@@ -7,6 +7,8 @@ import { CalendarioService } from 'src/app/services/calendario.service';
 import { EmpleadosService } from 'src/app/services/empleados.service';
 import { Router } from '@angular/router';
 import { ServiciosService } from 'src/app/services/servicios.service';
+import { UtilService } from 'src/app/services/util.service';
+import timeGridPlugin from '@fullcalendar/timegrid'
 
 @Component({
   selector: 'app-calendario',
@@ -43,7 +45,8 @@ export class CalendarioComponent implements OnInit {
   citas_pendientes = 0;
   citas_mes = 0;
   citas_hoy = 0;
-
+  citas_agendadas: any;
+  
   @ViewChild('modalCerrarNuevoEvento') modalCerrarNuevoEvento!: ElementRef;
   @ViewChild('modalCerrarBajaEvento') modalCerrarBajaEvento!: ElementRef;
   @ViewChild('modalCerrarDetallesEvento') modalCerrarDetallesEvento!: ElementRef;
@@ -52,14 +55,16 @@ export class CalendarioComponent implements OnInit {
     public alertService: AlertService,
     private calendarioService: CalendarioService,
     public empleadosService: EmpleadosService,
-    private router: Router  ) {
+    public utilService: UtilService,
+    private router: Router
+    ) {
    }
 
   ngOnInit() {
     this.cargar_info_calendario();
     this.calendarOptions = {
       initialView: 'dayGridMonth',
-      plugins: [dayGridPlugin,interactionPlugin],
+      plugins: [dayGridPlugin,interactionPlugin,timeGridPlugin],
       eventClick: this.handleEventClick.bind(this),
       dateClick: (arg) => this.handleDateClick(arg),
       dayCellContent: this.renderButton.bind(this),
@@ -99,10 +104,37 @@ export class CalendarioComponent implements OnInit {
     
   }
 
-  
-  // Función para renderizar el botón "ver más" en cada celda de día
+  // =====================
   renderButton(arg: any) {
-    return { html: '<button class="btn-ver-mas">Ver agenda</button>' };
+    var date_format = this.utilService.formatDate2(arg.date);
+
+    if(this.citas_agendadas == undefined || this.citas_agendadas == null){
+      this.esperarYEjecutar(() => {
+      });
+    }
+
+    this.citas_agendadas = localStorage.getItem("citas_agendadas");
+  
+    // Verifica si la fecha del día actual (arg.date) tiene citas agendadas
+    const hayCitas = this.citas_agendadas.includes(date_format);  // arg.dateStr contiene la fecha en formato 'YYYY-MM-DD'
+  
+    // Si hay citas, renderiza el botón
+    if (hayCitas) {
+      return {
+        html: '<button class="btn-ver-mas">Ver más</button>'
+      };
+    } else {
+      return {
+        html: '' // No renderiza nada si no hay citas
+      };
+    }
+  }
+
+  // =====================
+  esperarYEjecutar(callback: () => void): void {
+    setTimeout(() => {
+      callback(); // Ejecutar la función de callback después de 2 segundos
+    }, 2000); // 2000 milisegundos = 2 segundos
   }
 
   // =====================
@@ -299,13 +331,13 @@ cargar_info_calendario() {
   .subscribe({
     next: (resp: any) => { 
 
-      if(resp[3][0].mensaje == 'ok') {
+      if(resp[4][0].mensaje == 'ok') {
 
         this.citas_pendientes = resp[0][0].citas_pendientes;
         this.citas_mes  = resp[1][0].citas_mes;
         this.citas_hoy  = resp[2][0].citas_hoy;
-
-        
+        this.citas_agendadas  = resp[3];
+                
       } else {
         this.alertService.alertFail(resp[0][0].mensaje,false,1200);
         
@@ -315,5 +347,37 @@ cargar_info_calendario() {
   });
 
 }
+
+// ==================================================
+// cargar_info_calendario - version await/async
+// ==================================================
+cargar_info_calendario_async(): Promise<void> {
+  return new Promise((resolve, reject) => {
+    // Simular la carga de datos desde una base de datos
+    this.calendarioService.cargar_info_calendario().subscribe(
+      (datos: any) => {
+
+        if(datos[4][0].mensaje == 'ok') {
+  
+          this.citas_pendientes = datos[0][0].citas_pendientes;
+          this.citas_mes  = datos[1][0].citas_mes;
+          this.citas_hoy  = datos[2][0].citas_hoy;
+          this.citas_agendadas  = datos[3];
+
+          localStorage.setItem("citas_agendadas", this.citas_agendadas);
+          
+        } else {
+          this.alertService.alertFail(datos[0][0].mensaje,false,1200);
+          
+        }
+        resolve(); // Resuelve la promesa cuando los datos se han cargado
+      },
+      (error) => {
+        reject(error); // Rechaza la promesa en caso de error
+      }
+    );
+  });
+}
+
 
 }

@@ -44,5 +44,18 @@ formatDateNow(date: any) {
     return [year, month, day].join('-');
   }
 
+  formatDate2(dateString: any) {
+    // Crear un objeto Date a partir de la cadena
+    const date = new Date(dateString);
+  
+    // Extraer el año, mes y día
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Los meses son 0-indexados
+    const day = String(date.getDate()).padStart(2, '0');
+  
+    // Devolver la fecha en formato yyyy-mm-dd
+    return `${year}-${month}-${day}`;
+  }
+
 
 }
