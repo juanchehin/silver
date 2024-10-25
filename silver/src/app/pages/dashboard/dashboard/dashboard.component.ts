@@ -38,6 +38,7 @@ export class DashboardComponent implements OnInit {
   taj_deb_bs = 0;
   taj_cred_bs = 0;
   dolar_efectivo = 0;
+  venta_total_bs = 0;
 
   // p_suma_pago_movil,p_suma_zelle,p_suma_taj_deb_bs,p_suma_taj_cred_bs,p_suma_dolar_efectivo
 
@@ -115,6 +116,7 @@ cargarDatosDashboard(){
                     this.taj_deb_bs = resp[2][0].p_suma_taj_deb_bs || 0;
                     this.taj_cred_bs = resp[2][0].p_suma_taj_cred_bs || 0;
                     this.dolar_efectivo = resp[2][0].p_suma_dolar_efectivo || 0;
+                    this.venta_total_bs = resp[2][0].p_suma_venta_total_bs || 0;
 
                     this.empleados = resp[3];
 
