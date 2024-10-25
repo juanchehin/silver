@@ -121,7 +121,7 @@ export class CalendarioComponent implements OnInit {
     // Si hay citas, renderiza el botón
     if (hayCitas) {
       return {
-        html: '<button class="btn-ver-mas">Ver más</button>'
+        html: '<button class="btn-ver-mas">Ver agenda</button>'
       };
     } else {
       return {
