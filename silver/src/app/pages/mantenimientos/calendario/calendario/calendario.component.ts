@@ -106,35 +106,17 @@ export class CalendarioComponent implements OnInit {
 
   // =====================
   renderButton(arg: any) {
-    var date_format = this.utilService.formatDate2(arg.date);
+    return {
+      html: '<button class="btn-ver-mas">Ver agenda</button>'
+    };
 
-    if(this.citas_agendadas == undefined || this.citas_agendadas == null){
-      this.esperarYEjecutar(() => {
-      });
-    }
-
-    this.citas_agendadas = localStorage.getItem("citas_agendadas");
-  
-    // Verifica si la fecha del día actual (arg.date) tiene citas agendadas
-    const hayCitas = this.citas_agendadas.includes(date_format);  // arg.dateStr contiene la fecha en formato 'YYYY-MM-DD'
-  
-    // Si hay citas, renderiza el botón
-    if (hayCitas) {
-      return {
-        html: '<button class="btn-ver-mas">Ver agenda</button>'
-      };
-    } else {
-      return {
-        html: '' // No renderiza nada si no hay citas
-      };
-    }
   }
 
   // =====================
   esperarYEjecutar(callback: () => void): void {
     setTimeout(() => {
       callback(); // Ejecutar la función de callback después de 2 segundos
-    }, 2000); // 2000 milisegundos = 2 segundos
+    }, 10000); // 2000 milisegundos = 2 segundos
   }
 
   // =====================
