@@ -26,7 +26,8 @@ export class CitasComponent implements OnInit {
   eventos_horas: any;
   horario_seleccionado: any;
   id_evento_a_eliminar: any;
-  horario_evento_eliminar: any
+  horario_evento_eliminar: any;
+  hora_modal_alta_evento: any;
 
   @ViewChild('modalCerrarNuevoEvento') modalCerrarNuevoEvento!: ElementRef;
   @ViewChild('modalCerrarBajaEvento') modalCerrarBajaEvento!: ElementRef;
@@ -465,7 +466,8 @@ cargarClientes() {
   //  ==================
   modal_alta_evento(horario: any){
 
-    this.horario_nuevo_evento = horario;      
+    this.horario_nuevo_evento = horario.hora;     
+    this.hora_modal_alta_evento =  horario.label;
 
     const modal = document.getElementById('modal_nuevo_evento');
     if (modal) {

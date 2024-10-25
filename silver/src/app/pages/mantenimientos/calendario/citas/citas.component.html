@@ -76,7 +76,7 @@
                       </td>
                       <!--  -->
                       <td>
-                          <button class="btn btn-success" type="button" (click)="modal_alta_evento(hora.hora)">
+                          <button class="btn btn-success" type="button" (click)="modal_alta_evento(hora)">
                               <i class="mdi mdi-calendar-plus"></i>                                                           
                           </button>
                           <button class="btn btn-secondary" type="button" (click)="modal_listar_eventos_hora(hora.hora)">
@@ -104,8 +104,12 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo evento</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <!--  -->
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo evento 
+            <br>
+            <h4> {{ hora_modal_alta_evento }} </h4>
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>      
       </div>
       <br>
       <div class="modal-body">
