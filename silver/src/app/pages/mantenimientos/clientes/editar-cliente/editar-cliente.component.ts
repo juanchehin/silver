@@ -19,6 +19,10 @@ export class EditarClienteComponent implements OnInit {
   direccion: any;
   Observaciones: any;   
 
+  tipo_id: string = 'N';
+  nro_id: any;
+  fecha_nac: any;
+
   constructor(
     private router: Router, 
     public clientesService: ClientesService, 
@@ -43,10 +47,12 @@ editarCliente() {
       const clienteEditado = new Array(
         this.Apellidos,
         this.Nombres,
+        this.tipo_id,        
+        this.nro_id,        
         this.Telefono,
-        this.DNI,        
         this.Email,
         this.direccion,
+        this.fecha_nac,
         this.Observaciones,
         this.IdPersona
       );
@@ -86,18 +92,24 @@ cargarDatosFormEditarCliente() {
     this.clientesService.cargarDatosFormEditarCliente( this.IdPersona )
                .subscribe( {
                 next: (resp: any) => {
+                  console.log("🚀 ~ EditarClienteComponent ~ cargarDatosFormEditarCliente ~ resp:", resp)
                   
                 this.Apellidos = resp[0][0].apellidos;
                 this.Nombres = resp[0][0].nombres;
                 this.Telefono = resp[0][0].telefono;
-                this.DNI = resp[0][0].dni;
+                this.nro_id = resp[0][0].nro_identidad;
+                this.tipo_id = resp[0][0].tipo_identidad;        
                 this.Email = resp[0][0].email;
                 this.direccion = resp[0][0].direccion;
-                this.Observaciones = resp[0][0].observaciones;
-             
+                this.Observaciones = resp[0][0].observaciones;             
               },
               error: () => { this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000) }
             });
 
         };
+
+  // =========================
+  onChangeTipoId(val: any){
+    this.tipo_id = val;
+  }
 }

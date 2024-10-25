@@ -107,16 +107,21 @@ public async editarCliente(req: Request, res: Response) {
 
     var Apellidos = req.body[0];
     var Nombres = req.body[1];
-    var Telefono = req.body[2];
-    var DNI = req.body[3];
-    var Email = req.body[4];
-    var direccion = req.body[5];
 
-    var Observaciones = req.body[6];
+    var tipo_id = req.body[2];
+    var nro_id = req.body[3];
 
-    var pIdCliente = req.body[7];
+    var Telefono = req.body[4];
+    var Email = req.body[5];
+    var direccion = req.body[6];
+    var fecha_nac = req.body[7] || null;
 
-    pool.query(`call bsp_editar_cliente('${pIdCliente}','${Apellidos}','${Nombres}','${Telefono}','${DNI}','${Email}','${direccion}','${Observaciones}')`,function(err: any, result: any, fields: any){
+    var Observaciones = req.body[8];
+
+    var pIdCliente = req.body[9];
+
+    pool.query(`call bsp_editar_cliente('${pIdCliente}','${Apellidos}','${Nombres}','${tipo_id}','${nro_id}','${Telefono}',
+        '${Email}','${direccion}','${fecha_nac}','${Observaciones}')`,function(err: any, result: any, fields: any){
         
                 if(err){
                     logger.error("Error en bsp_editar_cliente - ClientesController ");
