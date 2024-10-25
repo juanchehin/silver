@@ -218,16 +218,17 @@
                   <td>{{ evento_hora.cliente }}</td>
                   <td>{{ evento_hora.servicio }}</td>
                   <td>
-                    <button class="btn btn-secondary" type="button" data-bs-toggle="modal"
-                    data-bs-target="#modal_confirmar_cancelar_evento_hora" 
-                      (click)="levantar_modal_confirmar_cancelar_evento_hora(evento_hora.id_evento)">
-                      Cancelar
-                    </button>
-                    <!--  -->
-                    <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#modal_confirmar_baja_evento_hora" 
-                      (click)="levantar_modal_confirmar_baja_evento_hora(evento_hora.id_evento)">
-                      Eliminar  
-                    </button>
+                      <button class="btn btn-secondary" type="button" data-bs-toggle="modal"
+                      data-bs-target="#modal_confirmar_cancelar_evento_hora" 
+                        (click)="levantar_modal_confirmar_cancelar_evento_hora(evento_hora.id_evento)">
+                        Cancelar
+                      </button>
+                      <!--  -->
+                      <button class="btn btn-danger" type="button" data-bs-toggle="modal" 
+                      data-bs-target="#modal_confirmar_baja_evento_hora" style="padding-right: 19px;"
+                        (click)="levantar_modal_confirmar_baja_evento_hora(evento_hora.id_evento)">
+                        Eliminar
+                      </button>            
                   </td>
                 </tr>
               </tbody>
