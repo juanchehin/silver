@@ -27,7 +27,15 @@
           </div>
           <div class="col-sm-8">
             <div class="content">
+              <!-- calendario.component.html -->
+              <div *ngIf="cargando">
+                Cargando eventos... <!-- O puedes usar un spinner o cualquier otro indicador -->
+              </div>
+              <div *ngIf="!cargando">
               <full-calendar [options]="calendarOptions" (datesSet)="onDatesSet($event)"></full-calendar>
+            </div>
+
+              <!-- <full-calendar [options]="calendarOptions" (datesSet)="onDatesSet($event)"></full-calendar> -->
             </div>
           </div>
         </div>

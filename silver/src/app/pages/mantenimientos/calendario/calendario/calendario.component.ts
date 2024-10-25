@@ -8,7 +8,6 @@ import { EmpleadosService } from 'src/app/services/empleados.service';
 import { Router } from '@angular/router';
 import { ServiciosService } from 'src/app/services/servicios.service';
 import { UtilService } from 'src/app/services/util.service';
-import timeGridPlugin from '@fullcalendar/timegrid'
 
 @Component({
   selector: 'app-calendario',
@@ -25,6 +24,7 @@ export class CalendarioComponent implements OnInit {
   calendarOptions: CalendarOptions | undefined;
   id_evento_seleccionado: any;
   detalles_evento: any;
+  cargando = true;
 
   // Empleados
   empleados: any;
@@ -62,9 +62,11 @@ export class CalendarioComponent implements OnInit {
 
   ngOnInit() {
     this.cargar_info_calendario();
+    //
+    console.log("calendarOptions")
     this.calendarOptions = {
       initialView: 'dayGridMonth',
-      plugins: [dayGridPlugin,interactionPlugin,timeGridPlugin],
+      plugins: [dayGridPlugin,interactionPlugin],
       eventClick: this.handleEventClick.bind(this),
       dateClick: (arg) => this.handleDateClick(arg),
       dayCellContent: this.renderButton.bind(this),
@@ -106,17 +108,20 @@ export class CalendarioComponent implements OnInit {
 
   // =====================
   renderButton(arg: any) {
-    return {
-      html: '<button class="btn-ver-mas">Ver agenda</button>'
-    };
+      return {
+    html: '<button class="btn-ver-mas">Ver agenda</button>'
+  };
 
+    // =====================
+
+        
   }
 
   // =====================
   esperarYEjecutar(callback: () => void): void {
     setTimeout(() => {
       callback(); // Ejecutar la función de callback después de 2 segundos
-    }, 10000); // 2000 milisegundos = 2 segundos
+    }, 2000); // 2000 milisegundos = 2 segundos
   }
 
   // =====================
@@ -298,10 +303,32 @@ dame_detalle_evento() {
     this.mes_seleccionado = currentMonth;
     this.ano_seleccionado = currentYear;
 
+    console.log("prev");
 
+    this.ocultarBotonesEnFechas();
     // this.cargar_eventos_calendario();
     
   }
+
+// ==================================================
+// Función para ocultar botones en fechas específicas
+// ==================================================
+ocultarBotonesEnFechas() {
+
+  const casilleros = document.querySelectorAll('.fc-daygrid-day');
+  
+  casilleros.forEach((casillero) => {
+    const fecha = casillero.getAttribute('data-date');
+    
+    if (!this.citas_agendadas.some((f: any) => f.fecha === fecha)) {
+      const boton = casillero.querySelector('button');
+
+      if (boton) {
+        boton.style.display = 'none';
+      }
+    }
+  });
+}
 
 // ==================================================
 // cargar_info_calendario
@@ -319,8 +346,12 @@ cargar_info_calendario() {
         this.citas_mes  = resp[1][0].citas_mes;
         this.citas_hoy  = resp[2][0].citas_hoy;
         this.citas_agendadas  = resp[3];
+
+        this.cargando = false;
                 
       } else {
+        this.cargando = true;
+
         this.alertService.alertFail(resp[0][0].mensaje,false,1200);
         
       }
@@ -334,6 +365,8 @@ cargar_info_calendario() {
 // cargar_info_calendario - version await/async
 // ==================================================
 cargar_info_calendario_async(): Promise<void> {
+  console.log("cargar_info_calendario_async")
+
   return new Promise((resolve, reject) => {
     // Simular la carga de datos desde una base de datos
     this.calendarioService.cargar_info_calendario().subscribe(
@@ -352,9 +385,15 @@ cargar_info_calendario_async(): Promise<void> {
           this.alertService.alertFail(datos[0][0].mensaje,false,1200);
           
         }
+        console.log("resolve")
+
         resolve(); // Resuelve la promesa cuando los datos se han cargado
+        this.cargando = false;
+        console.log("resolve 2")
+
       },
       (error) => {
+        this.cargando = true;
         reject(error); // Rechaza la promesa en caso de error
       }
     );
