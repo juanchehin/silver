@@ -16,6 +16,7 @@ export class EgresosComponent implements OnInit {
   totalEgresos = 0;
   descripcion_egreso : any;
   id_servicio_seleccionado: any;
+  id_tipo_egreso = 6;
 
   @ViewChild('botonCerrarModalAltaEgreso') botonCerrarModalAltaEgreso!: ElementRef;
 
@@ -41,6 +42,7 @@ listar_egresos() {
     this.egresosService.listar_egresos( this.desde  )
                .subscribe( {
                 next: (resp: any) => { 
+                console.log("🚀 ~ EgresosComponent ~ listar_egresos ~ resp:", resp)
 
                   if(resp[0].length <= 0)
                   { 
@@ -122,11 +124,13 @@ alta_egreso() {
 
   const egreso = new Array(
     this.monto_egreso,
+    this.id_tipo_egreso,
     this.descripcion_egreso
   );
 
   this.egresosService.alta_egreso( egreso )
             .subscribe( (resp: any) => {
+              console.log("🚀 ~ EgresosComponent ~ .subscribe ~ resp:", resp)
               
               if ( resp[0][0].mensaje == 'Ok') {
 
@@ -148,4 +152,10 @@ alta_egreso() {
 
 
 }
+
+// 
+onChangeTipoEgreso(val: any){
+  this.id_tipo_egreso = val;
+}
+
 }
