@@ -33,6 +33,12 @@ export class CitasComponent implements OnInit {
   @ViewChild('modalCerrarDetallesEvento') modalCerrarDetallesEvento!: ElementRef;
   @ViewChild('modalCerrarCancelarEvento') modalCerrarCancelarEvento!: ElementRef;
 
+  // @ViewChild('inputVendedor') inputVendedor!: ElementRef;
+
+  @ViewChild('inputVendedor') inputVendedor: any;
+  @ViewChild('inputCliente') inputCliente: any;
+  @ViewChild('inputServicio') inputServicio: any;
+
   // Empleados
   empleados: any;
   keywordEmpleado = 'empleado';
@@ -326,6 +332,16 @@ cargarServicios() {
     // do something when input is focused
   }
 
+  clearPanelinputVendedor(): void {
+    this.inputVendedor.clear();
+  }
+  clearPanelinputCliente(): void {
+    this.inputCliente.clear();
+  }
+  clearPanelinputServicio(): void {
+    this.inputServicio.clear();
+  }
+
 // ==================================================
 // Carga
 // ==================================================
@@ -379,14 +395,12 @@ cargarClientes() {
             let el: HTMLElement = this.modalCerrarNuevoEvento.nativeElement;
             el.click();
 
-
-            // this.horario_nuevo_evento  = null;
-            this.keywordEmpleado = '';
-            this.keywordCliente = '';
-            this.keywordServicio = '';
-            // this.itemPendienteServicio.id_servicio  = null;
             this.descripcion_evento  = '';
         
+            this.clearPanelinputVendedor();
+            this.clearPanelinputCliente();
+            this.clearPanelinputServicio();
+
             this.refrescar();
             
           } else {
@@ -521,6 +535,5 @@ cargarClientes() {
     const bootstrapModal_5 = new (window as any).bootstrap.Modal(modal_5);
     bootstrapModal_5.hide();
   }
-      
     
 }

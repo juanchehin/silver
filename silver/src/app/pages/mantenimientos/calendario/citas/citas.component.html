@@ -113,7 +113,8 @@
         <div class="row">
           <h5 class="m-t-30">Vendedor : </h5>
             <div class="ng-autocomplete" style="width:450px">
-                <ng-autocomplete [data]="empleados" [searchKeyword]="keywordEmpleado" 
+                <ng-autocomplete #inputVendedor
+                [data]="empleados" [searchKeyword]="keywordEmpleado" 
                 placeholder="Selecciona vendedor" (selected)='selectEventEmpleado($event)' 
                 (inputChanged)='onChangeSearchEmpleado($event)' (inputFocused)='onFocused($event)' 
                 [itemTemplate]="itemTemplateEmpleado" [notFoundTemplate]="notFoundTemplate">
@@ -132,7 +133,7 @@
         <div class="row">
           <h5 class="m-t-30">Cliente : </h5>
                   <div class="ng-autocomplete" style="width:450px">
-                      <ng-autocomplete 
+                      <ng-autocomplete #inputCliente
                       [data]="clientes" 
                       [searchKeyword]="keywordCliente" 
                       placeholder="Selecciona cliente" 
@@ -155,7 +156,8 @@
         <div class="row">
           <h5 class="m-t-30">Servicio : </h5> <br>
           <div class="ng-autocomplete" style="width:450px">
-              <ng-autocomplete [data]="servicios" [searchKeyword]="keywordServicio" placeholder="Selecciona servicio" 
+              <ng-autocomplete #inputServicio
+              [data]="servicios" [searchKeyword]="keywordServicio" placeholder="Selecciona servicio" 
               (selected)='selectEventServicio($event)' (inputChanged)='onChangeSearchServicio($event)' 
               (inputFocused)='onFocusedServicio($event)' [itemTemplate]="itemTemplateServicio"
               [notFoundTemplate]="notFoundTemplateServicio">
