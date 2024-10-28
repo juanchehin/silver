@@ -185,7 +185,7 @@
       <br>
       <!--  -->
       <div class="modal-footer">
-        <button #modalCerrarNuevoEvento type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button #modalCerrarNuevoEvento type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="limpiar_modal_nuevo_evento()">Cancelar</button>
         <button type="button" class="btn btn-primary" (click)="alta_evento()">Aceptar</button>
       </div>
     </div>

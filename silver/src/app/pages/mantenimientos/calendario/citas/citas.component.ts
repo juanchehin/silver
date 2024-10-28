@@ -396,11 +396,7 @@ cargarClientes() {
             let el: HTMLElement = this.modalCerrarNuevoEvento.nativeElement;
             el.click();
 
-            this.descripcion_evento  = '';
-        
-            this.clearPanelinputVendedor();
-            this.clearPanelinputCliente();
-            this.clearPanelinputServicio();
+            this.limpiar_modal_nuevo_evento();
 
             this.refrescar();
             
@@ -536,6 +532,16 @@ cargarClientes() {
 
     const bootstrapModal_5 = new (window as any).bootstrap.Modal(modal_5);
     bootstrapModal_5.hide();
+  }
+
+   //  ==================
+   limpiar_modal_nuevo_evento(){
+        
+    this.descripcion_evento  = '';
+        
+    this.clearPanelinputVendedor();
+    this.clearPanelinputCliente();
+    this.clearPanelinputServicio();
   }
     
 }
