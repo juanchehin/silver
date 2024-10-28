@@ -405,7 +405,7 @@ cargarClientes() {
             this.refrescar();
             
           } else {
-            this.alertaService.alertFail(resp[0][0].mensaje,false,1200);
+            this.alertaService.alertFailWithTextCenter(resp[0][0].mensaje,false,2000);
             
           }
           },

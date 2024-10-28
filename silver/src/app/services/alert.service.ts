@@ -38,6 +38,18 @@ export class AlertService {
     timeOut: pTimer,
     positionClass: 'toast-top-right'
   });
+  
 }
+
+ // ==============================
+ alertFailWithTextCenter(pTitulo: any,pMensaje: any,pTimer: any) {
+
+  this.toastr.error(pMensaje, pTitulo, {
+    timeOut: pTimer,
+    positionClass: 'toast-center-center'
+  });
+  
+}
+
 
 }
