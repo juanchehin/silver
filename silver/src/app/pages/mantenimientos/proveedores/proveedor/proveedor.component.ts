@@ -32,9 +32,7 @@ export class ProveedorComponent implements OnInit {
       direccion: new FormControl(null ),
       fecha_nac: new FormControl(null ),
       observaciones: new FormControl(null ),
-      codigo: new FormControl(null ),
-      contrasena: new FormControl(null ),
-      id_rol: new FormControl(1 )
+      codigo: new FormControl(null )
     });
   }
 
@@ -58,9 +56,7 @@ export class ProveedorComponent implements OnInit {
         this.forma.value.direccion,
         this.forma.value.fecha_nac,
         this.forma.value.observaciones,
-        this.forma.value.codigo,
-        this.forma.value.contrasena,
-        this.forma.value.id_rol
+        this.forma.value.codigo
       );
 
       this.proveedoresService.altaProveedor( proveedor )

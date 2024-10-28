@@ -24,9 +24,8 @@ export class ProveedoresComponent implements OnInit {
 
   constructor(
     public proveedoresService: ProveedoresService,
-    private alertService: AlertService,
-    private router: Router
-  ) {
+    private alertService: AlertService
+    ) {
    }
 
   ngOnInit() {

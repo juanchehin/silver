@@ -17,7 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule
   ],
   declarations: [
-    EgresosComponent,
+    EgresosComponent
     // EgresosComponent,
     // EditarEgresoComponent
   ]

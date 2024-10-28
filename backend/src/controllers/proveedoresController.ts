@@ -62,36 +62,25 @@ public async altaProveedor(req: Request, res: Response) {
     var fecha_nac = req.body[6];
     var observaciones = req.body[7];
     var codigo = req.body[8];
-    var pass = req.body[9];
-    var id_rol = req.body[10];
     
-    const saltRounds = 10;  //  Data processing speed
+    pool.query(`call bsp_alta_proveedor('${IdProveedor}','${Apellidos}','${Nombres}'
+        ,'${telefono}','${cedula}','${mail}','${fecha_nac}'
+        ,'${direccion}','${codigo}','${observaciones}')`, function(err: any, result: any, fields: any){
+    
+        if(err && result && result[0] && result[0][0].mensaje != 'Ok'){
+            logger.error("Error bsp_alta_proveedor - altaProveedor - proveedoresController ");
 
-    bcrypt.genSalt(saltRounds, function(err: any, salt: any) {
-        bcrypt.hash(pass, salt, async function(err: any, hash: any) {
+            return res.json({
+                ok: false,
+                mensaje: result[0][0].mensaje
+            });
+        }
 
-            pool.query(`call bsp_alta_proveedor('${IdProveedor}','${Apellidos}','${Nombres}'
-                ,'${hash}','${telefono}','${cedula}','${mail}','${fecha_nac}'
-                ,'${direccion}','${codigo}','${id_rol}','${observaciones}')`, function(err: any, result: any, fields: any){        
-            
-                if(err && result && result[0] && result[0][0].mensaje != 'Ok'){
-                    logger.error("Error bsp_alta_proveedor - altaProveedor - proveedoresController ");
-
-                    return res.json({
-                        ok: false,
-                        mensaje: result[0][0].mensaje
-                    });
-                }
-
-                // =============Fin permisos================                
-                return res.json({
-                    ok: true,
-                    mensaje: result[0][0].mensaje
-                });
-
-            })
-
+        return res.json({
+            ok: true,
+            mensaje: result[0][0].mensaje
         });
+
     });
 
 }
