@@ -94,10 +94,10 @@ cargarDatosFormEditarServicio() {
 
           this.servicio = resp[0][0].servicio;
           this.precio = resp[0][0].precio;
-          this.id_cat_servicio = resp[0][0].id_cat_servicio;
+          this.id_cat_servicio = resp[0][0].id_cat_serv;
           this.comision = resp[0][0].comision;
           this.descripcion = resp[0][0].descripcion;
-
+          
         }else{
           this.alertService.alertFail('Mensaje','Ocurrio un error',400);
 

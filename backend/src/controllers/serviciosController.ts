@@ -222,12 +222,23 @@ public async cargarDatosFormNuevoServicio(req: Request, res: Response): Promise<
 // ==================================================
 public async editarServicio(req: Request, res: Response) {
 
+    console.log("🚀 ~ ServiciosController ~ editarServicio ~ req.body:", req.body)
+
     var pIdServicio = req.body[0];
     var pServicio = req.body[1];
-    var pPrecio = req.body[2];
-    var pDescripcion = req.body[3];
+    var p_id_tipo_servicio = req.body[2];
+    var pPrecio = req.body[3];
+    var pComision = req.body[4];
+    var pDescripcion = req.body[5];
 
-    pool.query(`call bsp_editar_servicio('${pIdServicio}','${pServicio}','${pPrecio}','${pDescripcion}')`, function(err: any, result: any){
+    if((p_id_tipo_servicio == null) || (p_id_tipo_servicio == undefined) || (p_id_tipo_servicio == 'null'))
+    {
+        p_id_tipo_servicio = 1;
+    }
+
+    pool.query(`call bsp_editar_servicio('${pIdServicio}','${pServicio}','${p_id_tipo_servicio}',
+        '${pPrecio}','${pComision}','${pDescripcion}')`, function(err: any, result: any){
+        console.log("🚀 ~ ServiciosController ~ editarServicio ~ result:", result)
         
         if(err || result.mensaje !== 'Ok'){
             logger.error("Error en editarServicio - bsp_editar_servicio - serviciosController");
