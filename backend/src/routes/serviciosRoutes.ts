@@ -15,6 +15,8 @@ class ServiciosRoutes {
         // *** Front ***
         this.router.get('/servicio/detalle/:pIdServicio/:pIdSabor',serviciosController.dameDatosServicio); 
         this.router.post('/alta/:IdPersona',serviciosController.altaServicio);
+        this.router.post('/alta/tipo/:IdPersona',serviciosController.alta_tipo_servicio);
+
         this.router.get('/baja/:pIdServicio/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],serviciosController.bajaServicio); 
         this.router.get('/listar/busqueda/autocomplete/:pServicioBuscado/:IdPersona',  [mdAutenticacion.verificaToken],serviciosController.buscarServicioAutoComplete); 
         this.router.get('/buscar/:pDesde/:pParametroBusqueda/:IdPersona',  [mdAutenticacion.verificaToken],serviciosController.buscarServicioPaginado); 

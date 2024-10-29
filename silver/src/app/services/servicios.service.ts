@@ -162,4 +162,16 @@ cargarCategoriasServicios(){
   return this.http.get( url, this.headers );
 }
 
+
+
+  // ==================================================
+//        
+// ==================================================
+alta_tipo_servicio( tipo_servicio: any ) {
+
+  let url = URL_SERVICIOS + '/servicios/alta/tipo/' + this.IdPersona;
+
+  return this.http.post( url, tipo_servicio, this.headers);
+}
+
 }

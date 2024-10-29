@@ -23,7 +23,11 @@ export class ServicioComponent implements OnInit {
   comision = 0;
   categorias_serv: any;
   id_rol: any;
-  
+  //
+  nuevo_tipo_servicio: any;
+  descripcion_nuevo_tipo_servicio: any;
+
+  @ViewChild('botonCerrarModalAltaTipoServicio') botonCerrarModalAltaTipoServicio!: ElementRef;
 
   constructor(
     private router: Router, 
@@ -127,4 +131,38 @@ dame_id_rol() {
 
 }
 
+// ==================================================
+//        Crear alta_tipo_servicio
+// ==================================================
+
+alta_tipo_servicio() {
+
+  const nuevo_tipo_servicio = new Array(
+    this.nuevo_tipo_servicio,
+    this.descripcion_nuevo_tipo_servicio
+  );
+
+  this.serviciosService.alta_tipo_servicio( nuevo_tipo_servicio )
+            .subscribe( (resp: any) => {
+              
+              if ( resp.mensaje == 'Ok') {
+
+                this.alertService.alertSuccess('Mensaje','Cargado con exito',2000);
+
+                let el: HTMLElement = this.botonCerrarModalAltaTipoServicio.nativeElement;
+                el.click();
+
+                this.nuevo_tipo_servicio = '';
+                this.descripcion_nuevo_tipo_servicio  = '';
+
+                this.cargarCategoriasServicios();
+                
+              } else {
+                this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',4000);
+              }
+              return;
+            });
+
+
+}
 }

@@ -12,12 +12,27 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-sm-6 form-group">
-                    <label>Tipo Servicio : </label>
-                    <select tabindex="4" [(ngModel)]="id_cat_servicio" name="id_cat_servicio" class="form-control">
-                            <option *ngFor="let categoria_s of categorias_serv" [value]="categoria_s.id_categoria_serv">
-                                {{categoria_s.categoria_serv}}
-                            </option>
-                        </select>
+                    <div class="row">
+                        <!--  -->
+                        <div class="col-sm-10">
+                             <!--  -->
+                            <label>Tipo Servicio : </label>
+                            <select tabindex="4" [(ngModel)]="id_cat_servicio" name="id_cat_servicio" class="form-control">
+                                <option *ngFor="let categoria_s of categorias_serv" [value]="categoria_s.id_categoria_serv">
+                                    {{categoria_s.categoria_serv}}
+                                </option>
+                            </select>
+                        </div>
+                        <!--  -->
+                        <div class="col-sm-2">
+                            <button type="button" class="btn btn-success" 
+                            style="margin-top: 27px;"
+                            data-toggle="modal" data-target="#responsive-modal-alta-tipo-servicio">
+                                <i class="mdi mdi-plus"></i>
+                            </button>
+                        </div>
+                        <!--  -->
+                    </div>
                 </div>
                 <div class="col-sm-6 form-group">
                     <label>Codigo : </label>
@@ -61,3 +76,39 @@
 </div>
 </div>
 
+
+<!-- =========== MODAL tipo de servicio =========== -->
+<div class="col-md-4">
+    <div id="responsive-modal-alta-tipo-servicio" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Nuevo tipo de servicio</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12 form-group">
+                            <label>Tipo Servicio : </label>
+                            <input [(ngModel)]="nuevo_tipo_servicio" 
+                            name="Tipo servicio" type="textarea" 
+                            placeholder="Tipo servicio..." rows="3" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 form-group">
+                            <label>Descripcion : </label>
+                            <textarea [(ngModel)]="descripcion_nuevo_tipo_servicio"
+                            name="Tipo servicio" type="textarea" placeholder="Tipo servicio..." rows="3"
+                             class="form-control"></textarea>
+                        </div>
+                    </div>
+                <div class="modal-footer">
+                    <button #botonCerrarModalAltaTipoServicio type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success waves-effect waves-light" (click)="alta_tipo_servicio()">Cargar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal -->
+</div>

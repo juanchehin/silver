@@ -33,6 +33,28 @@ public async altaServicio(req: Request, res: Response) {
 }
 
 // ==================================================
+//        Inserta 
+// ==================================================
+public async alta_tipo_servicio(req: Request, res: Response) {
+    
+    var tipo_servicio = req.body[0];
+    var descripcion = req.body[1];
+
+    pool.query(`call bsp_alta_tipo_servicio('${tipo_servicio}','${descripcion}')`, function(err: any, result: any){
+        
+        if(err || result[0][0].mensaje != 'Ok'){
+            logger.error("Error en alta_tipo_servicio - serviciosController " + err);
+
+            res.status(404).json({ text: err });
+            return;
+        }
+
+        return res.json({ mensaje: 'Ok' });
+    })
+
+}
+
+// ==================================================
 //        Lista servicios
 // ==================================================
 public async listarServiciosPaginado(req: Request, res: Response): Promise<void> {
