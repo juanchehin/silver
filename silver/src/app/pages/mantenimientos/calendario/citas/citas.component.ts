@@ -59,6 +59,11 @@ export class CitasComponent implements OnInit {
   keywordCliente = 'NombreCompleto';
   clienteBuscado = '';
 
+  //
+  inicio_nuevo_evento: any;
+  fin_nuevo_evento: any;
+
+
   horarios = [
     { label: '08:00 AM' , hora: '08:00:00' , estado_evento: '' },
     { label: '08:30 AM' , hora: '08:30:00' , estado_evento: '' },
@@ -384,7 +389,28 @@ cargarClientes() {
       return;
     }
 
-      this.calendarioService.alta_evento( this.fecha_cita, this.horario_nuevo_evento,
+    if((this.inicio_nuevo_evento <= 0) || (this.inicio_nuevo_evento == undefined))
+    {
+      this.alertaService.alertFail('Mensaje','Cliente invalido',2000);
+      return;
+    }
+
+    const check_inicio_nuevo_evento = !this.horarios.some(horario => horario.hora === this.inicio_nuevo_evento);
+    const check_fin_nuevo_evento = !this.horarios.some(horario => horario.hora === this.fin_nuevo_evento);
+
+    if (check_inicio_nuevo_evento || check_fin_nuevo_evento) {
+      this.alertaService.alertFail('Mensaje','Horario invalido',2000);
+      return;
+    }
+
+    // const esMenor = this.inicio_nuevo_evento < this.inicio_nuevo_evento;
+
+    if (this.inicio_nuevo_evento < this.inicio_nuevo_evento) {
+      this.alertaService.alertFail('Mensaje','El horario fin debe ser mayor a horario inicio',2000);
+      return;
+    }
+
+      this.calendarioService.alta_evento( this.fecha_cita, this.inicio_nuevo_evento,this.fin_nuevo_evento,
           this.IdEmpleado, this.IdCliente, this.itemPendienteServicio.id_servicio , this.descripcion_evento )
       .subscribe({
         next: (resp: any) => { 

@@ -109,10 +109,36 @@
             <br>
             <h4> {{ hora_modal_alta_evento }} </h4>
           </h1>
+          <br>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>      
       </div>
       <br>
       <div class="modal-body">
+        <!-- ============== horarios ================== -->
+         
+          <!--  -->
+          <div class="row">
+            <div class="col-sm-6">
+              <!--  -->
+             <label>Inicio : </label>
+                <select tabindex="4" [(ngModel)]="inicio_nuevo_evento" name="inicio_nuevo_evento" class="form-control">
+                    <option *ngFor="let horario_inicio of horarios" [value]="horario_inicio.hora">
+                        {{horario_inicio.label}}
+                    </option>
+                </select>
+            </div>
+            <br>
+            <div class="col-sm-6">
+              <!--  -->
+                <label>Fin : </label>
+                <select tabindex="4" [(ngModel)]="fin_nuevo_evento" name="fin_nuevo_evento" class="form-control">
+                  <option *ngFor="let horario_inicio of horarios" [value]="horario_inicio.hora">
+                      {{horario_inicio.label}}
+                  </option>
+                </select>
+            </div>
+          </div>       
+           <!--  -->
         <!-- =========== Vendedor ==================  -->
         <div class="row">
           <h5 class="m-t-30">Especialista : </h5>

@@ -12,7 +12,8 @@ public async alta_evento(req: Request, res: Response) {
     const { IdPersona } = req.params;
 
     var fecha_evento = req.body.fecha_evento;
-    var horario_evento = req.body.horario_evento;
+    var inicio_nuevo_evento = req.body.inicio_nuevo_evento;
+    var fin_nuevo_evento = req.body.fin_nuevo_evento;
 
     var descripcion_evento = req.body.descripcion_evento;
     var id_empleado = req.body.id_persona;
@@ -25,8 +26,9 @@ public async alta_evento(req: Request, res: Response) {
         descripcion_evento = '-';
     }
     
-    pool.query(`call bsp_alta_evento('${fecha_evento}','${horario_evento}','${id_empleado}','${id_cliente}','${id_servicio}',
-        '${descripcion_evento}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_alta_evento('${fecha_evento}','${inicio_nuevo_evento}','${fin_nuevo_evento}'
+        ,'${id_empleado}','${id_cliente}','${id_servicio}',
+        '${descripcion_evento}')`, function(err: any, result: any){
 
         if(err){
             logger.error("Error en bsp_alta_evento - EventosController - " + err);
