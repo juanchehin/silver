@@ -94,6 +94,11 @@ export class NuevaVentaComponent implements OnInit {
   @ViewChild('inputServicioBuscado') inputServicioBuscado!: ElementRef;
   @ViewChild('inputServicioBuscadoModal') inputServicioBuscadoModal!: ElementRef;
 
+  
+  @ViewChild('inputVendedor') inputVendedor: any;
+  @ViewChild('inputProducto') inputProducto: any;
+  @ViewChild('inputServicio') inputServicio: any;
+  @ViewChild('inputCliente') inputCliente: any;
 
   // Modals
   activarModal = false;
@@ -910,6 +915,68 @@ this.monto = 0;
 
     this.cargarTiposPago();
   }
+
+  // ==============================
+  // 
+  // ================================
+  limpiar_formulario(){
+
+    //
+    this.cantidadLineaVentaProducto = 1;
+    this.cantidadLineaVentaServicio = 1;
+    
+    this.precio_producto_pendiente = 0;
+    this.precio_servicio_pendiente = 0;
+
+    //
+    this.lineas_venta = [];
+
+    //
+    this.total_venta_bs = 0;
+    this.total_tipos_pagos_usd = 0;
+
+    //
+    this.total_venta_bs = 0;
+    this.total_venta_dolares = 0;
+
+    //
+    this.lineas_tipos_pago = [];
+
+    //
+    this.total_tipos_pagos_bs = 0;
+    this.total_tipos_pagos_usd = 0;
+
+    //
+    this.total_tipos_pagos_restantes_bs = 0;
+    this.total_tipos_pagos_restantes_usd = 0;
+    this.descripcion_venta = '';
+
+    this.clearPanelinputVendedor();
+    this.clearPanelinputProducto();
+    this.clearPanelinputServicio();
+    this.clearPanelinputCliente();
+
+  }
+
+  clearPanelinputVendedor(): void {
+    this.inputVendedor.clear();
+    this.inputVendedor.close();
+  }
+  clearPanelinputProducto(): void {
+    this.inputProducto.clear();
+    this.inputProducto.close();
+  }
+
+  clearPanelinputServicio(): void {
+    this.inputServicio.clear();
+    this.inputServicio.close();
+  }
+
+  clearPanelinputCliente(): void {
+    this.inputCliente.clear();
+    this.inputCliente.close();
+  }
+
   // ==============================
   // 
   // ================================

@@ -9,7 +9,10 @@
                     <div class="col-md-6">
                         <h5 class="m-t-30">Especialista : </h5>
                         <div class="ng-autocomplete" style="width:450px">
-                            <ng-autocomplete [data]="empleados" [searchKeyword]="keywordEmpleado" placeholder="Selecciona vendedor" (selected)='selectEventEmpleado($event)' (inputChanged)='onChangeSearchEmpleado($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplateEmpleado" [notFoundTemplate]="notFoundTemplate">
+                            <ng-autocomplete #inputVendedor
+                            [data]="empleados" [searchKeyword]="keywordEmpleado" placeholder="Selecciona vendedor" 
+                            (selected)='selectEventEmpleado($event)' (inputChanged)='onChangeSearchEmpleado($event)'
+                            (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplateEmpleado" [notFoundTemplate]="notFoundTemplate">
                             </ng-autocomplete>
                         </div>
                         <ng-template #itemTemplateEmpleado let-item>
@@ -25,7 +28,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="ng-autocomplete" style="width:350px">
-                                    <ng-autocomplete 
+                                    <ng-autocomplete #inputCliente
                                     [data]="clientes" 
                                     [searchKeyword]="keywordCliente" 
                                     placeholder="Selecciona cliente" 
@@ -65,7 +68,8 @@
                             <div class="col-md-5">
                                 <h4 >Producto :</h4>
                                 <div class="ng-autocomplete" style="width:350px">
-                                    <ng-autocomplete [data]="productos" [searchKeyword]="keywordProducto" placeholder="Selecciona producto" 
+                                    <ng-autocomplete #inputProducto
+                                    [data]="productos" [searchKeyword]="keywordProducto" placeholder="Selecciona producto" 
                                     (selected)='selectEventProducto($event)' (inputChanged)='onChangeSearchProducto($event)' 
                                     (inputFocused)='onFocusedProducto($event)' [itemTemplate]="itemTemplateProducto"
                                     [notFoundTemplate]="notFoundTemplateProducto">
@@ -100,7 +104,8 @@
                                 <div class="d-flex align-items-center">
                                     <h4 class="mb-0">Servicio :</h4>     
                                     <!--  -->
-                                    <button #modalBusqAvanzadaServ class="btn btn-primary ms-4" data-toggle="modal" 
+                                    <button #modalBusqAvanzadaServ 
+                                    class="btn btn-primary ms-4" data-toggle="modal" 
                                     (click)="buscarServicio()"
                                     data-target="#modalBusqAvanzadaServ" data-whatever="@mdo" style="margin-left: 20px;">
                                         Busqueda avanzada
@@ -121,7 +126,8 @@
                             <div class="col-md-5">
                                 <!--  -->
                                 <div class="ng-autocomplete" style="width:350px">
-                                    <ng-autocomplete [data]="servicios" [searchKeyword]="keywordServicio" 
+                                    <ng-autocomplete #inputServicio
+                                    [data]="servicios" [searchKeyword]="keywordServicio" 
                                     placeholder="Selecciona servicio" 
                                     (selected)='selectEventServicio($event)' (inputChanged)='onChangeSearchServicio($event)' 
                                     (inputFocused)='onFocusedServicio($event)' [itemTemplate]="itemTemplateServicio"
@@ -204,6 +210,8 @@
             <br>
             <button hidden #buttonAbrirModalDescuentoEfectivo class="btn btn-primary" data-toggle="modal" data-target="#divCerrarModalDescuentoEfectivo" data-whatever="@mdo"></button>
             <button type="submit" (click)="continuarVenta()" class="btn btn-info btn-lg btn-block text-uppercase" alt="default" data-toggle="modal" data-target="#responsive-modal">Continuar</button>
+            <button type="button" (click)="limpiar_formulario()" class="btn btn-danger btn-lg btn-block text-uppercase">cancelar</button>
+
             <br>
             <!-- ====================== -->
         </div>
