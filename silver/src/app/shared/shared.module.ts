@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { FooterComponent } from './footer/footer.component';
 import { FormsModule } from '@angular/forms';
 import { CargandoComponent } from './cargando/cargando.component';
+import { NumberFormatDirective } from './directives/number-format.directive';
 
 
 @NgModule({
@@ -22,14 +23,16 @@ import { CargandoComponent } from './cargando/cargando.component';
         HeaderComponent,
         CargandoComponent,
         SidebarComponent,
-        FooterComponent
+        FooterComponent,
+        NumberFormatDirective
     ],
     exports: [
         // NopagefoundComponent,
         CargandoComponent,
         HeaderComponent,
         SidebarComponent,
-        FooterComponent
+        FooterComponent,
+        NumberFormatDirective
     ]
 })
 
