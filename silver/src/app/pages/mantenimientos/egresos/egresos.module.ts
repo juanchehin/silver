@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 
 import { EgresosComponent } from './egresos/egresos.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NumberFormatDirective } from 'src/app/shared/directives/number-format.directive';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule
   ],
   declarations: [
-    EgresosComponent
+    EgresosComponent,
+    NumberFormatDirective
     // EgresosComponent,
     // EditarEgresoComponent
   ]
