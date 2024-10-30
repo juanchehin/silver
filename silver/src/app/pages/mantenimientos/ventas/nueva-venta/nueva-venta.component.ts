@@ -488,26 +488,22 @@ agregarLineaVentaServicio() {
 // ==================================================
 agregarLineaVentaServicioModal(p_servicio: any) {
 
-  // if(isNaN(Number(this.cantidadLineaVentaServicio)))
-  // { 
-  //   this.alertaService.alertFail('Error en cantidad',false,2000);
-  //   return;
-  // }
-
-
   if(p_servicio.length <= 0)
   { 
     this.alertaService.alertFailWithText('Atencion','Debe seleccionar un servicio en el buscador',2000);
     return;
   }
 
-  if(isNaN(Number(p_servicio.precio)) || (p_servicio.precio <= 0))
+  const precio = p_servicio.precio.replace(',', '.'); // Reemplaza la coma con un punto
+  const precioNumerico = Number(precio);
+
+  if(isNaN(precioNumerico) || (p_servicio.precio <= 0))
   { 
     this.alertaService.alertFailWithText('Atencion','Error en precio producto',2000);
     return;
   }
 
-  this.total_venta_dolares += Number(p_servicio.precio) * 1;
+  this.total_venta_dolares += Number(precioNumerico) * 1;
 
   this.total_venta_bs = this.total_venta_dolares;
 
@@ -524,7 +520,7 @@ agregarLineaVentaServicioModal(p_servicio: any) {
   
   
   const checkExistsLineaVenta = this.lineas_venta.find((linea_venta) => {
-    if((linea_venta.IdProductoServicio == p_servicio.precio.id_servicio) && (linea_venta.tipo == 'servicio'))
+    if((linea_venta.IdProductoServicio == p_servicio.id_servicio) && (linea_venta.tipo == 'servicio'))
     {
       return true;
     }else{
@@ -542,7 +538,7 @@ agregarLineaVentaServicioModal(p_servicio: any) {
         codigo: p_servicio.codigo,
         producto_servicio: p_servicio.servicio,
         cantidad: 1,
-        precio_venta: p_servicio.precio,
+        precio_venta: precioNumerico,
         tipo: 'servicio'
       }
     );
