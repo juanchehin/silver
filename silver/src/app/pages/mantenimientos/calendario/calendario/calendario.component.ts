@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { ServiciosService } from 'src/app/services/servicios.service';
 import { UtilService } from 'src/app/services/util.service';
 import esLocale from '@fullcalendar/core/locales/es'; // Importa la localización en español
+import timeGridPlugin from '@fullcalendar/timegrid';
 
 @Component({
   selector: 'app-calendario',
@@ -67,10 +68,14 @@ export class CalendarioComponent implements OnInit {
     console.log("calendarOptions")
     this.calendarOptions = {
       initialView: 'dayGridMonth',
-      plugins: [dayGridPlugin,interactionPlugin],
+      plugins: [dayGridPlugin,interactionPlugin, timeGridPlugin],
       eventClick: this.handleEventClick.bind(this),
       dateClick: (arg) => this.handleDateClick(arg),
-      dayCellContent: this.renderButton.bind(this),
+      dayCellContent: (arg) => {
+        return {
+          html: `<div>${arg.date.getDate()}</div> <button class="btn-ver-mas">Ver agenda</button>`, // Muestra solo el número del día
+        };
+      },
       locale: esLocale,
       events: [],
       datesSet: this.onDatesSet.bind(this)
@@ -81,15 +86,7 @@ export class CalendarioComponent implements OnInit {
   handleDateClick(arg: any) {
 
     this.fecha_evento = arg.dateStr;
-
     this.router.navigate(['/dashboard/calendario/citas', arg.dateStr]);
-
-
-    // const modal = document.getElementById('modal_nuevo_evento');
-    // if (modal) {
-    //   const bootstrapModal = new (window as any).bootstrap.Modal(modal);
-    //   bootstrapModal.show();
-    // }
 
   }
 
@@ -106,17 +103,6 @@ export class CalendarioComponent implements OnInit {
     //   bootstrapModal.show();
     // }
     
-  }
-
-  // =====================
-  renderButton(arg: any) {
-      return {
-    html: '<button class="btn-ver-mas">Ver agenda</button>'
-  };
-
-    // =====================
-
-        
   }
 
   // =====================
@@ -213,6 +199,9 @@ cargarEmpleados() {
   }
 
 
+  // ==================================================
+// Carga
+// ==================================================
     // =====================
     baja_evento() {
 
@@ -291,7 +280,9 @@ dame_detalle_evento() {
     
   }
 
-  // Este método captura el evento datesSet y obtiene el mes visible
+// ==================================================
+// Carga
+// ==================================================
   onDatesSet(event: any) {
 
     const currentMonth = event.view.currentStart.getMonth() + 1; // Sumar 1 para obtener el número del mes correcto
