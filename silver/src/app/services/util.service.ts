@@ -57,5 +57,26 @@ formatDateNow(date: any) {
     return `${year}-${month}-${day}`;
   }
 
+  
+ formatNumber(value: any): string {
+  // Verifica si el valor es un número
+  const numberValue = Number(value); // Convierte el valor a número
+
+  // Si el valor no es un número o es NaN, retorna '0.00'
+  if (isNaN(numberValue)) return '0.00';
+
+  // Convertir a un número con dos decimales
+  const formattedValue = numberValue.toFixed(2);
+
+  // Separar los enteros de los decimales
+  const [integerPart, decimalPart] = formattedValue.split('.');
+
+  // Formatear la parte entera con puntos como separadores de miles
+  const integerFormatted = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+  // Retornar el valor formateado
+  return `${integerFormatted},${decimalPart}`;
+}
+
 
 }

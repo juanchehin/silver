@@ -176,7 +176,7 @@
                                                     <tr *ngFor="let linea of lineas_venta">
                                                         <td>{{linea.producto_servicio }}</td>
                                                         <td>{{linea.cantidad }}</td>
-                                                        <td>{{linea.precio_venta  | number:'1.0-0' }} $</td>
+                                                        <td>{{ formatNumber( linea.precio_venta) }} $</td>
                                                         <td>{{linea.tipo }}</td>
                                                         <td style="cursor: pointer;">                                                            
                                                             <a data-toggle="tooltip" (click)="eliminarItemVenta(linea.IdProductoServicio)" data-original-title="Close"> 
@@ -189,8 +189,8 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <h4>Total Venta Bs. : {{ total_venta_bs | number:'1.0-0' }} </h4>
-                                                <h4>Total Venta USD : {{ total_venta_dolares | number:'1.0-0' }}</h4>
+                                                <h4>Total Venta Bs. : {{ formatNumber(total_venta_bs) }} </h4>
+                                                <h4>Total Venta USD : {{ formatNumber(total_venta_dolares) }}</h4>
                                             </div>
                                         </div>
                                     </div>
@@ -229,8 +229,8 @@
                 </div>
                 <div class="modal-body">
                     <div class="col-md-8">
-                        <h4>Total Venta Bs. : {{total_venta_bs  | number:'1.0-0' }}</h4>
-                        <h4>Total Venta USD : {{ total_venta_dolares  | number:'1.0-0' }}</h4>
+                        <h4>Total Venta Bs. : {{ formatNumber(total_venta_bs) }}</h4>
+                        <h4>Total Venta USD : {{ formatNumber(total_venta_dolares) }}</h4>
                     </div>
                     <div class="col-md-12">
                         <div class="row">
@@ -274,7 +274,7 @@
                                             <tbody>
                                                 <tr *ngFor="let linea_tp of lineas_tipos_pago" [ngClass]="{'table-success': (linea_tp.IdTipoPago == 13 || linea_tp.IdTipoPago == 14), 'table-warning' : (linea_tp.TipoPago == 'Recargo Tarjeta') }">
                                                     <td>{{linea_tp.TipoPago }}</td>
-                                                    <td>{{linea_tp.SubTotal }}</td>
+                                                    <td>{{ formatNumber(linea_tp.SubTotal) }}</td>
                                                     <td class="text-nowrap">
                                                         <a (click)="eliminarItemTipoPago(linea_tp)" data-toggle="tooltip" data-original-title="Close"> <i class="mdi mdi-delete"></i>  </a>
                                                     </td>
@@ -284,14 +284,14 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-8">
-                                            <h4>SubTotal bs. : {{ total_tipos_pagos_bs  | number:'1.0-0' }}</h4>
-                                            <h4>SubTotal USD : {{ total_tipos_pagos_usd  | number:'1.0-0' }}</h4>
+                                            <h4>SubTotal bs. : {{ formatNumber(total_tipos_pagos_bs) }}</h4>
+                                            <h4>SubTotal USD : {{ formatNumber(total_tipos_pagos_usd) }}</h4>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-8">
-                                            <h6>Restante bs. : {{ total_tipos_pagos_restantes_bs  | number:'1.0-0' }}</h6>
-                                            <h6>Restante USD : {{ total_tipos_pagos_restantes_usd  | number:'1.0-0' }}</h6>
+                                            <h6>Restante bs. : {{ formatNumber(total_tipos_pagos_restantes_bs) }}</h6>
+                                            <h6>Restante USD : {{ formatNumber(total_tipos_pagos_restantes_usd) }}</h6>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -436,7 +436,7 @@
                                                         <td>{{ servicio.id_servicio }}</td>
                                                         <td>{{ servicio.servicio }}</td>
                                                         <td>{{ servicio.codigo }}</td>
-                                                        <td>$ {{ servicio.precio }}</td>
+                                                        <td>{{ formatNumber(servicio.precio) }}$</td>
                                                         <td>{{ servicio.comision }}</td>
                                                         <td>{{ servicio.descripcion }}</td>
                                                         <td>

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { VentasRoutingModule } from './ventas-routing.module';
@@ -8,6 +8,10 @@ import { NuevaVentaComponent } from './nueva-venta/nueva-venta.component';
 import { FormsModule } from '@angular/forms';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+
+registerLocaleData(localeEs, 'es-ES'); // Registro de localización
 
 @NgModule({
   declarations: [
