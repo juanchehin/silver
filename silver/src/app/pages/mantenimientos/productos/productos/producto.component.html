@@ -27,10 +27,12 @@
                                 <label>Stock inicial : </label><input [(ngModel)]="stock" name="stock" type="text" placeholder="Stock..." class="form-control">
                             </div>
                             <div class="col-sm-6 form-group">
-                                <label>Precio compra (USD) $ : </label><input [(ngModel)]="precio_compra" name="precio_compra" type="text" placeholder="Precio compra..." class="form-control">
+                                <label>Precio compra (USD) $ : </label>
+                                <input [(ngModel)]="precio_compra" name="precio_compra" type="text" placeholder="Precio compra..." appNumberFormat class="form-control">
                             </div>                          
                             <div class="col-sm-6 form-group">
-                                <label>Precio venta (USD) $ : </label><input [(ngModel)]="precio_venta" name="precio_venta" type="text" placeholder="Precio venta..." class="form-control">
+                                <label>Precio venta (USD) $ : </label>
+                                <input [(ngModel)]="precio_venta" name="precio_venta" type="text" placeholder="Precio venta..." appNumberFormat class="form-control">
                             </div>
                         </div>
                         <div class="row">

@@ -9,6 +9,7 @@ import { ProductosComponent } from './productos/productos.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditarProductoComponent } from './productos/editar-producto.component';
 // import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { NumberFormatDirective } from 'src/app/shared/directives/number-format.directive';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { EditarProductoComponent } from './productos/editar-producto.component';
   declarations: [
     ProductoComponent,
     ProductosComponent,
-    EditarProductoComponent
+    EditarProductoComponent,
+    NumberFormatDirective
   ]
 })
 export class ProductosModule { }
