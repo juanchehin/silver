@@ -8,6 +8,7 @@ import { EmpleadosService } from 'src/app/services/empleados.service';
 import { Router } from '@angular/router';
 import { ServiciosService } from 'src/app/services/servicios.service';
 import { UtilService } from 'src/app/services/util.service';
+import esLocale from '@fullcalendar/core/locales/es'; // Importa la localización en español
 
 @Component({
   selector: 'app-calendario',
@@ -70,6 +71,7 @@ export class CalendarioComponent implements OnInit {
       eventClick: this.handleEventClick.bind(this),
       dateClick: (arg) => this.handleDateClick(arg),
       dayCellContent: this.renderButton.bind(this),
+      locale: esLocale,
       events: [],
       datesSet: this.onDatesSet.bind(this)
     };
