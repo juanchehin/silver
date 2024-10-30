@@ -39,7 +39,7 @@ export class DashboardComponent implements OnInit {
   taj_cred_bs = 0;
   dolar_efectivo = 0;
   venta_total_bs = 0;
-
+  ventas_total_usd = 0;
   // p_suma_pago_movil,p_suma_zelle,p_suma_taj_deb_bs,p_suma_taj_cred_bs,p_suma_dolar_efectivo
 
   //
@@ -53,6 +53,7 @@ export class DashboardComponent implements OnInit {
   empleados: any;
   IdTipoPago: any;
   descripcion: any;
+  total_ventas = 0;
   estado_caja = 'C';
 
   // detalles transaccion
@@ -95,13 +96,13 @@ cargarDatosDashboard(){
               .subscribe({
                 next: (resp: any) => {
             
-                  if((resp[4][0].mensaje == 'Ok')) {
+                  if((resp[5][0].mensaje == 'Ok')) {
 
                     this.cantidad_transacciones = resp[1][0].cantidad_transacciones;
 
                     this.transacciones = resp[0];
 
-                    this.ventas_total = resp[2][0].p_suma_ventas || 0;
+                    this.ventas_total_usd = resp[2][0].p_suma_ventas || 0;
                     this.efectivo = resp[2][0].p_suma_efectivo || 0;
                     this.credito = resp[2][0].p_suma_deposito || 0;
                     this.debito = resp[2][0].p_suma_retiro || 0;
@@ -119,6 +120,8 @@ cargarDatosDashboard(){
                     this.venta_total_bs = resp[2][0].p_suma_venta_total_bs || 0;
 
                     this.empleados = resp[3];
+
+                    this.total_ventas = resp[4][0].total_ventas;
 
                     this.alertService.cargando = false;
                     
