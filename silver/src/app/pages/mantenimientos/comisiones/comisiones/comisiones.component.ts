@@ -22,6 +22,7 @@ export class ComisionesComponent implements OnInit {
   IdEspecialistaSelect: any = 0;
   cantidad_transacciones = 0;
   monto_total = 0;
+  monto_total_comision_especialista = 0;
 
   //
   fecha_inicio = this.utilService.formatDateNow(new Date(Date.now()));
@@ -74,6 +75,13 @@ listar_comisiones() {
 
                     this.comisiones = resp[0];
                     this.alertaService.cargando = false;
+
+                    this.monto_total_comision_especialista = 0;
+
+                    this.comisiones.forEach((transaccion: any) => {
+                      const montoComision = parseFloat(transaccion.monto_comision.replace(",", "."));
+                      this.monto_total_comision_especialista += montoComision;
+                    });
 
                   } else {
                     this.alertaService.alertFail('Ocurrio un error',false,2000);

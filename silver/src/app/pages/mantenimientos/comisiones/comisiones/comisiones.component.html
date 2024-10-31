@@ -53,6 +53,7 @@
                                             <th>Servicio</th>
                                             <th>Subtotal</th>
                                             <th>Comision Serv.</th>
+                                            <th>Monto Comision</th>
                                         </tr>
                                         </thead>
                                          <tbody>
@@ -62,8 +63,9 @@
                                                 <td>{{ comision.fecha }}</td>
                                                 <td>{{ comision.codigo_serv }}</td>
                                                 <td>{{ comision.servicio }}</td>
-                                                <td>$ {{ comision.monto }}</td>
+                                                <td> {{ comision.monto }} $</td>
                                                 <td>{{ comision.comision_serv }}</td>
+                                                <td>{{ comision.monto_comision }}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -82,7 +84,9 @@
         <!--.box-typical-->
 
     </div>
-    <h4>Total : {{ monto_total }} </h4>
+
+    <h4>Total servicios : {{ monto_total }} $</h4>
+    <h4>Total comision especialista : {{ monto_total_comision_especialista }} $</h4>
 
     <div role="group" aria-label="Basic example" style="text-align: right;">
         <button (click)="cambiarDesde(-20) " type="button" class="btn btn-default-outline btn-info">Anteriores</button>
