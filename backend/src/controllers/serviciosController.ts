@@ -222,7 +222,6 @@ public async cargarDatosFormNuevoServicio(req: Request, res: Response): Promise<
 // ==================================================
 public async editarServicio(req: Request, res: Response) {
 
-    console.log("🚀 ~ ServiciosController ~ editarServicio ~ req.body:", req.body)
 
     var pIdServicio = req.body[0];
     var pServicio = req.body[1];
@@ -238,7 +237,6 @@ public async editarServicio(req: Request, res: Response) {
 
     pool.query(`call bsp_editar_servicio('${pIdServicio}','${pServicio}','${p_id_tipo_servicio}',
         '${pPrecio}','${pComision}','${pDescripcion}')`, function(err: any, result: any){
-        console.log("🚀 ~ ServiciosController ~ editarServicio ~ result:", result)
         
         if(err || result.mensaje !== 'Ok'){
             logger.error("Error en editarServicio - bsp_editar_servicio - serviciosController");
@@ -331,13 +329,9 @@ public async baja_tipo_servicio(req: Request, res: Response): Promise<void> {
 public async cargarTiposDatosFormEditarServicio(req: Request, res: Response): Promise<void> {
 
     const { pIdTipoServicio } = req.params;
-    console.log("🚀 ~ ServiciosController ~ cargarTiposDatosFormEditarServicio ~ pIdTipoServicio:", pIdTipoServicio)
     const { IdPersona } = req.params;
-    console.log("🚀 ~ ServiciosController ~ cargarTiposDatosFormEditarServicio ~ req.params:", req.params)
 
     pool.query(`call bsp_dame_datos_form_editar_tipos_servicio('${IdPersona}','${pIdTipoServicio}')`, function(err: any, result: any){
-        console.log("🚀 ~ ServiciosController ~ pool.query ~ err:", err)
-        console.log("🚀 ~ ServiciosController ~ pool.query ~ result:", result)
         if(err){
             logger.error("Error en bsp_dame_datos_form_editar_tipos_servicio - serviciosController - cargarTiposDatosFormEditarServicio");
 
@@ -355,7 +349,6 @@ public async cargarTiposDatosFormEditarServicio(req: Request, res: Response): Pr
 // ==================================================
 public async editarTipoServicio(req: Request, res: Response) {
 
-    console.log("🚀 ~ ServiciosController ~ editarServicio ~ req.body:", req.body)
 
     var pIdTipoServicio = req.body[0];
     var pTipoServicio = req.body[1];
@@ -369,7 +362,6 @@ public async editarTipoServicio(req: Request, res: Response) {
     pool.query(`call bsp_editar_tipo_servicio('${pIdTipoServicio}','${pTipoServicio}','${pDescripcion}')`, 
         function(err: any, result: any){
 
-        console.log("🚀 ~ ServiciosController ~ editarTipoServicio ~ result:", result)
         
         if(err || result.mensaje !== 'Ok'){
             logger.error("Error en bsp_editar_tipo_servicio - serviciosController");
