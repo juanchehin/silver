@@ -253,8 +253,9 @@
                             <div class="col-sm-4">
                                 <label>Monto : </label>
                                 <input [(ngModel)]="monto" 
+                                appNumberFormat
                                 type="text" 
-                                class="form-control form-control-line" 
+                                class="form-control"
                                 placeholder="monto..."
                                 maxlength="10" 
                                 (keypress)="validateNumericInput($event)"> 

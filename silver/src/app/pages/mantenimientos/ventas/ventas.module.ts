@@ -10,6 +10,7 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 registerLocaleData(localeEs, 'es-ES'); // Registro de localización
 
@@ -23,7 +24,8 @@ registerLocaleData(localeEs, 'es-ES'); // Registro de localización
     CommonModule,
     VentasRoutingModule,
     FormsModule,
-    AutocompleteLibModule
+    AutocompleteLibModule,
+    SharedModule
   ]
 })
 export class VentasModule { }

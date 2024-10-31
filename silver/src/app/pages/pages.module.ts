@@ -12,6 +12,7 @@ import { EgresosModule } from './mantenimientos/egresos/egresos.module';
 import { ComisionesModule } from './mantenimientos/comisiones/comisiones.module';
 import { ComprasModule } from './mantenimientos/compras/compras.module';
 import { ProveedoresModule } from './mantenimientos/proveedores/proveedores.module';
+import { VentasModule } from './mantenimientos/ventas/ventas.module';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ProveedoresModule } from './mantenimientos/proveedores/proveedores.modu
     EgresosModule,
     ComisionesModule,
     ComprasModule,
+    VentasModule,
     ProveedoresModule
   ]
 })

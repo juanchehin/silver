@@ -49,7 +49,7 @@ export class NuevaVentaComponent implements OnInit {
   IdItem = 0;
   IdItemTipoPago = 0;
   IdTipoPagoSelect = 0;
-  monto = 0;
+  monto: any = 0;
   total_tipos_pagos_restantes_usd = 0;
   total_tipos_pagos_restantes_bs = 0;
 
@@ -566,6 +566,8 @@ agregarLineaVentaServicioModal(p_servicio: any) {
 // ==================================================
 agregarLineaTipoPago(): any {
   var bandera = false;
+  
+  this.monto = this.monto.replace(/,/g, ".");
 
   if((Number(this.monto) <= 0) || (this.monto == undefined))
   {
@@ -1149,10 +1151,10 @@ validateNumericInput(event: KeyboardEvent) {
     return;
   }
 
-  // Verificar si la tecla presionada es un número
-  if (!/^\d$/.test(event.key)) {
-    this.alertaService.alertFail('Solo permitir números (0-9)',false,2000);
-    event.preventDefault();  // Bloquear cualquier carácter que no sea numérico
+  // Verificar si la tecla presionada es un número o un punto
+  if (!/^[\d.]$/.test(event.key)) {
+    this.alertaService.alertFail('Solo permitir números (0-9) y puntos (.)', false, 2000);
+    event.preventDefault();  // Bloquear cualquier carácter que no sea numérico o un punto
   }
 }
 

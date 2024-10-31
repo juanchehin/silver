@@ -73,7 +73,10 @@ export class CalendarioComponent implements OnInit {
       dateClick: (arg) => this.handleDateClick(arg),
       dayCellContent: (arg) => {
         return {
-          html: `<div>${arg.date.getDate()}</div> <button class="btn-ver-mas">Ver agenda</button>`, // Muestra solo el número del día
+          html: `
+            <div>${arg.date.getDate()}</div>
+            <button class="btn-ver-mas">Ver agenda</button>
+            `,
         };
       },
       locale: esLocale,
