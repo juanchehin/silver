@@ -45,7 +45,7 @@ public async altaProducto(req: Request, res: Response) {
 
     
     pool.query(`call bsp_alta_producto('${producto}','${codigo}',
-        '${stock}','${precio_compra}','${precio_venta}',
+        '${stock}','${precio_compra.replace(/,/g, ".")}','${precio_venta.replace(/,/g, ".")}',
         '${observaciones}')`, function(err: any, result: any, fields: any){
 
         if(err){
