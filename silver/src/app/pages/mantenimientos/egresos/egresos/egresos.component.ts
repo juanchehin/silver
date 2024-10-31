@@ -11,7 +11,7 @@ export class EgresosComponent implements OnInit {
 
   desde = 0;
   totalAsistencias = true;
-  monto_egreso = 0;
+  monto_egreso: any = 0;
   egresos!: any;
   totalEgresos = 0;
   descripcion_egreso : any;
@@ -131,6 +131,10 @@ alta_egreso() {
     this.alertaService.alertFailWithText('Atencion','Egreso invalido',4000);
     return;
   }
+
+  let withoutTrailingZeros = this.monto_egreso.replace(/,(0+)$/, '');
+  // Elimina el punto
+  this.monto_egreso = withoutTrailingZeros.replace('.', '');
 
   const egreso = new Array(
     this.monto_egreso,

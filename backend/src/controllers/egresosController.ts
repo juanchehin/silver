@@ -32,7 +32,7 @@ async alta_egreso(req: Request, res: Response) {
     var p_id_tipo_egreso = req.body[1];
     var pDescripcion = req.body[2];
 
-    pool.query(`call bsp_alta_egreso('${pMontoEgreso.replace(/,/g, ".")}','${p_id_tipo_egreso}','${pDescripcion}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_alta_egreso('${pMontoEgreso}','${p_id_tipo_egreso}','${pDescripcion}')`, function(err: any, result: any, fields: any){
         if(err){
             logger.error("Error bsp_alta_egreso - altaEgreso - egresosController");
 
