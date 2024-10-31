@@ -494,8 +494,9 @@ agregarLineaVentaServicioModal(p_servicio: any) {
     return;
   }
 
-  const precio = p_servicio.precio.replace(',', '.'); // Reemplaza la coma con un punto
-  const precioNumerico = Number(precio);
+  let withoutTrailingZeros = p_servicio.precio.replace(/,(0+)$/, '');
+  // Elimina el punto
+  let precioNumerico = withoutTrailingZeros.replace('.', '');
 
   if(isNaN(precioNumerico) || (p_servicio.precio <= 0))
   { 
