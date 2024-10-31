@@ -115,7 +115,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button #botonCerrarModalAltaEgreso type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Cerrar</button>
+                    <button (click)="limpiar_formulario_alta_egreso()" #botonCerrarModalAltaEgreso type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Cerrar</button>
                     <button type="button" class="btn btn-success waves-effect waves-light" (click)="alta_egreso()">Cargar</button>
                 </div>
             </div>

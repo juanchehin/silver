@@ -112,6 +112,16 @@ refrescar() {
 }
 
 // ==================================================
+//  
+// ==================================================
+
+limpiar_formulario_alta_egreso() {
+
+  this.monto_egreso = 0;
+  this.descripcion_egreso = '';
+
+}
+// ==================================================
 //        Crear egreso
 // ==================================================
 
@@ -130,7 +140,6 @@ alta_egreso() {
 
   this.egresosService.alta_egreso( egreso )
             .subscribe( (resp: any) => {
-              console.log("🚀 ~ EgresosComponent ~ .subscribe ~ resp:", resp)
               
               if ( resp[0][0].mensaje == 'Ok') {
 
@@ -139,8 +148,7 @@ alta_egreso() {
                 let el: HTMLElement = this.botonCerrarModalAltaEgreso.nativeElement;
                 el.click();
 
-                this.monto_egreso = 0;
-                this.descripcion_egreso  = '';
+                this.limpiar_formulario_alta_egreso();
 
                 this.refrescar();
                 
