@@ -47,7 +47,6 @@ buscarTipoServicio() {
     this.serviciosService.listarTiposServiciosPaginado( this.desde , tipos_servicioBuscado  )
                .subscribe( {
                 next: (resp: any) => { 
-                console.log("🚀 ~ TiposServiciosComponent ~ buscarTipoServicio ~ resp:", resp)
 
                   if(resp[0].length <= 0)
                   { 

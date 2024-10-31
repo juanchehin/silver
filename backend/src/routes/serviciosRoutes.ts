@@ -26,6 +26,7 @@ class ServiciosRoutes {
         this.router.post('/alta/tipo/:IdPersona',serviciosController.alta_tipo_servicio);
         this.router.get('/tipos/buscar/:pDesde/:pServicioBuscado/:IdPersona',  [mdAutenticacion.verificaToken],serviciosController.buscarTiposServicioPaginado); 
         this.router.get('/categorias/listar',  [mdAutenticacion.verificaToken],serviciosController.listarCategoriasServicios); 
+        this.router.get('/tipos/baja/:pIdServicio/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],serviciosController.baja_tipo_servicio); 
 
 
     }

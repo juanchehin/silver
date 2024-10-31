@@ -304,6 +304,27 @@ public async buscarTiposServicioPaginado(req: Request, res: Response): Promise<v
     })
 }
 
+
+
+// ==================================================
+//        baja_tipo_servicio
+// ==================================================
+public async baja_tipo_servicio(req: Request, res: Response): Promise<void> {
+
+    var IdPersona = req.params.IdPersona;
+    var IdServicio = req.params.pIdServicio;
+
+    pool.query(`call bsp_baja_tipo_servicio('${IdServicio}')`, function(err: any, result: any, fields: any){
+        if(err){
+            logger.error("Error en baja_tipo_servicio - serviciosController " + err);
+
+            res.status(404).json(err);
+            return;
+        }
+        res.status(200).json(result);
+    })
+}
+
 }
 
 
