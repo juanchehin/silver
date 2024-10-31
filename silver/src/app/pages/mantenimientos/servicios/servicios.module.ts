@@ -8,6 +8,7 @@ import { ServicioComponent } from './servicios/servicio.component';
 import { ServiciosComponent } from './servicios/servicios.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditarServicioComponent } from './servicios/editar-servicio.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 // import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 @NgModule({
@@ -18,7 +19,8 @@ import { EditarServicioComponent } from './servicios/editar-servicio.component';
     RouterModule,
     // AutocompleteLibModule,
     ReactiveFormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ],
   declarations: [
     ServicioComponent,

@@ -50,7 +50,7 @@
                 <!-- solo acceso para usuario admin -->
                 <div class="col-sm-6 form-group">
                     <label>Precio (USD) : </label>
-                    <input tabindex="2" [(ngModel)]="precio" name="precio" required type="number" placeholder="Precio..." class="form-control">
+                    <input tabindex="2" [(ngModel)]="precio" name="precio" required type="text" placeholder="Precio..." class="form-control" appNumberFormat>
                 </div>
                 <div class="col-sm-6 form-group">
                     <label>Comision % : </label>
