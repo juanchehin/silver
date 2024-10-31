@@ -282,7 +282,7 @@ public async buscarTiposServicioPaginado(req: Request, res: Response): Promise<v
     var desde = req.params.pDesde || 0;
     desde  = Number(desde);
     
-    var pParametroBusqueda = req.params.pParametroBusqueda || '';
+    var pParametroBusqueda = req.params.pTipoServicioBuscado || '';
 
     if(pParametroBusqueda == null || pParametroBusqueda == 'null' || pParametroBusqueda == '-' || pParametroBusqueda == '')
     {
