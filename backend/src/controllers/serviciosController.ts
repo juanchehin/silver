@@ -325,6 +325,65 @@ public async baja_tipo_servicio(req: Request, res: Response): Promise<void> {
     })
 }
 
+// ==================================================
+//  
+// ==================================================
+public async cargarTiposDatosFormEditarServicio(req: Request, res: Response): Promise<void> {
+
+    const { pIdTipoServicio } = req.params;
+    console.log("🚀 ~ ServiciosController ~ cargarTiposDatosFormEditarServicio ~ pIdTipoServicio:", pIdTipoServicio)
+    const { IdPersona } = req.params;
+    console.log("🚀 ~ ServiciosController ~ cargarTiposDatosFormEditarServicio ~ req.params:", req.params)
+
+    pool.query(`call bsp_dame_datos_form_editar_tipos_servicio('${IdPersona}','${pIdTipoServicio}')`, function(err: any, result: any){
+        console.log("🚀 ~ ServiciosController ~ pool.query ~ err:", err)
+        console.log("🚀 ~ ServiciosController ~ pool.query ~ result:", result)
+        if(err){
+            logger.error("Error en bsp_dame_datos_form_editar_tipos_servicio - serviciosController - cargarTiposDatosFormEditarServicio");
+
+            res.status(400).json(err);
+            return;
+        }
+
+        res.status(200).json(result);
+    })
+}
+
+
+// ==================================================
+//       
+// ==================================================
+public async editarTipoServicio(req: Request, res: Response) {
+
+    console.log("🚀 ~ ServiciosController ~ editarServicio ~ req.body:", req.body)
+
+    var pIdTipoServicio = req.body[0];
+    var pTipoServicio = req.body[1];
+    var pDescripcion = req.body[2];
+
+    if((pIdTipoServicio == null) || (pIdTipoServicio == undefined) || (pIdTipoServicio == 'null'))
+    {
+        pIdTipoServicio = 1;
+    }
+
+    pool.query(`call bsp_editar_tipo_servicio('${pIdTipoServicio}','${pTipoServicio}','${pDescripcion}')`, 
+        function(err: any, result: any){
+
+        console.log("🚀 ~ ServiciosController ~ editarTipoServicio ~ result:", result)
+        
+        if(err || result.mensaje !== 'Ok'){
+            logger.error("Error en bsp_editar_tipo_servicio - serviciosController");
+
+            return res.json({
+                ok: false,
+                mensaje: result[0][0].mensaje
+            });
+        }
+
+        return res.json({ mensaje: 'Ok' });
+    })
+
+}
 }
 
 

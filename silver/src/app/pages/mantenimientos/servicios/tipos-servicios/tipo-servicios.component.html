@@ -62,7 +62,7 @@
                                                 <td>{{ tp.categoria_serv }}</td>
                                                 <td>{{ tp.descripcion_cat_serv }}</td>
                                                 <td>
-                                                    <button class="btn btn-primary" type="button" [routerLink]="['/dashboard/tipos-servicios/editar',tp.id_categoria_serv]">
+                                                    <button class="btn btn-primary" type="button" [routerLink]="['/dashboard/servicios/editar-tipo-servicio',tp.id_categoria_serv]">
                                                         <i class="mdi mdi-account-edit"></i>                                                           
                                                     </button>
                                                     <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" (click)="modal_baja_servicio(tp.id_categoria_serv)" >

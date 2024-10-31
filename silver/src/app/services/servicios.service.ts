@@ -143,7 +143,7 @@ cargarCategoriasServicios(){
 // ==================================================
 alta_tipo_servicio( tipo_servicio: any ) {
 
-  let url = URL_SERVICIOS + '/servicios/tipos/alta/tipo/' + this.IdPersona;
+  let url = URL_SERVICIOS + '/servicios/alta/tipo/' + this.IdPersona;
 
   return this.http.post( url, tipo_servicio, this.headers);
 }
@@ -167,5 +167,27 @@ baja_tipo_servicio( id_servicio: any ) {
   let url = URL_SERVICIOS + '/servicios/tipos/baja/' + id_servicio + '/' + this.IdPersona;
 
   return this.http.get(url, this.headers);
+}
+
+
+// ==================================================
+// 
+// ==================================================
+cargarDatosFormEditarTipoServicio(id_tipo_servicio: any ){
+  
+  let url = URL_SERVICIOS + '/servicios/tipos/editar/datos-formulario/' + id_tipo_servicio + '/' + this.IdPersona;
+  return this.http.get( url , this.headers );
+
+}
+
+  // ==================================================
+//        
+// ==================================================
+editarTipoServicio( tipo_servicioEditado: any ) {
+
+  let url = URL_SERVICIOS + '/servicios/tipos/editar/' + this.IdPersona;
+
+  return this.http.post( url, tipo_servicioEditado, this.headers);
+
 }
 }

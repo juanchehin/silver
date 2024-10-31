@@ -28,6 +28,8 @@ class ServiciosRoutes {
         this.router.get('/categorias/listar',  [mdAutenticacion.verificaToken],serviciosController.listarCategoriasServicios); 
         this.router.get('/tipos/baja/:pIdServicio/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],serviciosController.baja_tipo_servicio); 
 
+        this.router.get('/tipos/editar/datos-formulario/:pIdTipoServicio/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], serviciosController.cargarTiposDatosFormEditarServicio);
+        this.router.post('/tipos/editar/:IdPersona', serviciosController.editarTipoServicio);
 
     }
 

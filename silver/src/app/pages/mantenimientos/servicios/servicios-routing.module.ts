@@ -4,6 +4,7 @@ import { ServiciosComponent } from './servicios/servicios.component';
 import { EditarServicioComponent } from './servicios/editar-servicio.component';
 import { ServicioComponent } from './servicios/servicio.component';
 import { TiposServiciosComponent } from './tipos-servicios/tipo-servicios.component';
+import { EditarTiposServicioComponent } from './tipos-servicios/editar-tipo-servicio.component';
 
 const routes: Routes = [
    // Servicios
@@ -12,7 +13,7 @@ const routes: Routes = [
    { path: 'editar/:IdServicio', component: EditarServicioComponent, data: { titulo: 'Edicion de servicio' }},
    // Tipos Servicios
    { path: 'tipos-servicios', component: TiposServiciosComponent, data: { titulo: 'Tipos Servicios' }},
-   { path: 'editar-tipo-servicio', component: TiposServiciosComponent, data: { titulo: 'Editar Tipo Servicio' }}
+   { path: 'editar-tipo-servicio/:p_id_tipo_servicio', component: EditarTiposServicioComponent, data: { titulo: 'Editar Tipo Servicio' }}
 
 ];
 

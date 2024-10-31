@@ -94,7 +94,6 @@ alta_tipo_servicio() {
 
   this.serviciosService.alta_tipo_servicio( nuevo_tipo_servicio )
             .subscribe( (resp: any) => {
-              console.log("🚀 ~ TiposServiciosComponent ~ .subscribe ~ resp:", resp)
               
               if ( resp.mensaje == 'Ok') {
 

@@ -6,22 +6,18 @@ import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-editar-servicio',
-  templateUrl: './editar-servicio.component.html',
+  selector: 'app-editar-tipo-servicio',
+  templateUrl: './editar-tipo-servicio.component.html',
   styles: []
 })
-export class EditarServicioComponent implements OnInit {
+export class EditarTiposServicioComponent implements OnInit {
 
-  IdServicio: any;
+  IdTipoServicio: any;
 
   // ==============================
-  servicio: any;
-  id_cat_servicio: any;
-  comision: any;
-  precio: any;
-  descripcion: any;
-  id_rol: any;
-  categorias_serv: any;
+  tipo_servicio: any;
+  id_tipo_servicio: any;
+  descripcion_tipo_servicio: any;
 
   constructor(
     private router: Router, 
@@ -34,42 +30,31 @@ export class EditarServicioComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.IdServicio = this.activatedRoute.snapshot.paramMap.get('IdServicio');
-    this.cargarDatosFormEditarServicio();
-    this.cargarCategoriasServicios();
-    this.dame_id_rol();
-
+    this.IdTipoServicio = this.activatedRoute.snapshot.paramMap.get('p_id_tipo_servicio');
+    this.cargarDatosFormEditarTipoServicio();
   }
 
 // ==================================================
 //    
 // ==================================================
 
-update_servicio() {
+update_tipo_servicio() {
 
-      //** */
-      if((this.precio <= 0) ){
-        this.alertService.alertFail('Mensaje','Precio invalido',3000);
-        return;
-      }
-      
-
-      const servicioEditado = new Array(
-        this.IdServicio,
-        this.servicio,
-        this.id_cat_servicio,
-        this.precio,
-        this.comision,
-        this.descripcion
+      const tipo_servicioEditado = new Array(
+        this.IdTipoServicio,
+        this.tipo_servicio,
+        this.descripcion_tipo_servicio
       );
       
-      this.serviciosService.editarServicio( servicioEditado )
+      this.serviciosService.editarTipoServicio( tipo_servicioEditado )
                 .subscribe( {
                   next: (resp: any) => { 
                     
                     if ( resp.mensaje === 'Ok') {
                       this.alertService.alertSuccess('Mensaje','Servicio actualizado',2000);
-                      this.router.navigate(['/dashboard/servicios']);
+
+                      this.router.navigate(['/dashboard/servicios/tipos-servicios']);
+
                     } else {
                       this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000);
                     }
@@ -84,19 +69,16 @@ update_servicio() {
 // Carga
 // ==================================================
 
-cargarDatosFormEditarServicio() {
+cargarDatosFormEditarTipoServicio() {
 
-    this.serviciosService.cargarDatosFormEditarServicio( this.IdServicio )
+    this.serviciosService.cargarDatosFormEditarTipoServicio( this.IdTipoServicio )
     .subscribe( {
       next: (resp: any) => { 
 
         if(resp[1][0].mensaje == 'Ok'){
 
-          this.servicio = resp[0][0].servicio;
-          this.precio = resp[0][0].precio;
-          this.id_cat_servicio = resp[0][0].id_cat_serv;
-          this.comision = resp[0][0].comision;
-          this.descripcion = resp[0][0].descripcion;
+          this.tipo_servicio = resp[0][0].categoria_serv;
+          this.descripcion_tipo_servicio = resp[0][0].descripcion_cat_serv;
           
         }else{
           this.alertService.alertFail('Mensaje','Ocurrio un error',400);
@@ -110,33 +92,4 @@ cargarDatosFormEditarServicio() {
 
   }
 
-  // ==================================================
-// Carga
-// ==================================================
-
-cargarCategoriasServicios() {
-
-
-  this.serviciosService.cargarCategoriasServicios(   )
-             .subscribe( (resp: any) => {
-
-              this.categorias_serv  = resp[0];
-
-            });
-
-}
-// ==================================================
-// Carga
-// ==================================================
-
-dame_id_rol() {
-
-  this.id_rol = this.authService.getIdRol();
-
-  if((this.id_rol == undefined || this.id_rol.length <= 0 || this.id_rol == '' || this.id_rol <= 0) ){
-    this.alertService.alertFailWithText('Ocurrio un error - Codigo 002','Atencion',2000);
-    return;
-  }
-
-}
 }
