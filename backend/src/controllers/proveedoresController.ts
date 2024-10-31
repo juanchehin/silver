@@ -64,8 +64,8 @@ public async altaProveedor(req: Request, res: Response) {
     var codigo = req.body[8];
     
     pool.query(`call bsp_alta_proveedor('${IdProveedor}','${Apellidos}','${Nombres}'
-        ,'${telefono}','${cedula}','${mail}','${fecha_nac}'
-        ,'${direccion}','${codigo}','${observaciones}')`, function(err: any, result: any, fields: any){
+        ,'${cedula}','${codigo}','${telefono}','${mail}','${direccion}'
+        ,'${fecha_nac}','${observaciones}')`, function(err: any, result: any, fields: any){
     
         if(err && result && result[0] && result[0][0].mensaje != 'Ok'){
             logger.error("Error bsp_alta_proveedor - altaProveedor - proveedoresController ");
