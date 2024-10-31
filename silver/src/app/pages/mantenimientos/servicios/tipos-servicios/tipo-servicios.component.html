@@ -1,0 +1,159 @@
+<div id="wrapper">
+    <div class="content-page">
+<!-- <div class="page-content"> -->
+    <div class="container-fluid">
+        <section class="box-typical">
+            <div class="table-responsive">
+                <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <label>Tipo Servicio:  </label>
+                        <input (keyup.enter)="buscarTipoServicio( )" #inputTipoServicioBuscado type="text" class="form-control" 
+                        placeholder="Buscar..." id="buscarTipoServicio">
+                    </div>
+                    <div class="col-sm-1 form-group">
+                        <button (click)="buscarTipoServicio( )" class="btn btn-primary" style="margin-top: 26px;">
+                            <i class="mdi mdi-search-web"></i> 
+                            </button>
+                    </div>
+                    <div class="col-sm-1 form-group" style="margin-top: 25px;">
+                        <button (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary ">
+                            <i class="mdi mdi-refresh"></i> 
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h3 class="card-title">Cantidad tipos servicios ( {{ total_tipos_servicios }} )</h3>
+                    </div>
+                    <div class="col-2">
+                    </div>
+                    <div class="col-sm-4">
+                        <button type="button" class="btn btn-success" 
+                        style="margin-top: 27px;"
+                        data-toggle="modal" data-target="#responsive-modal-alta-tipo-servicio">
+                            <i class="mdi mdi-plus"></i> 
+                            Nuevo Tipo Servicio
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+             <!-- ========== Tabla =========== -->
+
+             <div class="row">
+                <div class="col-12">
+                    <div class="card-box">
+
+                        <div class="responsive-table-plugin">
+                            <div class="table-rep-plugin">
+                                <div class="table-responsive" data-pattern="priority-columns">
+                                    <table id="tech-companies-1" class="table table-striped mb-0">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Tipo Servicio</th>
+                                            <th>Descripcion</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                         <tbody>
+                                            <tr *ngFor="let tp of tipos_servicios">
+                                                <td>{{ tp.id_categoria_serv }}</td>
+                                                <td>{{ tp.categoria_serv }}</td>
+                                                <td>{{ tp.descripcion_cat_serv }}</td>
+                                                <td>
+                                                    <button class="btn btn-primary" type="button" [routerLink]="['/dashboard/tipos-servicios/editar',tp.id_categoria_serv]">
+                                                        <i class="mdi mdi-account-edit"></i>                                                           
+                                                    </button>
+                                                    <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" (click)="modal_baja_servicio(tp.id_categoria_serv)" >
+                                                        <i class="mdi mdi-delete"></i>  
+                                                    </button>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+            
+            <!-- ========== Fin tabla =========== -->
+        </section>
+        <!--.box-typical-->
+
+    </div>
+    <div role="group" aria-label="Basic example" style="text-align: right;">
+        <button (click)="cambiarDesde(-20) " type="button" class="btn btn-default-outline btn-info">Anteriores</button>
+        <button (click)="cambiarDesde(20) " type="button" class="btn btn-default-outline btn-info">Siguientes</button>
+    </div>
+    
+    <br><br>
+    <!--.container-fluid-->
+</div>
+<!--.page-content-->
+</div>
+
+
+
+<!-- =========== MODAL tipo de servicio =========== -->
+<div class="col-md-4">
+    <div id="responsive-modal-alta-tipo-servicio" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Nuevo tipo de servicio</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12 form-group">
+                            <label>Tipo Servicio : </label>
+                            <input [(ngModel)]="nuevo_tipo_servicio" 
+                            name="Tipo servicio" type="textarea" 
+                            placeholder="Tipo servicio..." rows="3" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 form-group">
+                            <label>Descripcion : </label>
+                            <textarea [(ngModel)]="descripcion_nuevo_tipo_servicio"
+                            name="Tipo servicio" type="textarea" placeholder="Tipo servicio..." rows="3"
+                             class="form-control"></textarea>
+                        </div>
+                    </div>
+                <div class="modal-footer">
+                    <button #botonCerrarModalAltaTipoServicio type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success waves-effect waves-light" (click)="alta_tipo_servicio()">Cargar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal -->
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalToggle" tabindex="-1" aria-labelledby="exampleModalToggleLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Atencion</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ¿Desea confirmar la operacion?
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" #divCerrarModalBajaServicio data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+          <button type="button" class="btn btn-danger" (click)="baja_tipo_servicio()">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

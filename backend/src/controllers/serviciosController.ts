@@ -272,6 +272,38 @@ public async listarCategoriasServicios(req: Request, res: Response): Promise<voi
     })
 }
 
+// ==================================================
+//  ** Tipos servicios **
+// ==================================================
+
+// ==================================================
+//   Listado de servicios en panel
+// ==================================================
+public async buscarTiposServicioPaginado(req: Request, res: Response): Promise<void> {
+
+    var desde = req.params.pDesde || 0;
+    desde  = Number(desde);
+    
+    var pParametroBusqueda = req.params.pParametroBusqueda || '';
+
+    if(pParametroBusqueda == null || pParametroBusqueda == 'null' || pParametroBusqueda == '-' || pParametroBusqueda == '')
+    {
+        pParametroBusqueda = '-';
+    }
+
+    pool.query(`call bsp_buscar_tipos_servicios_paginado('${req.params.IdPersona}','${pParametroBusqueda}','${desde}')`, function(err: any, result: any){
+        
+        if(err){
+            logger.error("Error en bsp_buscar_tipos_servicios_paginado - serviciosController");
+
+            res.status(400).json(err);
+            return;
+        }
+
+        res.status(200).json(result);
+    })
+}
+
 }
 
 

@@ -15,14 +15,18 @@ class ServiciosRoutes {
         // *** Front ***
         this.router.get('/servicio/detalle/:pIdServicio/:pIdSabor',serviciosController.dameDatosServicio); 
         this.router.post('/alta/:IdPersona',serviciosController.altaServicio);
-        this.router.post('/alta/tipo/:IdPersona',serviciosController.alta_tipo_servicio);
-
+        
         this.router.get('/baja/:pIdServicio/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],serviciosController.bajaServicio); 
         this.router.get('/listar/busqueda/autocomplete/:pServicioBuscado/:IdPersona',  [mdAutenticacion.verificaToken],serviciosController.buscarServicioAutoComplete); 
         this.router.get('/buscar/:pDesde/:pParametroBusqueda/:IdPersona',  [mdAutenticacion.verificaToken],serviciosController.buscarServicioPaginado); 
         this.router.get('/editar/datos-formulario/:pIdServicio/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], serviciosController.cargarDatosFormEditarServicio);
         this.router.post('/editar/:IdPersona', serviciosController.editarServicio);
+        
+        // tipos / categorias de servicios
+        this.router.post('/alta/tipo/:IdPersona',serviciosController.alta_tipo_servicio);
+        this.router.get('/tipos/buscar/:pDesde/:pServicioBuscado/:IdPersona',  [mdAutenticacion.verificaToken],serviciosController.buscarTiposServicioPaginado); 
         this.router.get('/categorias/listar',  [mdAutenticacion.verificaToken],serviciosController.listarCategoriasServicios); 
+
 
     }
 

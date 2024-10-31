@@ -60,33 +60,7 @@ altaServicio( servicio: any ) {
 
   return this.http.post( url, servicio, this.headers);
 }
-  // ==================================================
-//        
-// ==================================================
-destacarProducto( IdProducto: any ) {
 
-  let url = URL_SERVICIOS + '/servicios/destacar/' + IdProducto + '/' + this.IdPersona;
-
-  return this.http.get(url,this.headers);
-}
-  // ==================================================
-//        
-// ==================================================
-ofertarProducto( IdProducto: any ) {
-
-  let url = URL_SERVICIOS + '/servicios/ofertar/' + IdProducto + '/' + this.IdPersona;
-
-  return this.http.get(url,this.headers);
-}
-  // ==================================================
-//        
-// ==================================================
-publicarProducto( IdProducto: any ) {
-
-  let url = URL_SERVICIOS + '/servicios/publicar/' + IdProducto + '/' + this.IdPersona;
-
-  return this.http.get(url,this.headers);
-}
   // ==================================================
 //        
 // ==================================================
@@ -162,16 +136,36 @@ cargarCategoriasServicios(){
   return this.http.get( url, this.headers );
 }
 
-
+// *****************************************************
 
   // ==================================================
 //        
 // ==================================================
 alta_tipo_servicio( tipo_servicio: any ) {
 
-  let url = URL_SERVICIOS + '/servicios/alta/tipo/' + this.IdPersona;
+  let url = URL_SERVICIOS + '/servicios/tipos/alta/tipo/' + this.IdPersona;
 
   return this.http.post( url, tipo_servicio, this.headers);
 }
 
+
+// ==================================================
+//
+// ==================================================
+listarTiposServiciosPaginado(desde: any,pParametroBusqueda: any){
+
+  let url = URL_SERVICIOS + '/servicios/tipos/buscar/' + desde + '/' + pParametroBusqueda + '/' + this.IdPersona;
+
+  return this.http.get( url, this.headers );
+}  
+
+  // ==================================================
+//        
+// ==================================================
+baja_tipo_servicio( id_servicio: any ) {
+
+  let url = URL_SERVICIOS + '/servicios/tipos/baja/' + id_servicio + '/' + this.IdPersona;
+
+  return this.http.get(url, this.headers);
+}
 }

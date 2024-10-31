@@ -1,0 +1,114 @@
+<div id="wrapper">
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+
+<div class="content-page">
+    <div class="content">
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <div class="row">
+                        <!--  -->
+                        <div class="col-sm-10">
+                             <!--  -->
+                            <label>Tipo Servicio : </label>
+                            <select tabindex="4" [(ngModel)]="id_cat_servicio" name="id_cat_servicio" class="form-control">
+                                <option *ngFor="let categoria_s of categorias_serv" [value]="categoria_s.id_categoria_serv">
+                                    {{categoria_s.categoria_serv}}
+                                </option>
+                            </select>
+                        </div>
+                        <!--  -->
+                        <div class="col-sm-2">
+                            <button type="button" class="btn btn-success" 
+                            style="margin-top: 27px;"
+                            data-toggle="modal" data-target="#responsive-modal-alta-tipo-servicio">
+                                <i class="mdi mdi-plus"></i>
+                            </button>
+                        </div>
+                        <!--  -->
+                    </div>
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label>Codigo : </label>
+                    <input tabindex="1" [(ngModel)]="codigo" name="codigo" required type="text" placeholder="codigo..." class="form-control">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <label>Servicio : </label>
+                    <input tabindex="1" [(ngModel)]="servicio" name="servicio" required type="text" placeholder="Servicio..." class="form-control">
+                </div>                
+            </div>
+            <!--  -->
+            <div class="row" *ngIf="id_rol == 1">
+                <!-- solo acceso para usuario admin -->
+                <div class="col-sm-6 form-group">
+                    <label>Precio (USD) : </label>
+                    <input tabindex="2" [(ngModel)]="precio" name="precio" required type="text" placeholder="Precio..." class="form-control" appNumberFormat>
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label>Comision % : </label>
+                    <input [(ngModel)]="comision" name="comision" required type="number" 
+                    placeholder="Comision..." class="form-control" min="1" max="99">
+                             </div>
+            </div>
+            <!--  -->
+        </div>
+        
+    </div>
+    <!--  -->
+    <div class="col-sm-12 form-group">
+        <label>Descripcion : </label>
+        <textarea tabindex="3" [(ngModel)]="descripcion" name="descripcion" type="textarea" placeholder="Descripcion..." rows="3" class="form-control"></textarea>
+    </div>
+    <!--  -->
+    <br>
+    <button type="submit" tabindex="4" class="btn btn-info btn-lg btn-block text-uppercase" (click)="altaServicio()">Cargar Servicio</button>
+    <br>
+</div>
+
+</div>
+</div>
+
+
+<!-- =========== MODAL tipo de servicio =========== -->
+<div class="col-md-4">
+    <div id="responsive-modal-alta-tipo-servicio" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Nuevo tipo de servicio</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12 form-group">
+                            <label>Tipo Servicio : </label>
+                            <input [(ngModel)]="nuevo_tipo_servicio" 
+                            name="Tipo servicio" type="textarea" 
+                            placeholder="Tipo servicio..." rows="3" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 form-group">
+                            <label>Descripcion : </label>
+                            <textarea [(ngModel)]="descripcion_nuevo_tipo_servicio"
+                            name="Tipo servicio" type="textarea" placeholder="Tipo servicio..." rows="3"
+                             class="form-control"></textarea>
+                        </div>
+                    </div>
+                <div class="modal-footer">
+                    <button #botonCerrarModalAltaTipoServicio type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success waves-effect waves-light" (click)="alta_tipo_servicio()">Cargar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal -->
+</div>
