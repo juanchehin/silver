@@ -47,9 +47,8 @@ export class ComisionesComponent implements OnInit {
 
 listar_comisiones() {
 
-
-  const pfechaInicio  = this.utilService.formatDate(this.fecha_inicio);
-  const pfechaFin = this.utilService.formatDate(this.fecha_fin);
+  const pfechaInicio  = this.utilService.formatDate3(this.fecha_inicio);
+  const pfechaFin = this.utilService.formatDate3(this.fecha_fin);
 
   this.alertaService.cargando = true;
   

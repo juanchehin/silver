@@ -26,6 +26,31 @@ formatDate(date: any) {
 
   return [year, month, day].join('-');
 }
+
+// ==================================================
+//    Formatea la fecha a yyyy-mm-dd 3
+// ==================================================
+formatDate3(date: any): string {
+  // Dividimos la cadena en partes de año, mes y día
+  const [year, month, day] = date.split('-').map(Number);
+
+  // Creamos el objeto Date con los valores explícitos de año, mes y día
+  const d = new Date(year, month - 1, day);
+
+  let formattedMonth = '' + (d.getMonth() + 1);
+  let formattedDay = '' + d.getDate();
+  const formattedYear = d.getFullYear();
+
+  if (formattedMonth.length < 2) {
+    formattedMonth = '0' + formattedMonth;
+  }
+  if (formattedDay.length < 2) {
+    formattedDay = '0' + formattedDay;
+  }
+
+  return [formattedYear, formattedMonth, formattedDay].join('-');
+}
+
 // ==================================================
 //    Formatea la fecha a yyyy-mm-dd
 // ==================================================
