@@ -36,8 +36,8 @@ export class ComprasComponent implements OnInit {
 
 cargarCompras() {
 
-  const pfechaInicio  = this.utilService.formatDate(this.fechaInicio);
-  const pfechaFin = this.utilService.formatDate(this.fechaFin);
+  const pfechaInicio  = this.utilService.formatDate3(this.fechaInicio);
+  const pfechaFin = this.utilService.formatDate3(this.fechaFin);
 
   this.comprasService.listarComprasFecha( this.desde , pfechaInicio , pfechaFin)
              .subscribe( {
