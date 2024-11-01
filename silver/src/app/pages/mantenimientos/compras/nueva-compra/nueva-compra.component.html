@@ -52,7 +52,10 @@
                             </div>
                             <div class="col-md-2">
                                 <h4 >Cantidad :</h4>
-                                <input [(ngModel)]="cantidadLineaCompraProducto" (input)="cambiaCantidadCompraProducto($event)" type="text" class="form-control form-control-line" placeholder="Cantidad...">
+                                <input [(ngModel)]="cantidadLineaCompraProducto" 
+                                (input)="cambiaCantidadCompraProducto($event)" 
+                                type="text" class="form-control form-control-line" 
+                                placeholder="Cantidad...">
                             </div>
                             <div class="col-md-2" >
                                 <br><br>
@@ -81,7 +84,7 @@
                                                     <tr *ngFor="let linea of lineas_compra">
                                                         <td>{{linea.producto_servicio }}</td>
                                                         <td>{{linea.cantidad }}</td>
-                                                        <td>$ {{linea.precio_compra }}</td>
+                                                        <td> {{ formatNumber(linea.precio_compra) }} $</td>
                                                         <td style="cursor: pointer;">                                                            
                                                             <a data-toggle="tooltip" (click)="eliminarItemCompra(linea.IdProductoServicio)" data-original-title="Close"> 
                                                                 <i class="mdi mdi-delete"></i>

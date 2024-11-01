@@ -887,5 +887,11 @@ dame_tasa_dia() {
   });
 }
 
+formatNumber(value: any): string {
+
+  return this.utilService.formatNumber(value);
+
+}
+
 }
 
