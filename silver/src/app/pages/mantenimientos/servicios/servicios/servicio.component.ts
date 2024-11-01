@@ -52,6 +52,10 @@ export class ServicioComponent implements OnInit {
 
 altaServicio() {
 
+    let withoutTrailingZeros = this.precio.replace(/,(0+)$/, '');
+    // Elimina el punto
+    this.precio = withoutTrailingZeros.replace('.', '');
+
       //** */
       if((this.servicio.length <= 0 || this.servicio == '') ){
         this.alertService.alertFailWithText('Debe cargar un nombre para el servicio','Atencion',2000);
