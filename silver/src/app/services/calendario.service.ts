@@ -89,7 +89,7 @@ baja_evento( id_evento: any ) {
     id_evento
   }
 
-  let url = URL_SERVICIOS + '/eventos/baja/' + this.IdPersona;
+  let url = URL_SERVICIOS + '/eventos/baja/completo/' + this.IdPersona;
 
   return this.http.post( url, data, this.headers);
 }

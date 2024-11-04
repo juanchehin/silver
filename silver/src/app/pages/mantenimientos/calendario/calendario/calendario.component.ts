@@ -28,6 +28,7 @@ export class CalendarioComponent implements OnInit {
   detalles_evento: any;
   cargando = true;
   calendario_fechas: any;
+  id_evento_seleccionado_modal: any;
 
   fechaInicio = this.utilService.formatDateNow(new Date(Date.now()));
   fechaFin = this.utilService.formatDateNow(new Date(Date.now()));
@@ -56,6 +57,7 @@ export class CalendarioComponent implements OnInit {
   @ViewChild('modalCerrarNuevoEvento') modalCerrarNuevoEvento!: ElementRef;
   @ViewChild('modalCerrarBajaEvento') modalCerrarBajaEvento!: ElementRef;
   @ViewChild('modalCerrarDetallesEvento') modalCerrarDetallesEvento!: ElementRef;
+  @ViewChild('divCerrarModalBajaEvento') divCerrarModalBajaEvento!: ElementRef;
 
   constructor(
     public alertService: AlertService,
@@ -118,19 +120,6 @@ export class CalendarioComponent implements OnInit {
       callback(); // Ejecutar la función de callback después de 2 segundos
     }, 2000); // 2000 milisegundos = 2 segundos
   }
-
-  // =====================
-  modal_baja_evento() {
-
-
-    const modal = document.getElementById('modal_baja_evento');
-    if (modal) {
-      const bootstrapModal = new (window as any).bootstrap.Modal(modal);
-      bootstrapModal.show();
-    }
-    
-  }
-
   // =====================
   cargar_eventos_calendario() {
 
@@ -241,6 +230,38 @@ cargarEmpleados() {
       });
   }
 
+  // ==================================================
+// Carga
+// ==================================================
+baja_evento_calendario() {
+
+  if((this.id_evento_seleccionado_modal == '') || (this.id_evento_seleccionado_modal == '-') ||  (this.id_evento_seleccionado_modal == 'undefined') || (this.id_evento_seleccionado_modal == undefined))
+  {
+    this.alertService.alertFail('Mensaje','Evento invalido',2000);
+    return;
+  }
+  
+    this.calendarioService.baja_evento( this.id_evento_seleccionado_modal )
+    .subscribe({
+      next: (resp: any) => { 
+  
+        if(resp[0][0].mensaje == 'Ok') {
+          this.alertService.alertSuccess('Atencion','Evento eliminado',3000);
+          // this.buscarCaja();
+  
+          let el: HTMLElement = this.divCerrarModalBajaEvento.nativeElement;
+          el.click();
+      
+          this.refrescar_citas();
+          
+        } else {
+          this.alertService.alertFail(resp[0][0].mensaje,false,1200);
+          
+        }
+        },
+      error: (resp: any) => {  this.alertService.alertFail(resp[0][0].mensaje,false,1200); }
+    });
+}
 // ==================================================
 // Carga
 // ==================================================
@@ -287,7 +308,16 @@ dame_detalle_evento() {
     this.cargar_eventos_calendario();
     
   }
+  
+// ==================================================
+// modal_baja_evento
+// ==================================================
+modal_baja_evento(id_evento_sel : any) {
+console.log("🚀 ~ CalendarioComponent ~ modal_baja_evento ~ id_evento_sel:", id_evento_sel)
 
+  this.id_evento_seleccionado_modal = id_evento_sel;
+  
+}
 // ==================================================
 // Carga
 // ==================================================

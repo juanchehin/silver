@@ -24,6 +24,7 @@ class EventosRoutes {
         this.router.get('/hora/:fecha_evento/:horario/:IdPersona/',  [mdAutenticacion.verificaToken],eventosController.listar_eventos_hora);
         //
         this.router.get('/listar/fecha/:fecha_inicio/:fecha_fin/:IdPersona/',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],eventosController.listar_eventos_fecha);
+        this.router.post('/baja/completo/:IdPersona/',  [mdAutenticacion.verificaToken],eventosController.baja_evento_completo);
 
     }
 

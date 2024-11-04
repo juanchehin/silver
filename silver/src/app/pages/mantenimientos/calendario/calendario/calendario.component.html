@@ -68,7 +68,8 @@
                           <td>{{ cal.title }}</td>
                           <td>
                               <button class="btn btn-danger" type="button" data-bs-toggle="modal" 
-                              data-bs-target="#modalBajaCita">
+                              data-bs-target="#modalBajaCita"
+                              (click)="modal_baja_evento(cal.id_evento_principal)">
                                   <i class="mdi mdi-delete"></i>  
                               </button>
                           </td>
@@ -98,7 +99,7 @@
 
 
 <!--  -->
-<div class="modal fade" id="modalBajaCita" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+<div class="modal fade" id="modalBajaCita" aria-hidden="true" aria-labelledby="modalBajaCita" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -110,7 +111,7 @@
       </div>
       <div class="modal-footer">
           <button class="btn btn-primary" #divCerrarModalBajaEvento aria-label="Close" data-bs-dismiss="modal">Cancelar</button>
-          <!-- <button class="btn btn-danger" (click)="baja_producto()">Aceptar</button> -->
+          <button class="btn btn-danger" (click)="baja_evento_calendario()">Aceptar</button>
       </div>
     </div>
   </div>

@@ -81,6 +81,27 @@ public async baja_evento(req: Request, res: Response): Promise<void> {
 // ==================================================
 //       
 // ==================================================
+public async baja_evento_completo(req: Request, res: Response): Promise<void> {
+    
+    var IdPersona = req.params.IdPersona;
+
+    var id_evento_p = req.body.id_evento;
+
+    pool.query(`call bsp_baja_evento_completo('${id_evento_p}')`, function(err: any, result: any, fields: any){
+        
+        if(err){
+            logger.error("Error en bsp_baja_evento_completo - EventosController - " + err);
+
+            res.status(404).json(err);
+            return;
+        }
+        res.status(200).json(result);
+    })
+}
+
+// ==================================================
+//       
+// ==================================================
 public async cancelar_evento(req: Request, res: Response): Promise<void> {
     
     var IdPersona = req.params.IdPersona;
