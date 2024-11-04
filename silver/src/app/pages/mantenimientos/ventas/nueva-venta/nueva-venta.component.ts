@@ -579,21 +579,22 @@ agregarLineaTipoPago(): any {
   // elimino puntos y comas
   this.monto = num_monto.replace(/[.,]/g, "");
 
-
-
+  
   // ============== control caso pago USD =======================
   if((this.IdTipoPagoSelect == 18) || (this.IdTipoPagoSelect == 19))
   {
 
-      if ( (+this.total_venta_dolares - +this.monto) <= 0.2 )
+      if ( (+this.total_venta_dolares - +this.monto) < 0 )
       {
         this.alertaService.alertFail('El monto es mayor que el total de la venta (USD)',false,2000);
+        this.monto = 0;
         return;
       }
     
       if(((+this.total_tipos_pagos_usd + +this.monto) - +this.total_venta_dolares) >= 0.9)
       {
         this.alertaService.alertFail('El monto total es mayor que el total de la venta (USD)',false,2000);
+        this.monto = 0;
         return;
       }
   }
@@ -601,15 +602,17 @@ agregarLineaTipoPago(): any {
   // ============== control caso pago Bs =======================
   if((this.IdTipoPagoSelect == 15) || (this.IdTipoPagoSelect == 16) || (this.IdTipoPagoSelect == 17))
   {
-    if(((+this.total_venta_bs) - (+this.monto)) <= 0.9)
+    if(((+this.total_venta_bs) - (+this.monto)) < 0)
     {
       this.alertaService.alertFail('El monto es mayor que el total de la venta (Bs.)',false,2000);
+      this.monto = 0;
       return;
     }
 
     if(((this.total_tipos_pagos_bs + +this.monto) - this.total_venta_bs) >= 0.9 )
     {
       this.alertaService.alertFail('El monto total es mayor que el total de la venta (Bs.)',false,2000);
+      this.monto = 0;
       return;
     }
     
@@ -619,6 +622,7 @@ agregarLineaTipoPago(): any {
   if((this.IdTipoPagoSelect == 13) && ((+this.monto) > this.total_venta_dolares))
   {
     this.alertaService.alertFail('El monto total es menor que el total de la venta',false,2000);
+    this.monto = 0;
     return;
   }
 
@@ -626,6 +630,7 @@ agregarLineaTipoPago(): any {
   if((this.IdTipoPagoSelect == 13) && (this.lineas_tipos_pago.length <= 0))
   {
     this.alertaService.alertFail('Debe ingresar un tipo de pago antes de aplicar un descuento',false,2000);
+    this.monto = 0;
     return;
   }
 
@@ -802,7 +807,12 @@ if(!bandera)
 this.monto = 0;
 
 }
-
+// ==============================
+  // 
+  // ================================
+  refrescar_monto_tp() {
+    this.monto = 0;
+  }
 // ==============================
   // Para empleados
   // ================================
