@@ -573,8 +573,12 @@ agregarLineaTipoPago(): any {
     this.alertaService.alertFail('Monto invalido',false,2000);
     return;
   }
-    
-  this.monto = this.monto.replace(/,/g, ".");
+
+  // quito los ceros a la derecha despues de la coma
+  var num_monto =  this.monto.replace(/,\d*$/, "");
+  // elimino puntos y comas
+  this.monto = num_monto.replace(/[.,]/g, "");
+
 
 
   // ============== control caso pago USD =======================
@@ -709,12 +713,14 @@ if(!bandera)
     return;
   }else{  // No existe el tipo de pago  
 
+    console.log("🚀 ~ NuevaVentaComponent ~ agregarLineaTipoPago ~ obj:", obj)
+    console.log("🚀 ~ NuevaVentaComponent ~ agregarLineaTipoPago ~ this.monto:", this.monto)
     this.lineas_tipos_pago.push(
     {
-        IdItem: this.IdItemTipoPago,
-        IdTipoPago: this.IdTipoPagoSelect,
-        TipoPago: obj.tipo_pago,
-        SubTotal: this.monto
+      IdItem: this.IdItemTipoPago,
+      IdTipoPago: this.IdTipoPagoSelect,
+      TipoPago: obj.tipo_pago,
+      SubTotal: this.monto
     });
 
     
@@ -991,8 +997,20 @@ this.monto = 0;
           this.total_venta_dolares = 0;
         }
 
-        this.lineas_venta.splice(index,1);
-      }
+        // control por si los valores son debajo de cero
+        if((this.total_tipos_pagos_usd < 0) || (this.total_tipos_pagos_usd == null) || (this.total_tipos_pagos_usd == undefined))
+        {
+          this.total_tipos_pagos_usd = 0;
+        }
+  
+        // control por si los valores son debajo de cero
+        if((this.total_tipos_pagos_restantes_bs < 0) || (this.total_tipos_pagos_restantes_bs == null) || (this.total_tipos_pagos_restantes_bs == undefined))
+        {
+          this.total_tipos_pagos_restantes_bs = 0;
+        }
+
+          this.lineas_venta.splice(index,1);
+        }
         
     });
 
