@@ -22,6 +22,8 @@ class EventosRoutes {
         this.router.get('/listar/fecha/:fecha_evento/:IdPersona/',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],eventosController.listar_citas_fecha);
         this.router.get('/info',  [mdAutenticacion.verificaToken],eventosController.cargar_info_calendario);
         this.router.get('/hora/:fecha_evento/:horario/:IdPersona/',  [mdAutenticacion.verificaToken],eventosController.listar_eventos_hora);
+        //
+        this.router.get('/listar/fecha/:fecha_inicio/:fecha_fin/:IdPersona/',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],eventosController.listar_eventos_fecha);
 
     }
 

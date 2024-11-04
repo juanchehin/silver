@@ -24,18 +24,69 @@
                     </tr>
                 </tbody>
             </table>
+            <!--  -->
+
+            <table id="table-edit" class="table table-bordered table-hover">
+              <thead>
+                  <tr>
+                      <th>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <label for="start">Inicio :</label>
+                            <input type="date" class="form-control" [(ngModel)]="fechaInicio">
+                          </div>
+                          <!--  -->
+                          <div class="col-sm-6">
+                            <label for="start">Fin : &nbsp;</label>
+                            <input type="date" class="form-control" [(ngModel)]="fechaFin">
+                          </div>
+                          <!--  -->
+                          <div class="col-sm-4">
+                            <button (click)="refrescar_citas()" class="btn btn-primary" style="margin-top: 30px;">
+                                <i class="mdi mdi-refresh"></i> 
+                            </button>
+                          </div>
+                          <!--  -->
+                        </div>
+                      </th>
+                  </tr>
+              </thead>
+              <tbody>
+                <table id="tech-companies-1" class="table table-striped mb-0">
+                  <thead>
+                      <tr>
+                          <th>#</th>
+                          <th>Fecha</th>
+                          <th>Cita</th>
+                          <th></th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let cal of calendario_fechas">
+                          <td>{{ cal.id_evento_principal }}</td>
+                          <td>{{ cal.date }}</td>
+                          <td>{{ cal.title }}</td>
+                          <td>
+                              <button class="btn btn-danger" type="button" data-bs-toggle="modal" 
+                              data-bs-target="#modalBajaCita">
+                                  <i class="mdi mdi-delete"></i>  
+                              </button>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+              </tbody>
+          </table>
           </div>
+          <!--  -->
           <div class="col-sm-8">
             <div class="content">
-              <!-- calendario.component.html -->
               <div *ngIf="cargando">
                 Cargando eventos... <!-- O puedes usar un spinner o cualquier otro indicador -->
               </div>
               <div *ngIf="!cargando">
               <full-calendar [options]="calendarOptions" (datesSet)="onDatesSet($event)"></full-calendar>
             </div>
-
-              <!-- <full-calendar [options]="calendarOptions" (datesSet)="onDatesSet($event)"></full-calendar> -->
             </div>
           </div>
         </div>
@@ -43,4 +94,24 @@
 <!-- ============================================================== -->
 <!-- End Page content -->
 <!-- ============================================================== -->
+</div>
+
+
+<!--  -->
+<div class="modal fade" id="modalBajaCita" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Confirmacion</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Desea confirmar la operacion?
+      </div>
+      <div class="modal-footer">
+          <button class="btn btn-primary" #divCerrarModalBajaEvento aria-label="Close" data-bs-dismiss="modal">Cancelar</button>
+          <!-- <button class="btn btn-danger" (click)="baja_producto()">Aceptar</button> -->
+      </div>
+    </div>
+  </div>
 </div>

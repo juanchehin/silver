@@ -42,13 +42,22 @@ export class CalendarioService {
 // ==================================================
 //
 // ==================================================
-  listar_eventos(p_mes_eventos: any,p_ano_eventos: any){
+listar_eventos(p_mes_eventos: any,p_ano_eventos: any){
 
-    let url = URL_SERVICIOS + '/eventos/listar/' + p_mes_eventos + '/' + p_ano_eventos + '/' + this.IdPersona;
+  let url = URL_SERVICIOS + '/eventos/listar/' + p_mes_eventos + '/' + p_ano_eventos + '/' + this.IdPersona;
 
-    return this.http.get( url, this.headers );
-  }  
+  return this.http.get( url, this.headers );
+}  
 
+// ==================================================
+//
+// ==================================================
+listar_eventos_fecha(p_fecha_inicio : any,p_fecha_fin: any){
+
+  let url = URL_SERVICIOS + '/eventos/listar/fecha/' + p_fecha_inicio + '/' + p_fecha_fin + '/' + this.IdPersona;
+
+  return this.http.get( url, this.headers );
+} 
 // ==================================================
 //        
 // ==================================================

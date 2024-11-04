@@ -191,6 +191,26 @@ public async listar_citas_fecha(req: Request, res: Response): Promise<void> {
     })
 }
 
+// ==================================================
+//   Listado de eventos por fecha
+// ==================================================
+public async listar_eventos_fecha(req: Request, res: Response): Promise<void> {
+
+    var fecha_inicio = req.params.fecha_inicio;
+    var fecha_fin = req.params.fecha_fin;
+
+    
+    pool.query(`call bsp_listar_eventos_fecha('${fecha_inicio}','${fecha_fin}')`, function(err: any, result: any){
+        if(err){
+            logger.error("Error en listar_eventos_fecha - eventosController");
+
+            res.status(400).json(err);
+            return;
+        }
+
+        res.status(200).json(result);
+    })
+}
 
 // ==================================================
 //   Listado

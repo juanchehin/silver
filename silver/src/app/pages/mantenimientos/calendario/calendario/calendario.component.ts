@@ -27,6 +27,10 @@ export class CalendarioComponent implements OnInit {
   id_evento_seleccionado: any;
   detalles_evento: any;
   cargando = true;
+  calendario_fechas: any;
+
+  fechaInicio = this.utilService.formatDateNow(new Date(Date.now()));
+  fechaFin = this.utilService.formatDateNow(new Date(Date.now()));
 
   // Empleados
   empleados: any;
@@ -201,43 +205,41 @@ cargarEmpleados() {
     // do something when input is focused
   }
 
-
-  // ==================================================
+// ==================================================
 // Carga
 // ==================================================
-    // =====================
-    baja_evento() {
+  baja_evento() {
 
-      if((this.id_evento_seleccionado == '') || (this.id_evento_seleccionado == 'undefined') || (this.id_evento_seleccionado == undefined))
-      {
-        this.alertService.alertFail('Mensaje','Evento invalido',2000);
-        return;
-      }
-      
-        this.calendarioService.baja_evento( this.id_evento_seleccionado )
-        .subscribe({
-          next: (resp: any) => { 
-      
-            if(resp[0][0].mensaje == 'Ok') {
-              this.alertService.alertSuccess('Atencion','Evento eliminado',3000);
-              // this.buscarCaja();
-      
-              let el: HTMLElement = this.modalCerrarBajaEvento.nativeElement;
-              el.click();
-
-              let el1: HTMLElement = this.modalCerrarDetallesEvento.nativeElement;
-              el1.click();
-          
-              this.refrescar();
-              
-            } else {
-              this.alertService.alertFail(resp[0][0].mensaje,false,1200);
-              
-            }
-            },
-          error: (resp: any) => {  this.alertService.alertFail(resp[0][0].mensaje,false,1200); }
-        });
+    if((this.id_evento_seleccionado == '') || (this.id_evento_seleccionado == 'undefined') || (this.id_evento_seleccionado == undefined))
+    {
+      this.alertService.alertFail('Mensaje','Evento invalido',2000);
+      return;
     }
+    
+      this.calendarioService.baja_evento( this.id_evento_seleccionado )
+      .subscribe({
+        next: (resp: any) => { 
+    
+          if(resp[0][0].mensaje == 'Ok') {
+            this.alertService.alertSuccess('Atencion','Evento eliminado',3000);
+            // this.buscarCaja();
+    
+            let el: HTMLElement = this.modalCerrarBajaEvento.nativeElement;
+            el.click();
+
+            let el1: HTMLElement = this.modalCerrarDetallesEvento.nativeElement;
+            el1.click();
+        
+            this.refrescar();
+            
+          } else {
+            this.alertService.alertFail(resp[0][0].mensaje,false,1200);
+            
+          }
+          },
+        error: (resp: any) => {  this.alertService.alertFail(resp[0][0].mensaje,false,1200); }
+      });
+  }
 
 // ==================================================
 // Carga
@@ -277,6 +279,9 @@ dame_detalle_evento() {
       });
 
 }
+// ==================================================
+// refrescar
+// ==================================================
   refrescar() {
 
     this.cargar_eventos_calendario();
@@ -361,7 +366,6 @@ cargar_info_calendario() {
 // cargar_info_calendario - version await/async
 // ==================================================
 cargar_info_calendario_async(): Promise<void> {
-  console.log("cargar_info_calendario_async")
 
   return new Promise((resolve, reject) => {
     // Simular la carga de datos desde una base de datos
@@ -396,5 +400,49 @@ cargar_info_calendario_async(): Promise<void> {
   });
 }
 
+// ==================================================
+// 
+// ==================================================
+refrescar_citas() {
+
+  const pfechaInicio  = this.utilService.formatDate3(this.fechaInicio);
+  const pfechaFin = this.utilService.formatDate3(this.fechaFin);
+
+  this.calendarioService.listar_eventos_fecha( pfechaInicio , pfechaFin  )
+      .subscribe( {
+        next: (resp: any) => { 
+        console.log("🚀 ~ CalendarioComponent ~ refrescar_citas ~ resp:", resp)
+
+          if ( resp[1][0].mensaje == 'Ok') {
+            
+            this.calendario_fechas = resp[0];
+
+            this.alertService.cargando = false;
+
+          } else {
+            this.alertService.alertFail('Ocurrio un error',false,2000);
+            this.alertService.cargando = false;
+
+          }
+          this.alertService.cargando = false;
+
+          return;
+          },
+      error: () => { 
+        this.alertService.alertFail('Ocurrio un error',false,2000);
+        this.alertService.cargando = false;
+
+      }
+    });
+
+}
+
+// ==================================================
+// 
+// ==================================================
+modal_baja_cita(id_evento : any) {
+
+
+}
 
 }
