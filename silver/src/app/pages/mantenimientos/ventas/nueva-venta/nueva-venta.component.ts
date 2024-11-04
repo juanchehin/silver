@@ -568,14 +568,14 @@ agregarLineaVentaServicioModal(p_servicio: any) {
 agregarLineaTipoPago(): any {
   var bandera = false;
   
-  this.monto = this.monto.replace(/,/g, ".");
-
-  if((Number(this.monto) <= 0) || (this.monto == undefined))
+  if((this.monto == undefined) || (Number(this.monto) <= 0) )
   {
-    this.alertaService.alertFail('Debe seleccionar un monto',false,2000);
+    this.alertaService.alertFail('Monto invalido',false,2000);
     return;
   }
-  
+    
+  this.monto = this.monto.replace(/,/g, ".");
+
 
   // ============== control caso pago USD =======================
   if((this.IdTipoPagoSelect == 18) || (this.IdTipoPagoSelect == 19))
@@ -583,13 +583,13 @@ agregarLineaTipoPago(): any {
 
       if ( (+this.total_venta_dolares - +this.monto) <= 0.2 )
       {
-        this.alertaService.alertFail('El monto es mayor que el total de la venta (USD) 1',false,2000);
+        this.alertaService.alertFail('El monto es mayor que el total de la venta (USD)',false,2000);
         return;
       }
     
       if(((+this.total_tipos_pagos_usd + +this.monto) - +this.total_venta_dolares) >= 0.9)
       {
-        this.alertaService.alertFail('El monto total es mayor que el total de la venta (USD) 2',false,2000);
+        this.alertaService.alertFail('El monto total es mayor que el total de la venta (USD)',false,2000);
         return;
       }
   }
@@ -599,13 +599,13 @@ agregarLineaTipoPago(): any {
   {
     if(((+this.total_venta_bs) - (+this.monto)) <= 0.9)
     {
-      this.alertaService.alertFail('El monto es mayor que el total de la venta (Bs.) 1',false,2000);
+      this.alertaService.alertFail('El monto es mayor que el total de la venta (Bs.)',false,2000);
       return;
     }
 
     if(((this.total_tipos_pagos_bs + +this.monto) - this.total_venta_bs) >= 0.9 )
     {
-      this.alertaService.alertFail('El monto total es mayor que el total de la venta (Bs.) 2',false,2000);
+      this.alertaService.alertFail('El monto total es mayor que el total de la venta (Bs.)',false,2000);
       return;
     }
     
