@@ -746,29 +746,36 @@ if(!bandera)
       // ========== 15 - Pago movil Bs ===============
       case 15:
         
-        this.total_tipos_pagos_usd = +(this.total_tipos_pagos_usd + (+this.monto / +this.tasa_dia)).toFixed(1);
-        this.total_tipos_pagos_bs = this.total_tipos_pagos_bs + +this.monto; 
+        let valor_usd_movil = (+this.monto / +this.tasa_dia);
+
+        this.total_tipos_pagos_usd = +(this.total_tipos_pagos_usd + valor_usd_movil).toFixed(1);
+        this.total_tipos_pagos_bs = +this.total_tipos_pagos_bs + +this.monto; 
         
-        this.total_tipos_pagos_restantes_usd = this.total_venta_dolares - +this.total_tipos_pagos_usd;
-        this.total_tipos_pagos_restantes_bs = this.total_venta_bs - +this.total_tipos_pagos_bs;
+        this.total_tipos_pagos_restantes_usd = +this.total_venta_dolares - +this.total_tipos_pagos_usd;
+        this.total_tipos_pagos_restantes_bs = +this.total_venta_bs - +this.total_tipos_pagos_bs;
 
         break;
       // ========== 16 - tarjeta debito bs ===============
       case 16:
 
-      this.total_tipos_pagos_usd = +(this.total_tipos_pagos_usd + (+this.monto / +this.tasa_dia)).toFixed(1);
-      this.total_tipos_pagos_bs = this.total_tipos_pagos_bs + +this.monto; 
-      
-      this.total_tipos_pagos_restantes_usd = this.total_venta_dolares - +this.total_tipos_pagos_usd;
-      this.total_tipos_pagos_restantes_bs = this.total_venta_bs - +this.total_tipos_pagos_bs;
+        let valor_usd_debito = (+this.monto / +this.tasa_dia);
+
+        this.total_tipos_pagos_usd = +(this.total_tipos_pagos_usd + +valor_usd_debito).toFixed(1);
+        this.total_tipos_pagos_bs = +this.total_tipos_pagos_bs + +this.monto; 
+        
+        this.total_tipos_pagos_restantes_usd = +this.total_venta_dolares - +this.total_tipos_pagos_usd;
+        this.total_tipos_pagos_restantes_bs = +this.total_venta_bs - +this.total_tipos_pagos_bs;
+
         break;
       // ========== 17 - tarjeta cred bs ===============
       case 17:
-        this.total_tipos_pagos_usd = +(this.total_tipos_pagos_usd + (+this.monto / +this.tasa_dia)).toFixed(1);
-        this.total_tipos_pagos_bs = this.total_tipos_pagos_bs + +this.monto; 
+        let valor_usd_cred = (+this.monto / +this.tasa_dia);
+
+        this.total_tipos_pagos_usd = +(this.total_tipos_pagos_usd + +valor_usd_cred).toFixed(1);
+        this.total_tipos_pagos_bs = +this.total_tipos_pagos_bs + +this.monto; 
         
-        this.total_tipos_pagos_restantes_usd = this.total_venta_dolares - +this.total_tipos_pagos_usd;
-        this.total_tipos_pagos_restantes_bs = this.total_venta_bs - +this.total_tipos_pagos_bs;
+        this.total_tipos_pagos_restantes_usd = +this.total_venta_dolares - +this.total_tipos_pagos_usd;
+        this.total_tipos_pagos_restantes_bs = +this.total_venta_bs - +this.total_tipos_pagos_bs;
 
         break;
       // ========== 18 - Dolares efectivo USD ===============
@@ -779,17 +786,19 @@ if(!bandera)
         this.total_tipos_pagos_usd = this.total_tipos_pagos_usd + +this.monto;  
         this.total_tipos_pagos_bs = +(this.total_tipos_pagos_bs + +valor_bs).toFixed(1);
 
-        this.total_tipos_pagos_restantes_usd = this.total_venta_dolares - +this.total_tipos_pagos_usd;
-        this.total_tipos_pagos_restantes_bs = +(+this.total_tipos_pagos_restantes_usd * +this.tasa_dia);
+        this.total_tipos_pagos_restantes_usd = +this.total_venta_dolares - +this.total_tipos_pagos_usd;
+        this.total_tipos_pagos_restantes_bs = +this.total_venta_bs - +this.total_tipos_pagos_bs;
 
         break;
       // ========== 19 - zelle USD ===============
       case 19:
-        this.total_tipos_pagos_usd = this.total_tipos_pagos_usd + +this.monto;  
-        this.total_tipos_pagos_bs = this.total_tipos_pagos_usd * +this.tasa_dia; 
+        let valor_bs_zelle = (+this.monto * +this.tasa_dia);
+
+        this.total_tipos_pagos_usd = +this.total_tipos_pagos_usd + +this.monto;
+        this.total_tipos_pagos_bs = +this.total_tipos_pagos_bs + +valor_bs_zelle; 
 
         this.total_tipos_pagos_restantes_usd = this.total_venta_dolares - +this.total_tipos_pagos_usd;
-        this.total_tipos_pagos_restantes_bs = +(+this.total_tipos_pagos_restantes_usd * +this.tasa_dia).toFixed(1);
+        this.total_tipos_pagos_restantes_bs = +this.total_venta_bs - +this.total_tipos_pagos_bs;
 
       break;
       // ========== default ===============
