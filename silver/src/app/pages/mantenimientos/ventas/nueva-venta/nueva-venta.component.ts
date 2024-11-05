@@ -406,6 +406,10 @@ agregarLineaVentaProducto() {
 // ==================================================
 agregarLineaVentaServicio() {
 
+  let withoutTrailingZeros = this.precio_servicio_pendiente.replace(/,(0+)$/, '');
+  // Elimina el punto
+  this.precio_servicio_pendiente = withoutTrailingZeros.replace('.', '');
+
   if(isNaN(Number(this.cantidadLineaVentaServicio)))
   { 
     this.alertaService.alertFail('Error en cantidad',false,2000);
@@ -437,7 +441,6 @@ agregarLineaVentaServicio() {
 
 
   this.total_venta_bs = this.total_venta_dolares * this.tasa_dia;
-
 
   
   const checkExistsLineaVenta = this.lineas_venta.find((linea_venta) => {
@@ -479,6 +482,8 @@ agregarLineaVentaServicio() {
      }
   }
  
+  this.precio_servicio_pendiente = 0;
+  this.clearPanelinputServicio();
 
 }
 
