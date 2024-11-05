@@ -586,6 +586,7 @@ agregarLineaTipoPago(): any {
     return;
   }
 
+
   // quito los ceros a la derecha despues de la coma
   var num_monto =  this.monto.replace(/,\d*$/, "");
   // elimino puntos y comas
@@ -599,6 +600,13 @@ agregarLineaTipoPago(): any {
       if ( (+this.total_venta_dolares - +this.monto) < 0 )
       {
         this.alertaService.alertFail('El monto es mayor que el total de la venta (USD)',false,2000);
+        this.monto = 0;
+        return;
+      }
+
+      if((+this.total_tipos_pagos_restantes_usd != 0) && (+this.total_tipos_pagos_restantes_usd < +this.monto) )
+      {
+        this.alertaService.alertFail('Monto invalido (USD)',false,2000);
         this.monto = 0;
         return;
       }
@@ -621,6 +629,13 @@ agregarLineaTipoPago(): any {
       return;
     }
 
+    if((+this.total_tipos_pagos_restantes_bs != 0) && (+this.total_tipos_pagos_restantes_bs < +this.monto) )
+    {
+      this.alertaService.alertFail('Monto invalido (Bs.)',false,2000);
+      this.monto = 0;
+      return;
+    }
+
     if(((+this.total_tipos_pagos_bs + +this.monto) - +this.total_venta_bs) >= 0.9 )
     {
       this.alertaService.alertFail('El monto total es mayor que el total de la venta (Bs.)',false,2000);
@@ -629,7 +644,14 @@ agregarLineaTipoPago(): any {
     }
     
   }
-  
+ // ============== control caso pago USD/BS - General =======================
+//  if( (+this.total_tipos_pagos_bs != 0) && (+this.total_tipos_pagos_usd != 0) && (+this.total_tipos_pagos_bs >= +this.total_tipos_pagos_restantes_bs) && (+this.total_tipos_pagos_usd >= +this.total_tipos_pagos_restantes_usd) )
+//   {
+//     this.alertaService.alertFail('Monto invalido',false,2000);
+//     this.monto = 0;
+//     return;
+//   }
+
   // =====================================
   if((this.IdTipoPagoSelect == 13) && ((+this.monto) > this.total_venta_dolares))
   {
@@ -693,9 +715,9 @@ if(!bandera)
     if((this.IdTipoPagoSelect == 18) || (this.IdTipoPagoSelect == 19))
     {
       // let monto_usd = this.monto;
-      let monto_bs = +this.monto * +this.tasa_dia;
+      let monto_bs = +this.monto * +this.tasa_dia;  // BS
 
-      exists_ltp.SubTotal = +exists_ltp.SubTotal + +this.monto;
+      exists_ltp.SubTotal = +exists_ltp.SubTotal + +this.monto; // USD
 
       this.total_tipos_pagos_usd = +this.total_tipos_pagos_usd + +this.monto; // subtotal
       this.total_tipos_pagos_bs = +this.total_tipos_pagos_bs + +monto_bs; // subtotal
@@ -716,21 +738,21 @@ if(!bandera)
       let monto_usd = (+this.monto / +this.tasa_dia);
       let monto_bs = +this.monto;
 
-      exists_ltp.SubTotal = +exists_ltp.SubTotal + +monto_bs; // sumo al descuento existente
+      exists_ltp.SubTotal = +exists_ltp.SubTotal + +monto_bs; // bs
 
-      this.total_tipos_pagos_bs = +this.total_tipos_pagos_bs - +monto_bs;
+      this.total_tipos_pagos_bs = +this.total_tipos_pagos_bs + +monto_bs; // subtotal
       this.total_tipos_pagos_usd = +this.total_tipos_pagos_usd + +monto_usd; // subtotal
 
       // bs
       // this.total_venta_bs = this.total_venta_bs - monto_bs;
-      this.total_tipos_pagos_restantes_bs = +this.total_venta_bs - +this.total_tipos_pagos_bs;
+      this.total_tipos_pagos_restantes_bs = +this.total_tipos_pagos_restantes_bs - +monto_bs;
       // usd
       // this.total_venta_dolares = this.total_venta_dolares - monto_usd;
       this.total_tipos_pagos_restantes_usd = +this.total_venta_dolares - +this.total_tipos_pagos_usd;
       
     }    
 
-    return;
+    // return;
   }else{  // No existe el tipo de pago  
 
     this.lineas_tipos_pago.push(
@@ -807,8 +829,12 @@ if(!bandera)
           break;
     }
 
-    // control por si los valores son debajo de cero
-    if((this.total_tipos_pagos_usd < 0) || (+this.total_tipos_pagos_usd < 0) || (this.total_tipos_pagos_usd == null) || (this.total_tipos_pagos_usd == undefined))
+    this.IdItemTipoPago += 1;
+  }
+
+
+  // control por si los valores son debajo de cero
+  if((this.total_tipos_pagos_usd < 0) || (+this.total_tipos_pagos_usd < 0) || (this.total_tipos_pagos_usd == null) || (this.total_tipos_pagos_usd == undefined))
     {
       this.total_tipos_pagos_usd = 0;
     }
@@ -830,10 +856,6 @@ if(!bandera)
     {
       this.total_tipos_pagos_restantes_usd = 0;
     }
-
-
-    this.IdItemTipoPago += 1;
-  }
 
 }else{
   this.alertaService.alertFail('No puede agregar dos tipos de pago con tarjeta',false,3000);
