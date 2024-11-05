@@ -71,7 +71,6 @@ export class CalendarioComponent implements OnInit {
   ngOnInit() {
     this.cargar_info_calendario();
     //
-    console.log("calendarOptions")
     this.calendarOptions = {
       initialView: 'dayGridMonth',
       plugins: [dayGridPlugin,interactionPlugin, timeGridPlugin],
@@ -313,7 +312,6 @@ dame_detalle_evento() {
 // modal_baja_evento
 // ==================================================
 modal_baja_evento(id_evento_sel : any) {
-console.log("🚀 ~ CalendarioComponent ~ modal_baja_evento ~ id_evento_sel:", id_evento_sel)
 
   this.id_evento_seleccionado_modal = id_evento_sel;
   
@@ -333,8 +331,6 @@ console.log("🚀 ~ CalendarioComponent ~ modal_baja_evento ~ id_evento_sel:", i
 
     this.mes_seleccionado = currentMonth;
     this.ano_seleccionado = currentYear;
-
-    console.log("prev");
 
     this.ocultarBotonesEnFechas();
     // this.cargar_eventos_calendario();
@@ -415,11 +411,9 @@ cargar_info_calendario_async(): Promise<void> {
           this.alertService.alertFail(datos[0][0].mensaje,false,1200);
           
         }
-        console.log("resolve")
 
         resolve(); // Resuelve la promesa cuando los datos se han cargado
         this.cargando = false;
-        console.log("resolve 2")
 
       },
       (error) => {
@@ -441,7 +435,6 @@ refrescar_citas() {
   this.calendarioService.listar_eventos_fecha( pfechaInicio , pfechaFin  )
       .subscribe( {
         next: (resp: any) => { 
-        console.log("🚀 ~ CalendarioComponent ~ refrescar_citas ~ resp:", resp)
 
           if ( resp[1][0].mensaje == 'Ok') {
             

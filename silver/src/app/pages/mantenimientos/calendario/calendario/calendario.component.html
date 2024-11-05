@@ -25,61 +25,8 @@
                 </tbody>
             </table>
             <!--  -->
-
-            <table id="table-edit" class="table table-bordered table-hover">
-              <thead>
-                  <tr>
-                      <th>
-                        <div class="row">
-                          <div class="col-sm-6">
-                            <label for="start">Inicio :</label>
-                            <input type="date" class="form-control" [(ngModel)]="fechaInicio">
-                          </div>
-                          <!--  -->
-                          <div class="col-sm-6">
-                            <label for="start">Fin : &nbsp;</label>
-                            <input type="date" class="form-control" [(ngModel)]="fechaFin">
-                          </div>
-                          <!--  -->
-                          <div class="col-sm-4">
-                            <button (click)="refrescar_citas()" class="btn btn-primary" style="margin-top: 30px;">
-                                <i class="mdi mdi-refresh"></i> 
-                            </button>
-                          </div>
-                          <!--  -->
-                        </div>
-                      </th>
-                  </tr>
-              </thead>
-              <tbody>
-                <table id="tech-companies-1" class="table table-striped mb-0">
-                  <thead>
-                      <tr>
-                          <th>#</th>
-                          <th>Fecha</th>
-                          <th>Cita</th>
-                          <th></th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      <tr *ngFor="let cal of calendario_fechas">
-                          <td>{{ cal.id_evento_principal }}</td>
-                          <td>{{ cal.date }}</td>
-                          <td>{{ cal.title }}</td>
-                          <td>
-                              <button class="btn btn-danger" type="button" data-bs-toggle="modal" 
-                              data-bs-target="#modalBajaCita"
-                              (click)="modal_baja_evento(cal.id_evento_principal)">
-                                  <i class="mdi mdi-delete"></i>  
-                              </button>
-                          </td>
-                      </tr>
-                  </tbody>
-              </table>
-              </tbody>
-          </table>
           </div>
-          <!--  -->
+          <!-- === Calendario ===  -->
           <div class="col-sm-8">
             <div class="content">
               <div *ngIf="cargando">
@@ -90,6 +37,70 @@
             </div>
             </div>
           </div>
+          <!-- === Fin calendario === -->
+        </div>
+        <br><br>
+        <!-- === Tabla con eventos === -->
+        <div class="row">          
+           <table id="table-edit" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <label for="start">Inicio :</label>
+                          <input type="date" class="form-control" [(ngModel)]="fechaInicio">
+                        </div>
+                        <!--  -->
+                        <div class="col-sm-6">
+                          <label for="start">Fin : &nbsp;</label>
+                          <input type="date" class="form-control" [(ngModel)]="fechaFin">
+                        </div>
+                        <!--  -->
+                        <div class="col-sm-4">
+                          <button (click)="refrescar_citas()" class="btn btn-primary" style="margin-top: 30px;">
+                              <i class="mdi mdi-refresh"></i> 
+                          </button>
+                        </div>
+                        <!--  -->
+                      </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+              <table id="tech-companies-1" class="table table-striped mb-0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Horario</th>
+                        <th>Especialista</th>
+                        <th>Cliente</th>
+                        <th>Servicio</th>
+                        <th>Estado</th>
+                        <th>Accion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cal of calendario_fechas">
+                        <td>{{ cal.id_evento_principal }}</td>
+                        <td>{{ cal.date }}</td>
+                        <td>{{ cal.empleado }}</td>
+                        <td>{{ cal.cliente }}</td>
+                        <td>{{ cal.servicio }}</td>
+                        <td>{{ cal.estado_evento }}</td>
+                        <td>
+                            <button class="btn btn-danger" type="button" data-bs-toggle="modal" 
+                            data-bs-target="#modalBajaCita"
+                            (click)="modal_baja_evento(cal.id_evento_principal)">
+                                <i class="mdi mdi-delete"></i>  
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </tbody>
+        </table>
+        <!-- === Fin tabla con eventos === -->
         </div>
     </div>
 <!-- ============================================================== -->
