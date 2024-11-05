@@ -814,9 +814,21 @@ if(!bandera)
     }
 
     // control por si los valores son debajo de cero
+    if((this.total_tipos_pagos_bs < 0) || (+this.total_tipos_pagos_bs < 0) || (this.total_tipos_pagos_bs == null) || (this.total_tipos_pagos_bs == undefined))
+    {
+      this.total_tipos_pagos_bs = 0;
+    }
+
+    // control por si los valores son debajo de cero
     if((this.total_tipos_pagos_restantes_bs < 0) || (+this.total_tipos_pagos_restantes_bs < 0) || (this.total_tipos_pagos_restantes_bs == null) || (this.total_tipos_pagos_restantes_bs == undefined))
     {
       this.total_tipos_pagos_restantes_bs = 0;
+    }
+
+    // control por si los valores son debajo de cero
+    if((this.total_tipos_pagos_restantes_usd < 0) || (+this.total_tipos_pagos_restantes_usd < 0) || (this.total_tipos_pagos_restantes_usd == null) || (this.total_tipos_pagos_restantes_usd == undefined))
+    {
+      this.total_tipos_pagos_restantes_usd = 0;
     }
 
 
