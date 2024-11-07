@@ -179,11 +179,16 @@
                                                     <td>{{ transaccion.Monto }}</td>
                                                     <td>{{ transaccion.Descripcion }}</td>
                                                     <td>
-                                                        <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#modal-ver-transaccion" (click)="ver_transaccion(transaccion)">
+                                                        <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#modal-ver-transaccion" 
+                                                        (click)="ver_transaccion(transaccion)">
                                                             <i class="mdi mdi-eye"></i> 
                                                         </button>
                                                         <button class="btn btn-primary" type="button">
                                                             <i class="mdi mdi-account-edit"></i> 
+                                                        </button>
+                                                        <button class="btn btn-purple" type="button"
+                                                            (click)="ver_transaccion_imprimirTicket(transaccion)" >
+                                                            <i class="mdi mdi-file-pdf"></i>
                                                         </button>
                                                         <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" (click)="modal_baja_transaccion(transaccion.id_transaccion)" >
                                                             <i class="mdi mdi-delete"></i>
@@ -230,6 +235,20 @@
     <!-- ============================================================== -->
 
 </div>
+
+<!-- Contenedor solo visible cuando se imprime el ticket -->
+<div id="ticket-content" style="visibility: hidden">
+    <app-ticket-venta 
+      [items]="detalle_lineas_venta"
+      [total]="detalle_monto_total"
+      [fecha_venta]="detalle_fecha"
+      [id_cliente]="nro_identidad_cliente"
+      [ap_nom_cliente]="detalle_cliente"
+      [id_transaccion]="detalle_id_transaccion"
+      [especialista]="detalle_empleado">
+    </app-ticket-venta>
+  </div>
+  
 
 <!-- Modal - confimacion -->
 <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">

@@ -1,14 +1,19 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { VentasService } from 'src/app/services/ventas.service';
 import { UtilService } from 'src/app/services/util.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { EmpleadosService } from 'src/app/services/empleados.service';
 import { Router } from '@angular/router';
+import { TicketVentaComponent } from "../ticket-venta/ticket-venta.component";
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
+  standalone: true,
   templateUrl: './dashboard.component.html',
-  styleUrls: []
+  styleUrls: [],
+  imports: [TicketVentaComponent,FormsModule,CommonModule ]
 })
 export class DashboardComponent implements OnInit {
 
@@ -55,7 +60,8 @@ export class DashboardComponent implements OnInit {
   descripcion: any;
   total_ventas = 0;
   estado_caja = 'C';
-
+  nro_identidad_cliente: any = '-';
+  
   // detalles transaccion
   detalle_id_transaccion: any;
   detalle_cliente: any;
@@ -69,12 +75,28 @@ export class DashboardComponent implements OnInit {
   @ViewChild('cerrarModalNuevaTransaccionMenu') divCerrarModalNuevoTransaccionMenu!: ElementRef<HTMLElement>;
   @ViewChild('cerrarModalEgreso') cerrarModalEgreso!: ElementRef<HTMLElement>;
 
+  
+  //
+  mostrarTicket = false;
+
+  items = [
+    { description: 'Item 1', price: 1.1 },
+    { description: 'Item 2', price: 2.2 },
+    { description: 'Item 3', price: 3.3 },
+  ];
+  total = 16.5;
+  cash = 20;
+  change = 3.5;
+  barcodeValue = '123456789';
+
+
   constructor(
     private ventasService: VentasService,
     private utilService: UtilService,
     private alertService: AlertService,
     private empleadosService: EmpleadosService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -82,7 +104,6 @@ export class DashboardComponent implements OnInit {
     this.cargarTiposPago();
     this.id_usuario_actual = localStorage.getItem('id');
   }
-
 
 // ====================
 // 
@@ -322,6 +343,65 @@ rutear_nueva_venta(){
   this.router.navigate(['/dashboard/ventas/nueva']);
 
 }
+
+// ==================================================
+//         
+// ==================================================
+ver_transaccion_imprimirTicket(transaccion: any){
+  
+    this.alertService.cargando = true;
+  
+    this.ventasService.dame_transaccion( transaccion.id_transaccion )
+                 .subscribe( {
+                  next: (resp: any) => {
+                    
+                    if((resp[3][0].mensaje == 'Ok')) {
+              
+                      this.detalle_id_transaccion = transaccion.id_transaccion;
+                      this.detalle_cliente = transaccion.Cliente;
+                      this.nro_identidad_cliente = transaccion.nro_identidad_cliente;
+                      this.detalle_empleado = transaccion.Empleado;
+                      this.detalle_fecha = transaccion.Fecha;
+                      this.detalle_lineas_venta = resp[0];
+                      this.detalle_monto_total = transaccion.Monto;
+                      this.detalle_tipo_pago = resp[1][0].tipo_pago;  
+  
+                      this.items_pago = resp[2];
+                      
+                      this.alertService.cargando = false;
+
+                      // Forzar la detección de cambios para que los datos se reflejen inmediatamente
+                      this.cdr.detectChanges();
+
+
+                       const printContent = document.getElementById('ticket-content')?.innerHTML;
+                       const originalContent = document.body.innerHTML;
+                   
+                       // Reemplazar el contenido de la página con solo el contenido del ticket
+                       document.body.innerHTML = printContent || '';
+                       
+                       // Llamar a la función de impresión
+                       window.print();
+                   
+                       // Restaurar el contenido original de la página después de imprimir
+                       document.body.innerHTML = originalContent;
+                      
+                } else {
+                  
+                  this.alertService.alertFailWithText('Error','Ocurrio un error al procesar el pedido',1200);
+                  this.alertService.cargando = false;
+                  
+                }
+            },
+          error: (resp: any) => {            
+            this.alertService.alertFailWithText('Ocurrio un error al procesar el pedido','Error',1200);
+            this.alertService.cargando = false;
+
+          }
+        });
+  }
+  
+
 
 // ====================
 // 

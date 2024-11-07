@@ -42,7 +42,6 @@ listar_egresos() {
     this.egresosService.listar_egresos( this.desde  )
                .subscribe( {
                 next: (resp: any) => { 
-                console.log("🚀 ~ EgresosComponent ~ listar_egresos ~ resp:", resp)
 
                   if(resp[0].length <= 0)
                   { 

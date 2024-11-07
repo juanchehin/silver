@@ -92,7 +92,6 @@ cargarDatosFormEditarCliente() {
     this.clientesService.cargarDatosFormEditarCliente( this.IdPersona )
                .subscribe( {
                 next: (resp: any) => {
-                  console.log("🚀 ~ EditarClienteComponent ~ cargarDatosFormEditarCliente ~ resp:", resp)
                   
                 this.Apellidos = resp[0][0].apellidos;
                 this.Nombres = resp[0][0].nombres;

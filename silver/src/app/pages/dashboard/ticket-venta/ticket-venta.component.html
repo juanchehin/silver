@@ -1,0 +1,39 @@
+<div id="ticket" class="ticket">
+    <img class="img-ajustada" src="../../../../assets/images/logo_silver.png" alt="MDN" />
+    <br><br><br>
+    <p>Av. Orinoco, Edif Silverback, Piso 2</p>
+    <p>beacons.ai/silverspa</p>
+    <p>{{ fecha_venta }}</p>    
+    <hr />
+
+    <p>Nro ID / Cedula : {{ id_cliente }} </p>
+    <p>Apellido, Nombre : {{ ap_nom_cliente }} </p>
+
+    <hr />
+
+    <p>Especialista : {{ especialista  }} </p>
+    <p>Nro Factura : {{ id_transaccion }} </p>
+
+    <hr />
+    <table>
+      <tr>
+        <th>Descripcion</th>
+        <th>Cantidad</th>
+        <th>Precio</th>
+      </tr>
+      <tr *ngFor="let item of items">
+        <td>{{ item.nombre }}</td>
+        <td>{{ item.cantidad }}</td>
+        <td>{{ item.precio_venta }}</td>
+      </tr>
+    </table>
+  
+    <hr />
+    <p>Total: {{ total }} </p>
+    <hr />
+    <h2>Gracias por elegirnos!!!</h2>
+    <!-- <ngx-barcode [bc-value]="barcodeValue"></ngx-barcode> -->
+  </div>
+  
+  <!-- <button (click)="downloadPDF()">Download PDF</button> -->
+  

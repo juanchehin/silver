@@ -1,0 +1,53 @@
+.ticket {
+    width: 220px; /* Ajuste aproximado para impresoras de 58 mm */
+    font-family: 'Courier New', Courier, monospace; /* Tipografía monoespaciada */
+    font-size: 12px;
+  }
+  
+  .img-ajustada {
+    width: 58mm;  /* Ajusta el ancho a 58 mm */
+    height: auto; /* Mantiene la proporción original de la imagen */
+  }
+
+  .ticket h2, .ticket p, .ticket table {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .ticket hr {
+    border: none;
+    border-top: 1px dashed #000;
+    margin: 5px 0;
+  }
+  
+  .ticket table {
+    width: 100%;
+  }
+  
+  .ticket table td, .ticket table th {
+    padding: 2px;
+  }
+  
+
+  @media print {
+    .ticket {
+      margin: 0;
+      width: 58mm; /* O usa 220px si prefieres en píxeles */
+    }
+  
+    /* Opcional: ajusta la tipografía y elimina estilos innecesarios para impresión */
+    body * {
+      visibility: hidden;
+    }
+  
+    #ticket, #ticket * {
+      visibility: visible;
+    }
+  
+    #ticket {
+      margin: 0;
+      padding: 0;
+    }
+  }
+  
