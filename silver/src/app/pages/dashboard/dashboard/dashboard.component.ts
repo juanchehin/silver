@@ -347,16 +347,16 @@ rutear_nueva_venta(){
 // ==================================================
 //         
 // ==================================================
-ver_transaccion_imprimirTicket(transaccion: any){
-  
-    this.alertService.cargando = true;
-  
+ver_transaccion_imprimir_ticket(transaccion: any){
+    
     this.ventasService.dame_transaccion( transaccion.id_transaccion )
                  .subscribe( {
                   next: (resp: any) => {
                     
                     if((resp[3][0].mensaje == 'Ok')) {
-              
+                      
+                      this.alertService.cargando = false;
+                      
                       this.detalle_id_transaccion = transaccion.id_transaccion;
                       this.detalle_cliente = transaccion.Cliente;
                       this.nro_identidad_cliente = transaccion.nro_identidad_cliente;
@@ -368,7 +368,6 @@ ver_transaccion_imprimirTicket(transaccion: any){
   
                       this.items_pago = resp[2];
                       
-                      this.alertService.cargando = false;
 
                       // Forzar la detección de cambios para que los datos se reflejen inmediatamente
                       this.cdr.detectChanges();
