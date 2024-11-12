@@ -89,11 +89,19 @@
                         <td>{{ cal.servicio }}</td>
                         <td>{{ cal.estado_evento }}</td>
                         <td>
-                            <button class="btn btn-danger" type="button" data-bs-toggle="modal" 
+                            <!--  -->
+                          <button class="btn btn-warning" type="button" data-bs-toggle="modal" 
                             data-bs-target="#modalBajaCita"
                             (click)="modal_baja_evento(cal.id_evento_principal)">
-                                <i class="mdi mdi-delete"></i>  
-                            </button>
+                              <i class="mdi mdi-calendar-remove"></i>  
+                          </button>
+                          <!--  -->
+                          <button class="btn btn-danger" type="button" data-bs-toggle="modal" 
+                            data-bs-target="#modalEliminarCita"
+                            (click)="modal_baja_evento(cal.id_evento_principal)">
+                              <i class="mdi mdi-delete"></i>  
+                          </button>
+                          <!--  -->
                         </td>
                     </tr>
                 </tbody>
@@ -108,6 +116,25 @@
 <!-- ============================================================== -->
 </div>
 
+
+<!--  -->
+<div class="modal fade" id="modalEliminarCita" aria-hidden="true" aria-labelledby="modalEliminarCita" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Confirmacion</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Desea confirmar la operacion?
+      </div>
+      <div class="modal-footer">
+          <button class="btn btn-primary" #divCerrarModalEliminarEvento aria-label="Close" data-bs-dismiss="modal">Cancelar</button>
+          <button class="btn btn-danger" (click)="eliminar_evento_calendario()">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!--  -->
 <div class="modal fade" id="modalBajaCita" aria-hidden="true" aria-labelledby="modalBajaCita" tabindex="-1">

@@ -83,6 +83,20 @@ alta_evento( fecha_evento: any,inicio_nuevo_evento: any
 // ==================================================
 //        
 // ==================================================
+eliminar_evento( id_evento: any ) {
+
+  const data = {
+    id_evento
+  }
+
+  let url = URL_SERVICIOS + '/eventos/eliminar/completo/' + this.IdPersona;
+
+  return this.http.post( url, data, this.headers);
+}
+
+// ==================================================
+//        
+// ==================================================
 baja_evento( id_evento: any ) {
 
   const data = {

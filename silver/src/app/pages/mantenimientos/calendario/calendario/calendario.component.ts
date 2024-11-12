@@ -58,6 +58,7 @@ export class CalendarioComponent implements OnInit {
   @ViewChild('modalCerrarBajaEvento') modalCerrarBajaEvento!: ElementRef;
   @ViewChild('modalCerrarDetallesEvento') modalCerrarDetallesEvento!: ElementRef;
   @ViewChild('divCerrarModalBajaEvento') divCerrarModalBajaEvento!: ElementRef;
+  @ViewChild('divCerrarModalEliminarEvento') divCerrarModalEliminarEvento!: ElementRef;
 
   constructor(
     public alertService: AlertService,
@@ -230,7 +231,40 @@ cargarEmpleados() {
   }
 
   // ==================================================
-// Carga
+// eliminar
+// ==================================================
+eliminar_evento_calendario() {
+
+  if((this.id_evento_seleccionado_modal == '') || (this.id_evento_seleccionado_modal == '-') ||  (this.id_evento_seleccionado_modal == 'undefined') || (this.id_evento_seleccionado_modal == undefined))
+  {
+    this.alertService.alertFail('Mensaje','Evento invalido',2000);
+    return;
+  }
+  
+    this.calendarioService.eliminar_evento( this.id_evento_seleccionado_modal )
+    .subscribe({
+      next: (resp: any) => { 
+  
+        if(resp[0][0].mensaje == 'Ok') {
+          this.alertService.alertSuccess('Atencion','Evento eliminado',3000);
+          // this.buscarCaja();
+  
+          let el: HTMLElement = this.divCerrarModalBajaEvento.nativeElement;
+          el.click();
+      
+          this.refrescar_citas();
+          
+        } else {
+          this.alertService.alertFail(resp[0][0].mensaje,false,1200);
+          
+        }
+        },
+      error: (resp: any) => {  this.alertService.alertFail(resp[0][0].mensaje,false,1200); }
+    });
+}
+
+  // ==================================================
+// baja
 // ==================================================
 baja_evento_calendario() {
 
