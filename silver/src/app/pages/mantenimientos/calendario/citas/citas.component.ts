@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { CalendarioService } from 'src/app/services/calendario.service';
 import { ClientesService } from 'src/app/services/clientes.service';
@@ -98,7 +98,8 @@ export class CitasComponent implements OnInit {
     private route: ActivatedRoute,
     public empleadosService: EmpleadosService,
     public serviciosService: ServiciosService,
-    public clientesService: ClientesService
+    public clientesService: ClientesService,
+    private router: Router
   ) {
    }
 
@@ -570,4 +571,13 @@ cargarClientes() {
     this.clearPanelinputServicio();
   }
     
+// ==================================================
+// regresar pagina
+// ==================================================
+regresar_pagina() {
+
+  this.router.navigate(['/dashboard/calendario']);
+
+  
+}
 }

@@ -5,16 +5,25 @@
         <section class="box-typical">
             <div class="table-responsive">
                 <div class="row">
-                    <div class="col-sm-6">
+                  <!--  -->
+                    <div class="col-sm-4">
                         <h3 class="card-title"> Citas: {{ fecha_cita }} </h3>
                     </div>
-                    <div class="col-sm-6">
+                    <!--  -->
+                    <div class="col-sm-4">
+                      <button (click)="regresar_pagina()" class="btn btn-secondary">
+                          Regresar
+                      </button>
+                    </div>
+                    <!--  -->
+                    <div class="col-sm-4">
                       <button (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary ">
                         <span class="material-icons">
                         refresh
-                        </span></button>
-                  </div>
-                   
+                        </span>
+                    </button>
+                    <!--  -->
+                  </div>                   
                 </div>
             </div>
 
