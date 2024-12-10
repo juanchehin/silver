@@ -347,58 +347,66 @@ rutear_nueva_venta(){
 // ==================================================
 //         
 // ==================================================
-ver_transaccion_imprimir_ticket(transaccion: any){
-    
-    this.ventasService.dame_transaccion( transaccion.id_transaccion )
-                 .subscribe( {
-                  next: (resp: any) => {
-                    
-                    if((resp[3][0].mensaje == 'Ok')) {
-                      
-                      this.alertService.cargando = false;
-                      
-                      this.detalle_id_transaccion = transaccion.id_transaccion;
-                      this.detalle_cliente = transaccion.Cliente;
-                      this.nro_identidad_cliente = transaccion.nro_identidad_cliente;
-                      this.detalle_empleado = transaccion.Empleado;
-                      this.detalle_fecha = transaccion.Fecha;
-                      this.detalle_lineas_venta = resp[0];
-                      this.detalle_monto_total = transaccion.Monto;
-                      this.detalle_tipo_pago = resp[1][0].tipo_pago;  
-  
-                      this.items_pago = resp[2];
-                      
+ver_transaccion_imprimir_ticket(transaccion: any) {
+  this.ventasService.dame_transaccion(transaccion.id_transaccion)
+    .subscribe({
+      next: (resp: any) => {
+        if (resp[3][0].mensaje === 'Ok') {
+          this.alertService.cargando = false;
 
-                      // Forzar la detección de cambios para que los datos se reflejen inmediatamente
-                      this.cdr.detectChanges();
+          // Configurar los datos para el ticket
+          this.detalle_id_transaccion = transaccion.id_transaccion;
+          this.detalle_cliente = transaccion.Cliente;
+          this.nro_identidad_cliente = transaccion.nro_identidad_cliente;
+          this.detalle_empleado = transaccion.Empleado;
+          this.detalle_fecha = transaccion.Fecha;
+          this.detalle_lineas_venta = resp[0];
+          this.detalle_monto_total = transaccion.Monto;
+          this.detalle_tipo_pago = resp[1][0].tipo_pago;
+          this.items_pago = resp[2];
 
+          this.cdr.detectChanges(); // Asegurar que los cambios se reflejen
 
-                       const printContent = document.getElementById('ticket-content')?.innerHTML;
-                       const originalContent = document.body.innerHTML;
-                   
-                       // Reemplazar el contenido de la página con solo el contenido del ticket
-                       document.body.innerHTML = printContent || '';
-                       
-                       // Llamar a la función de impresión
-                       window.print();
-                   
-                       // Restaurar el contenido original de la página después de imprimir
-                       document.body.innerHTML = originalContent;
-                      
-                } else {
-                  
-                  this.alertService.alertFailWithText('Error','Ocurrio un error al procesar el pedido',1200);
-                  this.alertService.cargando = false;
-                  
-                }
-            },
-          error: (resp: any) => {            
-            this.alertService.alertFailWithText('Ocurrio un error al procesar el pedido','Error',1200);
-            this.alertService.cargando = false;
+          // Obtener el contenido del ticket
+          const printContent = document.getElementById('ticket-content')?.innerHTML;
 
+          if (printContent) {
+            // Crear una nueva ventana para imprimir
+            const printWindow = window.open('', '_blank', 'width=800,height=600');
+            if (printWindow) {
+              printWindow.document.open();
+              printWindow.document.write(`
+                <html>
+                  <head>
+                    <title>Imprimir Ticket</title>
+                    <style>
+                      /* Estilos específicos para el ticket */
+                      body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+                      .ticket-content { /* Agregar estilos aquí si es necesario */ }
+                    </style>
+                  </head>
+                  <body onload="window.print(); window.close();">
+                    ${printContent}
+                  </body>
+                </html>
+              `);
+              printWindow.document.close();
+            }
+          } else {
+            this.alertService.alertFailWithText('Error', 'El contenido del ticket no está disponible', 1200);
           }
-        });
-  }
+        } else {
+          this.alertService.alertFailWithText('Error', 'Ocurrió un error al procesar el pedido', 1200);
+          this.alertService.cargando = false;
+        }
+      },
+      error: (resp: any) => {
+        this.alertService.alertFailWithText('Ocurrió un error al procesar el pedido', 'Error', 1200);
+        this.alertService.cargando = false;
+      }
+    });
+}
+
   
 
 
